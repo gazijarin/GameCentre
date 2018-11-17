@@ -4,7 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
     tools:context="fall2018.csc2017.game.SlidingTiles.GameScreenActivity">
+=======
+    tools:context="fall2018.csc2017.slidingtiles.GameScreenActivity">
+>>>>>>> 2c0408a53f1458ee19c74f66e56199570d2433de
 
     <TextView
         android:id="@+id/GameText"
