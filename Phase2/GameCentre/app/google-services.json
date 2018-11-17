@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "630704738946",
+    "firebase_url": "https://csc207-cf7b6.firebaseio.com",
+    "project_id": "csc207-cf7b6",
+    "storage_bucket": "csc207-cf7b6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:630704738946:android:0c64e367ef4fcb24",
+        "android_client_info": {
+          "package_name": "fall2018.csc2017.slidingtiles"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "630704738946-8fgi7hbiuplgj802n2k8eu6k8al8ri87.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fall2018.csc2017.slidingtiles",
+            "certificate_hash": "ce3053713bb7fb7ef9554c40df6fd5cfe36a0ad3"
+          }
+        },
+        {
+          "client_id": "630704738946-sri589bfhibsr22muqhkc677u9qk9atf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDv5qQM2dDXI0vRBu0DAATM_T7D98p7DCw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "630704738946-sri589bfhibsr22muqhkc677u9qk9atf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
