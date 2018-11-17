@@ -8,8 +8,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import fall2018.csc2017.slidingtiles.Game;
 import fall2018.csc2017.slidingtiles.R;
 
+//Todo: Implement game interface and undo methods
+//Todo: Set up complexity (1 player vs 2 player)
+//Todo: Implement autoSave
 
 public class TttActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -155,8 +159,7 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     private void undoMove() {
-        ///////////
-        ///////////
+
         //Todo: implement this
     }
 
