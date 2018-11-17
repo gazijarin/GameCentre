@@ -163,6 +163,8 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
             }
         }
 
+        this.log = new ArrayList<Button>();
+
         roundCount = 0;
         p1Turn = true;
     }
