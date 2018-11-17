@@ -28,6 +28,7 @@
         <activity android:name=".GameSelectActivity" />
         <activity android:name=".AuthenticationActivity" />
         <activity android:name=".FinishedActivity" />
+        <activity android:name=".Ttt.TttActivity" />
         <activity android:name=".GameComplexityActivity"></activity>
     </application>
 
