@@ -8,6 +8,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import java.util.ArrayList;
+import fall2018.csc2017.slidingtiles.FixedStack;
 import fall2018.csc2017.slidingtiles.Game;
 import fall2018.csc2017.slidingtiles.R;
 
@@ -28,6 +31,10 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
 
     private TextView textViewp1;
     private TextView textViewp2;
+
+
+    private ArrayList<Button> log;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +73,8 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
         } else {
             ((Button) v).setText("O");
         }
+
+        log.add((Button) v);
 
         roundCount++;
 
@@ -159,9 +168,15 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     private void undoMove() {
-
+        Button x = this.log.get(log.size()-1);
+        x.setText("");
+        this.log.remove(log.size()-1);
+        p1Turn = !p1Turn;
         //Todo: implement this
     }
+
+
+
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
