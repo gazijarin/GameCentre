@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-<<<<<<< HEAD
-    package="fall2018.csc2017.game">
-=======
     package="fall2018.csc2017.slidingtiles">
->>>>>>> 2c0408a53f1458ee19c74f66e56199570d2433de
 
     <application
         android:allowBackup="true"
@@ -16,11 +12,7 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-<<<<<<< HEAD
-            android:name="fall2018.csc2017.game.SignupActivity"
-=======
             android:name=".SignupActivity"
->>>>>>> 2c0408a53f1458ee19c74f66e56199570d2433de
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,17 +20,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
-        <activity android:name="fall2018.csc2017.game.SlidingTiles.GameScreenActivity" />
-        <activity
-            android:name="fall2018.csc2017.game.LoginActivity"
-            android:windowSoftInputMode="stateHidden" />
-        <activity android:name="fall2018.csc2017.game.SlidingTiles.GameActivity" />
-        <activity android:name="fall2018.csc2017.game.FixedStack$GameSelectActivity" />
-        <activity android:name="fall2018.csc2017.game.AuthenticationActivity" />
-        <activity android:name="fall2018.csc2017.game.FinishedActivity" />
-        <activity android:name="fall2018.csc2017.game.SlidingTiles.GameComplexityActivity"></activity>
-=======
         <activity android:name=".GameScreenActivity" />
         <activity
             android:name=".LoginActivity"
@@ -48,7 +29,6 @@
         <activity android:name=".AuthenticationActivity" />
         <activity android:name=".FinishedActivity" />
         <activity android:name=".GameComplexityActivity"></activity>
->>>>>>> 2c0408a53f1458ee19c74f66e56199570d2433de
     </application>
 
 </manifest>

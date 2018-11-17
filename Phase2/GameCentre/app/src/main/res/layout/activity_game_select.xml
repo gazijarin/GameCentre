@@ -4,11 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< HEAD
-    tools:context=".FixedStack$GameSelectActivity">
-=======
     tools:context=".GameSelectActivity">
->>>>>>> 2c0408a53f1458ee19c74f66e56199570d2433de
 
     <Button
         android:id="@+id/sliding_tiles_button"
