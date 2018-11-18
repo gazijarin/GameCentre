@@ -1,4 +1,4 @@
-package fall2018.csc2017.slidingtiles.Ttt;
+package fall2018.csc2017.games.Ttt;
 
 
 import android.support.v7.app.AppCompatActivity;
@@ -10,8 +10,7 @@ import android.widget.Toast;
 
 
 import java.util.ArrayList;
-import fall2018.csc2017.slidingtiles.FixedStack;
-import fall2018.csc2017.slidingtiles.Game;
+
 import fall2018.csc2017.slidingtiles.R;
 
 //Todo: Implement game interface and undo methods

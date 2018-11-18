@@ -1,9 +1,11 @@
-package fall2018.csc2017.slidingtiles;
+package fall2018.csc2017.games.SlidingTiles;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import fall2018.csc2017.games.Game;
 
 /**
  * Manage a board, including swapping tiles, checking for a win, and managing taps.
@@ -63,7 +65,7 @@ class BoardManager implements Serializable, Game {
 
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             if (tileNum == numTiles - 1) {
-                tiles.add(new Tile("blank", numTiles));
+                tiles.add(new Tile(-1, numTiles));
             } else {
                 tiles.add(new Tile(tileNum));
             }

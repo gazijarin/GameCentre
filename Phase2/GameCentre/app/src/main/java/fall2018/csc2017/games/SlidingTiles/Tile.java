@@ -1,8 +1,10 @@
-package fall2018.csc2017.slidingtiles;
+package fall2018.csc2017.games.SlidingTiles;
 
 import android.support.annotation.NonNull;
 
 import java.io.Serializable;
+
+import fall2018.csc2017.slidingtiles.R;
 
 /**
  * A Tile in a sliding tiles puzzle.
@@ -38,24 +40,20 @@ public class Tile implements Comparable<Tile>, Serializable {
     }
 
     /**
-     * Creates blank tile
-     * @param str        how we know to make blank tile
-     * @param i          id of the tile
-     */
-    public Tile(String str, int i) {
-        this.id = i;
-        this.background = R.drawable.tile_blank;
-    }
-
-    /**
      * A Tile with id and background. The background may not have a corresponding image.
+     * If id = -1, the tile is the blank tile
      *
      * @param id         the id
      * @param background the background
      */
     Tile(int id, int background) {
-        this.id = id;
-        this.background = background;
+        if (this.id == -1) {
+            this.id = background;
+            this.background = R.drawable.tile_blank;
+        } else {
+            this.id = id;
+            this.background = background;
+        }
     }
 
     /**

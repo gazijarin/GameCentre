@@ -8,13 +8,13 @@
     android:orientation="vertical"
     android:weightSum="19">
 
-    <fall2018.csc2017.slidingtiles.GestureDetectGridView xmlns:app="http://schemas.android.com/apk/res-auto"
+    <fall2018.csc2017.games.SlidingTiles.GestureDetectGridView xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/grid"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        tools:context="fall2018.csc2017.slidingtiles.GameActivity" />
+        tools:context="fall2018.csc2017.slidingtiles.fall2018.csc2017.games.GameActivity" />
 
     <!--<LinearLayout-->
         <!--android:layout_width="match_parent"-->
@@ -42,13 +42,8 @@
 
 </LinearLayout>
 
-<!--<?xml version="1.0" encoding="utf-8"?>-->
- <!--<fall2018.csc2017.slidingtiles.GestureDetectGridView xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--<?xml version="1.0" encoding="utf-8"?>--><!--<GestureDetectGridView xmlns:android="http://schemas.android.com/apk/res/android"-->
      <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-     <!--xmlns:tools="http://schemas.android.com/tools"-->
-     <!--android:id="@+id/grid"-->
-     <!--android:layout_width="match_parent"-->
-     <!--android:layout_height="match_parent"-->
-     <!--tools:context="fall2018.csc2017.slidingtiles.GameActivity" >-->
+     <!--xmlns:tools="http://schemas.android.com/tools"--><!--android:id="@+id/grid"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--tools:context="GameActivity" >-->
 
- <!--</fall2018.csc2017.slidingtiles.GestureDetectGridView>-->
+    <!--</GestureDetectGridView>-->

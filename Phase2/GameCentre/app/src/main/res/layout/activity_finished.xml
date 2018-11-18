@@ -5,7 +5,7 @@
     android:id="@+id/previous_scores"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FinishedActivity">
+    tools:context="fall2018.csc2017.games.FinishedActivity">
 
     <TextView
         android:id="@+id/current_score"

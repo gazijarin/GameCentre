@@ -1,8 +1,11 @@
-package fall2018.csc2017.slidingtiles;
+package fall2018.csc2017.games.SlidingTiles;
 
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
+
+import fall2018.csc2017.games.FinishedActivity;
+import fall2018.csc2017.games.SlidingTiles.BoardManager;
 
 
 public class MovementController {
