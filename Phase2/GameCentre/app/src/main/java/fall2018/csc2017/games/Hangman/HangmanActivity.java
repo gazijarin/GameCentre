@@ -9,6 +9,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.GridView;
 import android.widget.LinearLayout;
@@ -36,7 +37,7 @@ public class HangmanActivity extends AppCompatActivity {
     private GridView letters;
     //body part images
     private ImageView[] bodyParts;
-    //number of body parts
+    //number of body parts total
     private int numParts = 6;
     //current part - will increment when wrong answers are chosen
     private int currPart;
@@ -48,17 +49,23 @@ public class HangmanActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        //sets up all the body parts + some variables
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hangman);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        //todo: fix this
+        // i think it's to due with the manifest and how the class hierarchy is set up
+        //i.e what the back button does
+        try {
+            getActionBar().setDisplayHomeAsUpEnabled(true);
+        } catch (Exception e) {
+            System.out.print(e);
+        }
         Resources res = getResources();
-
-        //Default set to easy words
-        //todo: change difficulty based on array of words
         words = res.getStringArray(R.array.easywords);
         rand = new Random();
         currWord = "";
-
+        wordLayout = (LinearLayout) findViewById(R.id.word);
 
         bodyParts = new ImageView[numParts];
         bodyParts[0] = (ImageView) findViewById(R.id.head);
@@ -67,35 +74,65 @@ public class HangmanActivity extends AppCompatActivity {
         bodyParts[3] = (ImageView) findViewById(R.id.arm2);
         bodyParts[4] = (ImageView) findViewById(R.id.leg1);
         bodyParts[5] = (ImageView) findViewById(R.id.leg2);
+        System.out.println("9");
 
         playGame();
     }
 
+    /**
+     * Adds all elements into the activity
+     */
     private void playGame() {
+
+
+        createNewWord();
+
+        charViews = new TextView[currWord.length()];
+        wordLayout.removeAllViews();
+
+        createUnderlines();
+
+        createHangman();
+
+
+    }
+
+    /**
+     * pics a new word, ensure it's different from previous game
+     */
+    private void createNewWord() {
         String newWord = words[rand.nextInt(words.length)];
         while (newWord.equals(currWord)) {
             newWord = words[rand.nextInt(words.length)];
         }
         currWord = newWord;
+    }
 
-        charViews = new TextView[currWord.length()];
-        wordLayout.removeAllViews();
+    /**
+     * Sets up the hidden word + underlines based on current word
+     */
+    private void createUnderlines() {
+        for (int i = 0; i < currWord.length(); i++) {
+            //sets up the amount of underlines
+            charViews[i] = new TextView(this);
+            charViews[i].setText("" + currWord.charAt(i));
 
-        for (int c = 0; c < currWord.length(); c++) {
-            charViews[c] = new TextView(this);
-            charViews[c].setText("" + currWord.charAt(c));
-
-            charViews[c].setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-            charViews[c].setGravity(Gravity.CENTER);
-            charViews[c].setTextColor(Color.WHITE);
-            charViews[c].setBackgroundResource(R.drawable.letter_underline);
+            charViews[i].setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+            charViews[i].setGravity(Gravity.CENTER);
+            //colour set to white to hide letter on white background, will reveal to black
+            charViews[i].setTextColor(Color.WHITE);
+            charViews[i].setBackgroundResource(R.drawable.letter_underline);
             //add to layout
-            wordLayout.addView(charViews[c]);
+            wordLayout.addView(charViews[i]);
 
         }
-//        ltrAdapt = new LetterAdapter(this);
-//        letters.setAdapter(ltrAdapt);
+    }
 
+    /**
+     * Draws the hangman on the activity
+     */
+    private void createHangman() {
+        //sets up the hangman with body parts
         currPart = 0;
         numChars = currWord.length();
         numCorr = 0;
@@ -105,6 +142,7 @@ public class HangmanActivity extends AppCompatActivity {
         }
     }
 
+    //change to when textfield is submitted
     public void letterPressed(View view) {
         String ltr = ((TextView) view).getText().toString();
         char letterChar = ltr.charAt(0);

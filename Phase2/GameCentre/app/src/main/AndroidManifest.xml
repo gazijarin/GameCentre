@@ -28,6 +28,7 @@
         <activity android:name="fall2018.csc2017.games.GameSelectActivity" />
         <activity android:name="fall2018.csc2017.games.AuthenticationActivity" />
         <activity android:name="fall2018.csc2017.games.FinishedActivity" />
+        <activity android:name="fall2018.csc2017.games.Hangman.HangmanActivity" />
         <activity android:name="fall2018.csc2017.games.Ttt.TttActivity" />
         <activity android:name="fall2018.csc2017.games.SlidingTiles.GameComplexityActivity"></activity>
     </application>
