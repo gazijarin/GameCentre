@@ -110,6 +110,60 @@ public class Hangman {
     }
 
     /**
+     * Set numChars to inputted numChars.
+     *
+     * @param numChars the number of characters
+     */
+    public void setNumChars(int numChars) {
+        this.numChars = numChars;
+    }
+
+    /**
+     * Set numCorr to inputted numCorr.
+     *
+     * @param numCorr the number of correct characters
+     */
+    public void setNumCorr(int numCorr) {
+        this.numCorr = numCorr;
+    }
+
+    /**
+     * Set numParts to inputted numParts.
+     *
+     * @param numParts the number of body parts
+     */
+    public void setNumParts(int numParts) {
+        this.numParts = numParts;
+    }
+
+    /**
+     * Set currPart to inputted currPart.
+     *
+     * @param currPart the current body part
+     */
+    public void setCurrPart(int currPart) {
+        this.currPart = currPart;
+    }
+
+    /**
+     * Set currWord to inputted currWord.
+     *
+     * @param currWord the current word
+     */
+    public void setCurrWord(String currWord) {
+        this.currWord = currWord;
+    }
+
+    /**
+     * Set difficulty to inputted difficulty.
+     *
+     * @param difficulty the difficulty
+     */
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    /**
      * Reveals the correctly guessed characters.
      *
      * @param guessedChar the guessed character
