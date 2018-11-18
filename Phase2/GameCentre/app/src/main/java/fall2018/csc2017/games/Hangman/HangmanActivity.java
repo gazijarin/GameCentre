@@ -1,26 +1,23 @@
 package fall2018.csc2017.games.Hangman;
 
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-
-import java.util.Random;
-
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
-import android.view.ViewGroup;
+import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.support.v4.app.NavUtils;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
+import android.widget.Toast;
+
+import java.util.Random;
 
 import fall2018.csc2017.slidingtiles.R;
 
@@ -85,14 +82,12 @@ public class HangmanActivity extends AppCompatActivity {
     private void playGame() {
 
 
-        createNewWord();
-
+        pickNewWord();
         charViews = new TextView[currWord.length()];
         wordLayout.removeAllViews();
-
         createUnderlines();
-
         createHangman();
+        addSubmitButton();
 
 
     }
@@ -100,7 +95,7 @@ public class HangmanActivity extends AppCompatActivity {
     /**
      * pics a new word, ensure it's different from previous game
      */
-    private void createNewWord() {
+    private void pickNewWord() {
         String newWord = words[rand.nextInt(words.length)];
         while (newWord.equals(currWord)) {
             newWord = words[rand.nextInt(words.length)];
@@ -142,14 +137,52 @@ public class HangmanActivity extends AppCompatActivity {
         }
     }
 
-    //change to when textfield is submitted
-    public void letterPressed(View view) {
-        String ltr = ((TextView) view).getText().toString();
-        char letterChar = ltr.charAt(0);
-        view.setEnabled(false);
-//        view.setBackgroundResource(R.drawable.letter_down);
+    /**
+     * Activate the submit button.
+     */
+    private void addSubmitButton() {
+        Button undoButton = findViewById(R.id.submit);
+        undoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String guess = getInput();
+                if (!isValid(guess)) {
+                    makeToastInvalid();
+                } else {
+                    updateLetters(guess);
+                }
 
+            }
+        });
+    }
+
+    /**
+     * Gets the users guess from the input field
+     *
+     * @return user guess
+     */
+    private String getInput() {
+        String guess = ((EditText) findViewById(R.id.user_guess)).getText().toString();
+        return guess;
+    }
+
+    /**
+     * @param guess, the users guess
+     * @return if guess is a valid guess, single char from english alphabet
+     */
+    private boolean isValid(String guess) {
+        return guess.matches("[a-zA-Z]");
+    }
+
+    /**
+     * updates variables based on the valid guess
+     */
+    private void updateLetters(String guess) {
+
+        char letterChar = guess.charAt(0);
         boolean correct = false;
+
+        //updates the correct letters to black from white
         for (int k = 0; k < currWord.length(); k++) {
             if (currWord.charAt(k) == letterChar) {
                 correct = true;
@@ -157,13 +190,11 @@ public class HangmanActivity extends AppCompatActivity {
                 charViews[k].setTextColor(Color.BLACK);
             }
         }
-
         if (correct) {
             //correct guess
-            if (numCorr == numChars) {
-                //user has won
-                // Disable Buttons
-                disableBtns();
+            if (numCorr == numChars) { //user has won
+                //bring up scoreboard
+
 
                 // Display Alert Dialog
                 AlertDialog.Builder winBuild = new AlertDialog.Builder(this);
@@ -185,43 +216,31 @@ public class HangmanActivity extends AppCompatActivity {
 
                 winBuild.show();
             }
-        } else if (currPart < numParts) {
-            //some guesses left
+        } else if (currPart < numParts) {//some guesses left
             bodyParts[currPart].setVisibility(View.VISIBLE);
             currPart++;
-        } else {
-            //user has lost
-            disableBtns();
-
-            // Display Alert Dialog
-            AlertDialog.Builder loseBuild = new AlertDialog.Builder(this);
-            loseBuild.setTitle("Oopsie");
-            loseBuild.setMessage("You lose!\n\nThe answer was:\n\n" + currWord);
-            loseBuild.setPositiveButton("Play Again",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            HangmanActivity.this.playGame();
-                        }
-                    });
-
-            loseBuild.setNegativeButton("Exit",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            HangmanActivity.this.finish();
-                        }
-                    });
-
-            loseBuild.show();
-
+        } else { //user has lost rip
+            //todo: update scoreboard?
+            makeToastLost();
         }
+
+
     }
 
-    public void disableBtns() {
-        int numLetters = letters.getChildCount();
-        for (int l = 0; l < numLetters; l++) {
-            letters.getChildAt(l).setEnabled(false);
-        }
+    /**
+     * Lets user know input was invalid, what is valid input
+     */
+    private void makeToastInvalid() {
+        Toast.makeText(this, "Invalid guess, please guess a single letter", Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Restarts game after a loss
+     */
+    private void makeToastLost() {
+        Toast.makeText(this, "Ran out of guesses, try again", Toast.LENGTH_SHORT).show();
+        HangmanActivity.this.playGame();
+
+    }
 
 }
