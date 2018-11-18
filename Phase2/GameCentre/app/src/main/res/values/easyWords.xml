@@ -1,22 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="easywords">
+    <string-array name="easyWords">
         <item>CHARGER</item>
-        <item>COMPUTER</item>
         <item>TABLET</item>
         <item>SYSTEM</item>
-        <item>APPLICATION</item>
         <item>INTERNET</item>
         <item>STYLUS</item>
         <item>ANDROID</item>
         <item>KEYBOARD</item>
-        <item>SMARTPHONE</item>
-        <item>KILLERWHALE</item>
-        <item>SPREADSHEET</item>
         <item>TORNADO</item>
-        <item>TELEVISION</item>
         <item>BINARY</item>
-        <item>PROGRAMMER</item>
         <item>AWESOME</item>
         <item>TERMINAL</item>
         <item>MOUSE</item>
@@ -37,8 +30,6 @@
         <item>TAG</item>
         <item>GAMING</item>
         <item>SLEEPING</item>
-        <item>MEDICATION</item>
-        <item>ACHIEVEMENT</item>
         <item>INTERNAL</item>
         <item>GLOBAL</item>
     </string-array>
