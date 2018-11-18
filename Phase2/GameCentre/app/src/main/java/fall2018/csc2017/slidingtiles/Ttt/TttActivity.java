@@ -33,7 +33,7 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
     private TextView textViewp2;
 
 
-    private ArrayList<Button> log;
+    private ArrayList<Button> log = new ArrayList<>();
 
 
     @Override
@@ -57,7 +57,7 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
         buttonUndo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //undoMove();
+                undoMove();
             }
         });
     }
@@ -74,7 +74,7 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
             ((Button) v).setText("O");
         }
 
-        //log.add((Button) v);
+        this.log.add((Button) v);
 
         roundCount++;
 
@@ -163,17 +163,17 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
             }
         }
 
-        //this.log = new ArrayList<Button>();
+        this.log = new ArrayList<Button>();
 
         roundCount = 0;
         p1Turn = true;
     }
 
     private void undoMove() {
-        //Button x = this.log.get(log.size()-1);
-        //x.setText("");
-        //this.log.remove(log.size()-1);
-        //p1Turn = !p1Turn;
+        Button x = this.log.get(log.size()-1);
+        x.setText("");
+        this.log.remove(log.size()-1);
+        p1Turn = !p1Turn;
         //Todo: implement this
     }
 
