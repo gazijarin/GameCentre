@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -31,22 +30,30 @@ public class HangmanActivity extends AppCompatActivity {
     private String currWord;
     private LinearLayout wordLayout;
     private TextView[] charViews;
-    private GridView letters;
+
     //body part images
     private ImageView[] bodyParts;
+
     //number of body parts total
     private int numParts = 6;
+
     //current part - will increment when wrong answers are chosen
     private int currPart;
+
     //number of characters in current word
     private int numChars;
+
     //number correctly guessed
     private int numCorr;
+
+    //hangmanManager
+    private HangmanManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         //sets up all the body parts + some variables
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hangman);
@@ -71,7 +78,6 @@ public class HangmanActivity extends AppCompatActivity {
         bodyParts[3] = (ImageView) findViewById(R.id.arm2);
         bodyParts[4] = (ImageView) findViewById(R.id.leg1);
         bodyParts[5] = (ImageView) findViewById(R.id.leg2);
-        System.out.println("9");
 
         playGame();
     }
@@ -163,7 +169,7 @@ public class HangmanActivity extends AppCompatActivity {
      */
     private String getInput() {
         String guess = ((EditText) findViewById(R.id.user_guess)).getText().toString();
-        return guess;
+        return guess.toUpperCase();
     }
 
     /**
@@ -207,7 +213,7 @@ public class HangmanActivity extends AppCompatActivity {
                             }
                         });
 
-                winBuild.setNegativeButton("Exit",
+                winBuild.setNegativeButton("Play a different game",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 HangmanActivity.this.finish();
