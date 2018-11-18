@@ -25,7 +25,7 @@ import fall2018.csc2017.slidingtiles.R;
 //implements View.OnClickListener
 public class HangmanActivity extends AppCompatActivity {
 
-
+    //Todo: MINIMIZE THE # OF INSTANCE VARIABLES; ONLY 5 OR LESS PER CLASS.
     private String[] words;
     private Random rand;
     private String currWord;
