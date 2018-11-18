@@ -65,6 +65,51 @@ public class Hangman {
     }
 
     /**
+     * Returns the number of characters.
+     *
+     * @return the number of characters
+     */
+    public int getNumChars() {
+        return numChars;
+    }
+
+    /**
+     * Returns the number of characters.
+     *
+     * @return the number of characters
+     */
+    public int getNumCorr() {
+        return numCorr;
+    }
+
+    /**
+     * Returns the number of body parts.
+     *
+     * @return the number of body parts
+     */
+    public int getNumParts() {
+        return numParts;
+    }
+
+    /**
+     * Returns the current body part.
+     *
+     * @return the current body part
+     */
+    public int getCurrPart() {
+        return currPart;
+    }
+
+    /**
+     * Returns the current word.
+     *
+     * @return the current word
+     */
+    public String getCurrWord() {
+        return currWord;
+    }
+
+    /**
      * Reveals the correctly guessed characters.
      *
      * @param guessedChar the guessed character
