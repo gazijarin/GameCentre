@@ -7,43 +7,45 @@ import java.util.Random;
 import fall2018.csc2017.slidingtiles.R;
 
 /**
- * Managers a hangman object
+ * Managers a Hangman object.
  */
 //todo: implement game
 public class HangmanManager extends AppCompatActivity {
-
-    //current score
+    /**
+     * The current score.
+     */
     private int score;
-
-    //the hangman object being managed
+    /**
+     * The Hangman being managed.
+     */
     private Hangman hangman;
-
-    //the number of undos, default of 3
+    /**
+     * The number of undos; default set to 3.
+     */
     private int numUndos = 3;
-
-    //difficulty of the word
+    /**
+     * The difficulty of the word; default set to medium.
+     */
     private String difficulty = "medium";
 
     /**
-     * creates a new manager for a specific word
+     * Creates a new manager for a specific word.
      */
     HangmanManager() {
-
         hangman = new Hangman("test");
     }
 
     /**
-     * makes a move based on user input str
+     * Makes a move based on user input str.
      *
-     * @param i, user's guess
+     * @param letter user's guess
      */
-    void makeMove(char i) {
-        hangman.makeVisible(i);
+    void makeMove(char letter) {
+        hangman.makeVisible(letter);
     }
 
     /**
-     * gets a new word based on difficulty
-     * default of medium
+     * Generates a new word based on difficulty.
      *
      * @return a word for the user to guess
      */
@@ -51,13 +53,17 @@ public class HangmanManager extends AppCompatActivity {
         Random rand = new Random();
         String[] words;
 
-        if (difficulty.equals("easy")) {
-            words = getResources().getStringArray(R.array.easyWords);
+        switch (difficulty) {
+            case "easy":
+                words = getResources().getStringArray(R.array.easyWords);
 
-        } else if (difficulty.equals("hard")) {
-            words = getResources().getStringArray(R.array.hardWords);
-        } else {
-            words = getResources().getStringArray(R.array.mediumWords);
+                break;
+            case "hard":
+                words = getResources().getStringArray(R.array.hardWords);
+                break;
+            default:
+                words = getResources().getStringArray(R.array.mediumWords);
+                break;
         }
         return words[rand.nextInt(words.length)];
 
@@ -65,22 +71,26 @@ public class HangmanManager extends AppCompatActivity {
     //todo: implement
 
     /**
-     * undos a single move
+     * Undoes a single move.
      *
-     * @return if undo was success
+     * @return if undo was successful
      */
     boolean undo() {
         return false;
     }
 
     /**
+     * Returns if the puzzle was solved.
+     *
      * @return if the game is solved
      */
     boolean puzzleSolved() {
-        return hangman.numCorr == hangman.numChars;
+        return hangman.getNumCorr() == hangman.getNumChars();
     }
 
     /**
+     * Returns if the guess was valid.
+     *
      * @param guess, the users guess
      * @return if guess is a valid guess, single char from english alphabet
      */
