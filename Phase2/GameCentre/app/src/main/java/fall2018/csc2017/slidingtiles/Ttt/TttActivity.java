@@ -60,6 +60,8 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
                 undoMove();
             }
         });
+
+
     }
 
     @Override
@@ -163,7 +165,7 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
             }
         }
 
-        this.log = new ArrayList<Button>();
+        this.log = new ArrayList<>();
 
         roundCount = 0;
         p1Turn = true;
@@ -174,8 +176,10 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
         x.setText("");
         this.log.remove(log.size()-1);
         p1Turn = !p1Turn;
-        //Todo: implement this
     }
+
+
+
 
 
 
