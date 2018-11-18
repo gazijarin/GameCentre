@@ -7,34 +7,47 @@ import android.widget.TextView;
 //todo: add getters, setters
 
 /**
- * a class that represents a hangman game
+ * A class that represents a Hangman game.
  */
 public class Hangman {
-
-    //number of characters in current word
-    public int numChars;
-    //number correctly guessed
-    public int numCorr = 0;
-    //body part images
+    /**
+     * The number of characters in current word.
+     */
+    private int numChars;
+    /**
+     * The number of characters correctly guessed.
+     */
+    private int numCorr = 0;
+    /**
+     * Body part images.
+     */
     private ImageView[] bodyParts;
-    //number of body parts total
+    /**
+     * The number of body parts in total.
+     */
     private int numParts = 6;
-    //current part - will increment when wrong answers are chosen
-    private int currPart = 0;
-    //current word being guessed
+    /**
+     * The current body part.
+     */
+    private int currPart;
+    /**
+     * The current word being guessed.
+     */
     private String currWord;
-
-    //difficulty of word, default of medium
+    /**
+     * The difficulty of the word; default set to medium.
+     */
     private String difficulty = "medium";
-
-    //view of all the characters
+    /**
+     * View of all the characters.
+     */
     private TextView[] charViews;
 
 
     /**
-     * Represents a hangman object with generic difficulty
+     * Represents a hangman object with generic difficulty.
      *
-     * @param word, the word to be guessed
+     * @param word the word to be guessed
      */
     Hangman(String word) {
 
@@ -52,13 +65,13 @@ public class Hangman {
     }
 
     /**
-     * reveals the correctly guessed chars
+     * Reveals the correctly guessed characters.
      *
-     * @param guessed_char, the guessed character
+     * @param guessedChar the guessed character
      */
-    void makeVisible(char guessed_char) {
+    void makeVisible(char guessedChar) {
         for (int k = 0; k < currWord.length(); k++) {
-            if (currWord.charAt(k) == guessed_char) {
+            if (currWord.charAt(k) == guessedChar) {
                 numCorr++;
                 charViews[k].setTextColor(Color.BLACK);
             }
