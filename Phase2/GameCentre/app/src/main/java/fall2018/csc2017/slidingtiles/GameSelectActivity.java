@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import fall2018.csc2017.slidingtiles.Ttt.TttActivity;
 
 /**
  * An activity to select which game to play
@@ -19,6 +20,9 @@ public class GameSelectActivity extends AppCompatActivity {
      */
     @BindView(R.id.sliding_tiles_button)
     Button sliding_tiles_button;
+
+    @BindView(R.id.ttt_button)
+    Button ttt_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,14 @@ public class GameSelectActivity extends AppCompatActivity {
             }
         });
 
+        ttt_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToTTTGame();
+            }
+        });
+
+
     }
 
     /**
@@ -39,6 +51,14 @@ public class GameSelectActivity extends AppCompatActivity {
      */
     public void goToGame() {
         Intent tmp = new Intent(this, GameScreenActivity.class);
+        tmp.putExtra("USERNAME", getIntent().getStringExtra("USERNAME"));
+        startActivity(tmp);
+    }
+
+
+    // sets up tic tac toe game
+    public  void goToTTTGame(){
+        Intent tmp = new Intent(this, TttActivity.class);
         tmp.putExtra("USERNAME", getIntent().getStringExtra("USERNAME"));
         startActivity(tmp);
     }
