@@ -11,6 +11,7 @@ import butterknife.ButterKnife;
 import fall2018.csc2017.games.SlidingTiles.GameScreenActivity;
 import fall2018.csc2017.slidingtiles.R;
 import fall2018.csc2017.games.Ttt.TttActivity;
+import fall2018.csc2017.games.Hangman.HangmanActivity;
 
 /**
  * An activity to select which game to play
@@ -25,6 +26,9 @@ public class GameSelectActivity extends AppCompatActivity {
 
     @BindView(R.id.ttt_button)
     Button ttt_button;
+
+    @BindView(R.id.hangman_button)
+    Button hangman_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,13 @@ public class GameSelectActivity extends AppCompatActivity {
             }
         });
 
+        hangman_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToHangmanGame();
+            }
+        });
+
 
     }
 
@@ -57,10 +68,20 @@ public class GameSelectActivity extends AppCompatActivity {
         startActivity(tmp);
     }
 
-
-    // sets up tic tac toe game
+    /**
+     * Switches activity to the tic-tac-toe game
+     */
     public  void goToTTTGame(){
         Intent tmp = new Intent(this, TttActivity.class);
+        tmp.putExtra("USERNAME", getIntent().getStringExtra("USERNAME"));
+        startActivity(tmp);
+    }
+
+    /**
+     * Switches activity to the hangman game
+     */
+    public void goToHangmanGame() {
+        Intent tmp = new Intent(this, HangmanActivity.class);
         tmp.putExtra("USERNAME", getIntent().getStringExtra("USERNAME"));
         startActivity(tmp);
     }

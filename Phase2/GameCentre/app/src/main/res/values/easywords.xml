@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="easywords">
+        <item>CHARGER</item>
+        <item>COMPUTER</item>
+        <item>TABLET</item>
+        <item>SYSTEM</item>
+        <item>APPLICATION</item>
+        <item>INTERNET</item>
+        <item>STYLUS</item>
+        <item>ANDROID</item>
+        <item>KEYBOARD</item>
+        <item>SMARTPHONE</item>
+        <item>KILLERWHALE</item>
+        <item>SPREADSHEET</item>
+        <item>TORNADO</item>
+        <item>TELEVISION</item>
+        <item>BINARY</item>
+        <item>PROGRAMMER</item>
+        <item>AWESOME</item>
+        <item>TERMINAL</item>
+        <item>MOUSE</item>
+        <item>PAIVI</item>
+        <item>CARNIVORE</item>
+        <item>COMMANDO</item>
+        <item>TROUSERS</item>
+        <item>SNAKE</item>
+        <item>ARCTIC</item>
+        <item>SPIDER</item>
+        <item>GHOST</item>
+        <item>INTERVIEW</item>
+        <item>INDEX</item>
+        <item>PARAMETER</item>
+        <item>OBJECT</item>
+        <item>ORIENTED</item>
+        <item>PROPERTY</item>
+        <item>TAG</item>
+        <item>GAMING</item>
+        <item>SLEEPING</item>
+        <item>MEDICATION</item>
+        <item>ACHIEVEMENT</item>
+        <item>INTERNAL</item>
+        <item>GLOBAL</item>
+    </string-array>
+
+</resources>

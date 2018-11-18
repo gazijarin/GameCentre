@@ -1,0 +1,19 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:shape="line">
+
+    <!--makes underscore character to show amount of characters-->
+
+    <stroke
+        android:width="2dp"
+        android:color="#FF333333" />
+
+    <solid android:color="#00000000" />
+
+    <padding android:bottom="20dp" />
+
+    <size
+        android:height="20dp"
+        android:width="20dp" />
+
+</shape>
