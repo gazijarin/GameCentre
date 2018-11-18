@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="fall2018.csc2017.slidingtiles.Ttt.TttActivity">
+    tools:context="fall2018.csc2017.games.Ttt.TttActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

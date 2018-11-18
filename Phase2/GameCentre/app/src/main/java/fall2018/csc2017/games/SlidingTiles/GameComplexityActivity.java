@@ -1,4 +1,4 @@
-package fall2018.csc2017.slidingtiles;
+package fall2018.csc2017.games.SlidingTiles;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +11,11 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+
+import fall2018.csc2017.games.SlidingTiles.BoardManager;
+import fall2018.csc2017.games.SlidingTiles.GameActivity;
+import fall2018.csc2017.games.SlidingTiles.GameScreenActivity;
+import fall2018.csc2017.slidingtiles.R;
 
 /**
  * An activity to select settings for the game.

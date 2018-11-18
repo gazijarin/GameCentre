@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".FinishedActivity"
+    tools:context="fall2018.csc2017.games.FinishedActivity"
     tools:showIn="@layout/activity_finished">
 
 </android.support.constraint.ConstraintLayout>

@@ -1,4 +1,4 @@
-package fall2018.csc2017.slidingtiles;
+package fall2018.csc2017.games;
 
 import android.app.ProgressDialog;
 import android.content.Intent;

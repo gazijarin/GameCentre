@@ -1,8 +1,10 @@
-package fall2018.csc2017.slidingtiles;
+package fall2018.csc2017.games.SlidingTiles;
 
 import android.support.annotation.NonNull;
 
 import java.io.Serializable;
+
+import fall2018.csc2017.slidingtiles.R;
 
 /**
  * A Tile in a sliding tiles puzzle.

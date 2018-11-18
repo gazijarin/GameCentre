@@ -1,4 +1,4 @@
-package fall2018.csc2017.slidingtiles;
+package fall2018.csc2017.games;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +8,9 @@ import android.widget.Button;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import fall2018.csc2017.slidingtiles.Ttt.TttActivity;
+import fall2018.csc2017.games.SlidingTiles.GameScreenActivity;
+import fall2018.csc2017.slidingtiles.R;
+import fall2018.csc2017.games.Ttt.TttActivity;
 
 /**
  * An activity to select which game to play

@@ -1,4 +1,4 @@
-package fall2018.csc2017.slidingtiles;
+package fall2018.csc2017.games.SlidingTiles;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -18,6 +18,8 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+
+import fall2018.csc2017.slidingtiles.R;
 
 /**
  * The game activity.

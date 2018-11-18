@@ -12,7 +12,7 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".SignupActivity"
+            android:name="fall2018.csc2017.games.SignupActivity"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,16 +20,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GameScreenActivity" />
+        <activity android:name="fall2018.csc2017.games.SlidingTiles.GameScreenActivity" />
         <activity
-            android:name=".LoginActivity"
+            android:name="fall2018.csc2017.games.LoginActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".GameActivity" />
-        <activity android:name=".GameSelectActivity" />
-        <activity android:name=".AuthenticationActivity" />
-        <activity android:name=".FinishedActivity" />
-        <activity android:name=".Ttt.TttActivity" />
-        <activity android:name=".GameComplexityActivity"></activity>
+        <activity android:name="fall2018.csc2017.games.SlidingTiles.GameActivity" />
+        <activity android:name="fall2018.csc2017.games.GameSelectActivity" />
+        <activity android:name="fall2018.csc2017.games.AuthenticationActivity" />
+        <activity android:name="fall2018.csc2017.games.FinishedActivity" />
+        <activity android:name="fall2018.csc2017.games.Ttt.TttActivity" />
+        <activity android:name="fall2018.csc2017.games.SlidingTiles.GameComplexityActivity"></activity>
     </application>
 
 </manifest>
