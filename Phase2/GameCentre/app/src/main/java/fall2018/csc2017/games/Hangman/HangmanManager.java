@@ -52,12 +52,12 @@ public class HangmanManager extends AppCompatActivity {
         String[] words;
 
         if (difficulty.equals("easy")) {
-            words = getResources().getStringArray(R.array.easywords);
+            words = getResources().getStringArray(R.array.easyWords);
 
         } else if (difficulty.equals("hard")) {
-            words = getResources().getStringArray(R.array.hardwords);
+            words = getResources().getStringArray(R.array.hardWords);
         } else {
-            words = getResources().getStringArray(R.array.mediumwords);
+            words = getResources().getStringArray(R.array.mediumWords);
         }
         return words[rand.nextInt(words.length)];
 

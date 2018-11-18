@@ -66,7 +66,7 @@ public class HangmanActivity extends AppCompatActivity {
             System.out.print(e);
         }
         Resources res = getResources();
-        words = res.getStringArray(R.array.easywords);
+        words = res.getStringArray(R.array.easyWords);
         rand = new Random();
         currWord = "";
         wordLayout = (LinearLayout) findViewById(R.id.word);
