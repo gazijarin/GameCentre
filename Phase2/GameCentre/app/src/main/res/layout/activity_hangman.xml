@@ -91,19 +91,5 @@
         android:orientation="horizontal"
         android:padding="10dp"></LinearLayout>
 
-    <GridView
-        android:id="@+id/letters"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="5dp"
-        android:background="#990099"
-
-        android:horizontalSpacing="5dp"
-        android:numColumns="6"
-        android:padding="5dp"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="5dp" />
-
 
 </LinearLayout>
