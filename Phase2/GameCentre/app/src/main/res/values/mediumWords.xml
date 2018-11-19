@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="mediumWords">
+        <item>AGGRESSIVE</item>
+        <item>FUTURISTIC</item>
+        <item>RELIGION</item>
+        <item>ANACONDA</item>
+        <item>EINSTEIN</item>
+        <item>ECLIPSE</item>
+        <item>INTROVERT</item>
+        <item>BACHELOR</item>
+        <item>VEXING</item>
+        <item>MICROSCOPE</item>
+        <item>DECEPTION</item>
+        <item>EXTROVERT</item>
+        <item>PSYCHOLOGY</item>
+        <item>SUCCUMB</item>
+        <item>HYPERACTIVE</item>
+        <item>MODERATE</item>
+        <item>FLOWERY</item>
+        <item>ASUNDER</item>
+        <item>TRAITOR</item>
+        <item>NINTENDO</item>
+        <item>UNCERTAINTY</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="hardWords">
+        <item>CROQUET</item>
+        <item>BAGPIPES</item>
+        <item>BANJO</item>
+        <item>DWARVES</item>
+        <item>FERVID</item>
+        <item>GAZEBO</item>
+        <item>HAIKU</item>
+        <item>JIFFY</item>
+        <item>OSTRACIZE</item>
+        <item>PHLEGM</item>
+        <item>WILDEBEEST</item>
+        <item>MEMENTO</item>
+        <item>STEREOSCOPE</item>
+        <item>STYROFOAM</item>
+        <item>INTERSTELLAR</item>
+        <item>MONOLITH</item>
+        <item>DEPRECATION</item>
+        <item>BOHEMIAN</item>
+        <item>RHAPSODY</item>
+        <item>PALEOZOIC</item>
+        <item>KALEIDOSCOPE</item>
+    </string-array>
+
+</resources>
