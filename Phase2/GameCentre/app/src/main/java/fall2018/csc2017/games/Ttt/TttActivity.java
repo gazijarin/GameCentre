@@ -10,11 +10,10 @@ import android.widget.Toast;
 
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import fall2018.csc2017.games.R;
 
-//Todo: Implement game interface and undo methods
-//Todo: Set up complexity (1 player vs 2 player)
 //Todo: Implement autoSave
 
 public class TttActivity extends AppCompatActivity implements View.OnClickListener {
@@ -33,6 +32,8 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
 
 
     private ArrayList<Button> log = new ArrayList<>();
+
+    private int mode;
 
 
     @Override
@@ -60,6 +61,8 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
             }
         });
 
+        Bundle b = getIntent().getExtras();
+        this.mode = b.getInt("mode");
 
     }
 
@@ -91,6 +94,21 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
             p1Turn = !p1Turn;
         }
 
+        if (!p1Turn && this.mode == 1) {
+            computerPlay();
+        }
+    }
+
+    private void computerPlay() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (buttons[i][j].getText().toString().equals("")) {
+                    onClick(findViewById(buttons[i][j].getId()));
+                    i = 400;
+                    j = 500;
+                }
+            }
+        }
     }
 
     private boolean checkForWin() {
@@ -171,17 +189,13 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     private void undoMove() {
-        Button x = this.log.get(log.size()-1);
-        x.setText("");
-        this.log.remove(log.size()-1);
+        if (log.size() > 0) {
+            Button x = this.log.get(log.size() - 1);
+            x.setText("");
+            this.log.remove(log.size() - 1);
+        }
         p1Turn = !p1Turn;
     }
-
-
-
-
-
-
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
