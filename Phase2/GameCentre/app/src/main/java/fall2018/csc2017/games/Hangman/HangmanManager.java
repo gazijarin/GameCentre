@@ -36,6 +36,20 @@ public class HangmanManager extends AppCompatActivity {
     }
 
     /**
+     * Manage a new shuffled hangman game.
+     *
+     * @param difficulty the dimension of the desired board
+     */
+    HangmanManager(String difficulty) {
+        hangman = new Hangman(getNewWord());
+        setNumUndos(3);
+    }
+
+    public void setNumUndos(int numUndos) {
+        this.numUndos = numUndos;
+    }
+
+    /**
      * Makes a move based on user input str.
      *
      * @param letter user's guess
