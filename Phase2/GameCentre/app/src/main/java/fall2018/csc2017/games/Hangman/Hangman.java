@@ -58,9 +58,6 @@ public class Hangman {
         currPart = 0;
         numChars = currWord.length();
 
-        for (int p = 0; p < numParts; p++) {
-            bodyParts[p].setVisibility(View.INVISIBLE);
-        }
 
     }
 
