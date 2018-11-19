@@ -86,7 +86,7 @@
     <LinearLayout
         android:id="@+id/word"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="184dp"
         android:layout_marginBottom="5dp"
         android:background="#FFFFFFFF"
         android:gravity="center"
@@ -105,14 +105,14 @@
         <!--user input-->
         <EditText
             android:id="@+id/user_guess"
-            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="152dp"
+            android:layout_weight="1"
             android:hint="Guess a letter" />
 
         <Button
             android:id="@+id/submit"
-            android:layout_width="wrap_content"
+            android:layout_width="349dp"
             android:layout_height="100dp"
             android:text="Submit guess" />
     </LinearLayout>
