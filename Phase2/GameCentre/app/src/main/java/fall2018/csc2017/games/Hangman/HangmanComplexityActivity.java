@@ -14,7 +14,7 @@ import java.io.ObjectOutputStream;
 
 import fall2018.csc2017.games.Hangman.HangmanManager;
 import fall2018.csc2017.games.Hangman.HangmanActivity;
-import fall2018.csc2017.slidingtiles.R;
+import fall2018.csc2017.games.R;
 
 public class HangmanComplexityActivity extends AppCompatActivity {
     /**

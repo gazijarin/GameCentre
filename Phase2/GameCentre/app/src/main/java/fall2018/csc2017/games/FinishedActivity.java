@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import fall2018.csc2017.slidingtiles.R;
+import fall2018.csc2017.games.R;
 
 /**
  * An activity to display once the user has completed a game

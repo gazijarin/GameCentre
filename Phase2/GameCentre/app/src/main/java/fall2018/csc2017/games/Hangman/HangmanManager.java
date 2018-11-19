@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Random;
 
 import fall2018.csc2017.games.Game;
-import fall2018.csc2017.slidingtiles.R;
+import fall2018.csc2017.games.R;
 
 /**
  * Managers a Hangman object.

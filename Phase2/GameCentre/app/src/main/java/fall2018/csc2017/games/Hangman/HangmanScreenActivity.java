@@ -17,7 +17,7 @@ import java.io.ObjectOutputStream;
 import fall2018.csc2017.games.Hangman.HangmanManager;
 import fall2018.csc2017.games.Hangman.HangmanActivity;
 import fall2018.csc2017.games.Hangman.HangmanComplexityActivity;
-import fall2018.csc2017.slidingtiles.R;
+import fall2018.csc2017.games.R;
 
 public class HangmanScreenActivity extends AppCompatActivity {
     /**
@@ -36,10 +36,10 @@ public class HangmanScreenActivity extends AppCompatActivity {
         String username = getIntent().getStringExtra("USERNAME");
 
         hangmanManager = new HangmanManager("medium");
-//        SAVE_FILENAME = username + "_" + hangmanManager.getGameId() + "_save_file.ser";
+        SAVE_FILENAME = username + "_" + hangmanManager.getGameId() + "_save_file.ser";
         loadFromFile(SAVE_FILENAME);
 
-        setContentView(R.layout.activity_starting_);
+        setContentView(R.layout.activity_hangman_starting);
         addStartButtonListener();
         addLoadButtonListener();
         addSaveButtonListener();

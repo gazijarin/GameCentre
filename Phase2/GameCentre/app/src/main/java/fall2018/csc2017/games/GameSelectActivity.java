@@ -8,8 +8,9 @@ import android.widget.Button;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import fall2018.csc2017.games.Hangman.HangmanScreenActivity;
 import fall2018.csc2017.games.SlidingTiles.GameScreenActivity;
-import fall2018.csc2017.slidingtiles.R;
+import fall2018.csc2017.games.R;
 import fall2018.csc2017.games.Ttt.TttActivity;
 import fall2018.csc2017.games.Hangman.HangmanActivity;
 
@@ -52,7 +53,7 @@ public class GameSelectActivity extends AppCompatActivity {
         hangman_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToHangmanGame();
+                goToHangmanGameScreen();
             }
         });
 
@@ -80,8 +81,8 @@ public class GameSelectActivity extends AppCompatActivity {
     /**
      * Switches activity to the hangman game
      */
-    public void goToHangmanGame() {
-        Intent tmp = new Intent(this, HangmanActivity.class);
+    public void goToHangmanGameScreen() {
+        Intent tmp = new Intent(this, HangmanScreenActivity.class);
         tmp.putExtra("USERNAME", getIntent().getStringExtra("USERNAME"));
         startActivity(tmp);
     }

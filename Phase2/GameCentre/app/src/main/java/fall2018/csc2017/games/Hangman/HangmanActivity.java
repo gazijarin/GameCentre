@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import java.util.Random;
 
-import fall2018.csc2017.slidingtiles.R;
+import fall2018.csc2017.games.R;
 
 //todo: implement game
 //implements View.OnClickListener
