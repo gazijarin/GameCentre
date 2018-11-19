@@ -2,15 +2,17 @@ package fall2018.csc2017.games.Hangman;
 
 import android.support.v7.app.AppCompatActivity;
 
+import java.io.Serializable;
 import java.util.Random;
 
-import fall2018.csc2017.slidingtiles.R;
+import fall2018.csc2017.games.Game;
+import fall2018.csc2017.games.R;
 
 /**
  * Managers a Hangman object.
  */
 //todo: implement game
-public class HangmanManager extends AppCompatActivity {
+class HangmanManager implements Game, Serializable {
     /**
      * The current score.
      */
@@ -38,15 +40,35 @@ public class HangmanManager extends AppCompatActivity {
     /**
      * Manage a new shuffled hangman game.
      *
-     * @param difficulty the dimension of the desired board
+     * @param difficulty the difficulty
      */
     HangmanManager(String difficulty) {
         hangman = new Hangman(getNewWord());
         setNumUndos(3);
     }
 
+    @Override
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+    @Override
+    public String getGameId() {
+        return "hangman";
+    }
+
+    @Override
+    public boolean highTopScore() {
+        return false;
+    }
+
     public void setNumUndos(int numUndos) {
         this.numUndos = numUndos;
+    }
+
+    @Override
+    public boolean undo() {
+        return false;
     }
 
     /**
@@ -58,6 +80,7 @@ public class HangmanManager extends AppCompatActivity {
         hangman.makeVisible(letter);
     }
 
+    //Todo: Find a way to get resources without making this class an activity class?
     /**
      * Generates a new word based on difficulty.
      *
@@ -67,29 +90,25 @@ public class HangmanManager extends AppCompatActivity {
         Random rand = new Random();
         String[] words;
 
-        switch (difficulty) {
-            case "easy":
-                words = getResources().getStringArray(R.array.easyWords);
-
-                break;
-            case "hard":
-                words = getResources().getStringArray(R.array.hardWords);
-                break;
-            default:
-                words = getResources().getStringArray(R.array.mediumWords);
-                break;
-        }
-        return words[rand.nextInt(words.length)];
+//        switch (difficulty) {
+//            case "easy":
+//                words = getResources().getStringArray(R.array.easyWords);
+//
+//                break;
+//            case "hard":
+//                words = getResources().getStringArray(R.array.hardWords);
+//                break;
+//            default:
+//                words = getResources().getStringArray(R.array.mediumWords);
+//                break;
+//        }
+//        return words[rand.nextInt(words.length)];
+        return "test";
 
     }
-    //todo: implement
 
-    /**
-     * Undoes a single move.
-     *
-     * @return if undo was successful
-     */
-    boolean undo() {
+    @Override
+    public boolean redo() {
         return false;
     }
 

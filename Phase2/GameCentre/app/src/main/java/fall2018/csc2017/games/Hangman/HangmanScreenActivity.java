@@ -1,8 +1,8 @@
-package fall2018.csc2017.games.SlidingTiles;
+package fall2018.csc2017.games.Hangman;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,13 +14,12 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import fall2018.csc2017.games.Hangman.HangmanManager;
+import fall2018.csc2017.games.Hangman.HangmanActivity;
+import fall2018.csc2017.games.Hangman.HangmanComplexityActivity;
 import fall2018.csc2017.games.R;
 
-/**
- * The initial activity for the sliding puzzle tile game.
- */
-public class GameScreenActivity extends AppCompatActivity {
-
+public class HangmanScreenActivity extends AppCompatActivity {
     /**
      * The main save file.
      */
@@ -28,7 +27,7 @@ public class GameScreenActivity extends AppCompatActivity {
     /**
      * The board manager, if one exists as a save.
      */
-    private BoardManager boardManager;
+    private HangmanManager hangmanManager;
 
 
     @Override
@@ -36,11 +35,11 @@ public class GameScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         String username = getIntent().getStringExtra("USERNAME");
 
-        boardManager = new BoardManager(4);
-        SAVE_FILENAME = username + "_" + boardManager.getGameId() + "_save_file.ser";
+        hangmanManager = new HangmanManager("medium");
+        SAVE_FILENAME = username + "_" + hangmanManager.getGameId() + "_save_file.ser";
         loadFromFile(SAVE_FILENAME);
 
-        setContentView(R.layout.activity_starting_);
+        setContentView(R.layout.activity_hangman_starting);
         addStartButtonListener();
         addLoadButtonListener();
         addSaveButtonListener();
@@ -103,6 +102,7 @@ public class GameScreenActivity extends AppCompatActivity {
     private void makeToastLoadedText() {
         Toast.makeText(this, "Loaded Game", Toast.LENGTH_SHORT).show();
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -113,7 +113,7 @@ public class GameScreenActivity extends AppCompatActivity {
      * Switch to the GameActivity view to play the game.
      */
     private void switchToGame() {
-        Intent tmp = new Intent(this, GameActivity.class);
+        Intent tmp = new Intent(this, HangmanActivity.class);
         saveToFile(SAVE_FILENAME);
         startActivity(tmp);
     }
@@ -122,7 +122,7 @@ public class GameScreenActivity extends AppCompatActivity {
      * Switch to the GameActivity view to start a new game.
      */
     private void switchToNewGame() {
-        Intent tmp = new Intent(this, GameComplexityActivity.class);
+        Intent tmp = new Intent(this, HangmanComplexityActivity.class);
         startActivity(tmp);
     }
 
@@ -137,7 +137,7 @@ public class GameScreenActivity extends AppCompatActivity {
             InputStream inputStream = this.openFileInput(fileName);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                boardManager = (BoardManager) input.readObject();
+                hangmanManager = (HangmanManager) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
@@ -159,10 +159,11 @@ public class GameScreenActivity extends AppCompatActivity {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(boardManager);
+            outputStream.writeObject(hangmanManager);
             outputStream.close();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
     }
 }
+

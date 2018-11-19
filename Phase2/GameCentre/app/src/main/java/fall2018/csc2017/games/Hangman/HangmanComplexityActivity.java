@@ -14,7 +14,7 @@ import java.io.ObjectOutputStream;
 
 import fall2018.csc2017.games.Hangman.HangmanManager;
 import fall2018.csc2017.games.Hangman.HangmanActivity;
-import fall2018.csc2017.slidingtiles.R;
+import fall2018.csc2017.games.R;
 
 public class HangmanComplexityActivity extends AppCompatActivity {
     /**
@@ -29,7 +29,7 @@ public class HangmanComplexityActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game_complexity);
+        setContentView(R.layout.activity_hangman_complexity);
         hangman = new HangmanManager("medium");
         setupDifficultyButtons();
         setupNumUndoInput();
@@ -107,7 +107,7 @@ public class HangmanComplexityActivity extends AppCompatActivity {
      */
     private void switchToGame() {
         hangman.setNumUndos(Integer.parseInt(numUndos.getText().toString()));
-//        saveToFile(GameScreenActivity.SAVE_FILENAME);
+        saveToFile(HangmanScreenActivity.SAVE_FILENAME);
         Intent tmp = new Intent(this, HangmanActivity.class);
         startActivity(tmp);
     }

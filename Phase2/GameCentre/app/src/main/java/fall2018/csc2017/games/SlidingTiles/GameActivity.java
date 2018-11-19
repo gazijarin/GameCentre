@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-import fall2018.csc2017.slidingtiles.R;
+import fall2018.csc2017.games.R;
 
 /**
  * The game activity.

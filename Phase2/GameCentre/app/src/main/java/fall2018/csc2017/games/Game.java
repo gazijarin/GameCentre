@@ -10,7 +10,7 @@ public interface Game {
      *
      * @return the game's difficulty
      */
-    int getDifficulty();
+    String getDifficulty();
 
     /**
      * Returns this game's unique game ID

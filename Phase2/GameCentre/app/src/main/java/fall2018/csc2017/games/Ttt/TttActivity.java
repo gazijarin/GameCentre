@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import fall2018.csc2017.slidingtiles.R;
+import fall2018.csc2017.games.R;
 
 //Todo: Implement game interface and undo methods
 //Todo: Set up complexity (1 player vs 2 player)

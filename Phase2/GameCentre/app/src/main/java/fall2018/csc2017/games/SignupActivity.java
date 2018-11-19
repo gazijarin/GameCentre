@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import fall2018.csc2017.slidingtiles.R;
+import fall2018.csc2017.games.R;
 
 /*
  * Android login, signup and authentication activities adapted from Kam Low's github

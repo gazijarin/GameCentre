@@ -15,7 +15,7 @@ import java.io.ObjectOutputStream;
 import fall2018.csc2017.games.SlidingTiles.BoardManager;
 import fall2018.csc2017.games.SlidingTiles.GameActivity;
 import fall2018.csc2017.games.SlidingTiles.GameScreenActivity;
-import fall2018.csc2017.slidingtiles.R;
+import fall2018.csc2017.games.R;
 
 /**
  * An activity to select settings for the game.

@@ -65,7 +65,7 @@ class BoardManager implements Serializable, Game {
 
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             if (tileNum == numTiles - 1) {
-                tiles.add(new Tile(-1, numTiles));
+                tiles.add(new Tile("blank", numTiles));
             } else {
                 tiles.add(new Tile(tileNum));
             }
@@ -108,10 +108,16 @@ class BoardManager implements Serializable, Game {
     }
 
     @Override
-    public int getDifficulty() {
+    public String getDifficulty() {
         final int DEFAULT_DIMENSION = 3;
         int size = getBoard().getDimension();
-        return size - DEFAULT_DIMENSION;
+        int difficulty = size - DEFAULT_DIMENSION;
+        if (difficulty == 4) {
+            return "medium";
+        } else if (difficulty == 3) {
+            return "easy";
+        } else
+            return "hard";
     }
 
     @Override

@@ -19,17 +19,9 @@ public class Hangman {
      */
     private int numCorr = 0;
     /**
-     * Body part images.
+     * The Hangman body.
      */
-    private ImageView[] bodyParts;
-    /**
-     * The number of body parts in total.
-     */
-    private int numParts = 6;
-    /**
-     * The current body part.
-     */
-    private int currPart;
+    private HangmanBody hangmanBody;
     /**
      * The current word being guessed.
      */
@@ -55,12 +47,8 @@ public class Hangman {
 
         charViews = new TextView[currWord.length()];
 
-        currPart = 0;
         numChars = currWord.length();
 
-        for (int p = 0; p < numParts; p++) {
-            bodyParts[p].setVisibility(View.INVISIBLE);
-        }
 
     }
 
@@ -82,23 +70,6 @@ public class Hangman {
         return numCorr;
     }
 
-    /**
-     * Returns the number of body parts.
-     *
-     * @return the number of body parts
-     */
-    public int getNumParts() {
-        return numParts;
-    }
-
-    /**
-     * Returns the current body part.
-     *
-     * @return the current body part
-     */
-    public int getCurrPart() {
-        return currPart;
-    }
 
     /**
      * Returns the current word.
@@ -125,24 +96,6 @@ public class Hangman {
      */
     public void setNumCorr(int numCorr) {
         this.numCorr = numCorr;
-    }
-
-    /**
-     * Set numParts to inputted numParts.
-     *
-     * @param numParts the number of body parts
-     */
-    public void setNumParts(int numParts) {
-        this.numParts = numParts;
-    }
-
-    /**
-     * Set currPart to inputted currPart.
-     *
-     * @param currPart the current body part
-     */
-    public void setCurrPart(int currPart) {
-        this.currPart = currPart;
     }
 
     /**
