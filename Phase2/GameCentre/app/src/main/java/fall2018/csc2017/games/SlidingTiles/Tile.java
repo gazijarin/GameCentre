@@ -22,38 +22,24 @@ public class Tile implements Comparable<Tile>, Serializable {
     private int id;
 
     /**
-     * Return the background id.
-     *
-     * @return the background id
+     * A tile with blank background
+     * @param background the background
      */
-    public int getBackground() {
-        return (int) background;
-    }
+    Tile(String i, int background) {
+        this.id = background;
+        this.background = R.drawable.tile_blank;
 
-    /**
-     * Return the tile id.
-     *
-     * @return the tile id
-     */
-    public int getId() {
-        return id;
     }
-
     /**
      * A Tile with id and background. The background may not have a corresponding image.
-     * If id = -1, the tile is the blank tile
      *
      * @param id         the id
      * @param background the background
      */
     Tile(int id, int background) {
-        if (this.id == -1) {
-            this.id = background;
-            this.background = R.drawable.tile_blank;
-        } else {
-            this.id = id;
-            this.background = background;
-        }
+        this.id = id;
+        this.background = background;
+
     }
 
     /**
@@ -140,6 +126,24 @@ public class Tile implements Comparable<Tile>, Serializable {
             default:
                 background = R.drawable.tile_blank;
         }
+    }
+
+    /**
+     * Return the background id.
+     *
+     * @return the background id
+     */
+    public int getBackground() {
+        return (int) background;
+    }
+
+    /**
+     * Return the tile id.
+     *
+     * @return the tile id
+     */
+    public int getId() {
+        return id;
     }
 
     @Override

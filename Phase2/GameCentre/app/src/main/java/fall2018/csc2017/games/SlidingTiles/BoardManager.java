@@ -65,7 +65,7 @@ class BoardManager implements Serializable, Game {
 
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             if (tileNum == numTiles - 1) {
-                tiles.add(new Tile(-1, numTiles));
+                tiles.add(new Tile("blank", numTiles));
             } else {
                 tiles.add(new Tile(tileNum));
             }
