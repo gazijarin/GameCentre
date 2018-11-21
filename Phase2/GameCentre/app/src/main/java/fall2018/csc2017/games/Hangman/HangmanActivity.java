@@ -31,20 +31,9 @@ public class HangmanActivity extends AppCompatActivity {
     private LinearLayout wordLayout;
     private TextView[] charViews;
 
-    //body part images
-    private ImageView[] bodyParts;
-
-    //number of body parts total
-    private int numParts = 6;
-
-    //current part - will increment when wrong answers are chosen
-    private int currPart;
-
-    //number of characters in current word
-    private int numChars;
-
     //number correctly guessed
     private int numCorr;
+    private HangmanBody body;
 
     //hangmanManager
     private HangmanManager manager;
@@ -54,7 +43,7 @@ public class HangmanActivity extends AppCompatActivity {
 
         //sets up all the body parts + some variables
 
-
+        body = new HangmanBody();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hangman);
         //todo: fix this
@@ -71,13 +60,10 @@ public class HangmanActivity extends AppCompatActivity {
         currWord = "";
         wordLayout = (LinearLayout) findViewById(R.id.word);
 
-        bodyParts = new ImageView[numParts];
-        bodyParts[0] = (ImageView) findViewById(R.id.head);
-        bodyParts[1] = (ImageView) findViewById(R.id.body);
-        bodyParts[2] = (ImageView) findViewById(R.id.arm1);
-        bodyParts[3] = (ImageView) findViewById(R.id.arm2);
-        bodyParts[4] = (ImageView) findViewById(R.id.leg1);
-        bodyParts[5] = (ImageView) findViewById(R.id.leg2);
+        //Todo: Ew, too many arguments. Maybe create an array and pass in as single argument.
+        body.initBodyParts(findViewById(R.id.head), findViewById(R.id.body),
+                findViewById(R.id.arm1), findViewById(R.id.arm2), findViewById(R.id.leg1),
+                findViewById(R.id.leg2));
 
         playGame();
     }
@@ -92,7 +78,7 @@ public class HangmanActivity extends AppCompatActivity {
         charViews = new TextView[currWord.length()];
         wordLayout.removeAllViews();
         createUnderlines();
-        createHangman();
+        body.createHangman();
         addSubmitButton();
 
 
@@ -126,20 +112,6 @@ public class HangmanActivity extends AppCompatActivity {
             //add to layout
             wordLayout.addView(charViews[i]);
 
-        }
-    }
-
-    /**
-     * Draws the hangman on the activity
-     */
-    private void createHangman() {
-        //sets up the hangman with body parts
-        currPart = 0;
-        numChars = currWord.length();
-        numCorr = 0;
-
-        for (int p = 0; p < numParts; p++) {
-            bodyParts[p].setVisibility(View.INVISIBLE);
         }
     }
 
@@ -180,6 +152,7 @@ public class HangmanActivity extends AppCompatActivity {
         return guess.matches("[a-zA-Z]");
     }
 
+    //Todo: Too long. Create another method to share the hefty burden.
     /**
      * updates variables based on the valid guess
      */
@@ -198,7 +171,7 @@ public class HangmanActivity extends AppCompatActivity {
         }
         if (correct) {
             //correct guess
-            if (numCorr == numChars) { //user has won
+            if (numCorr == currWord.length()) { //user has won
                 //bring up scoreboard
 
 
@@ -213,7 +186,7 @@ public class HangmanActivity extends AppCompatActivity {
                             }
                         });
 
-                winBuild.setNegativeButton("Play a different game",
+                winBuild.setNegativeButton("Play a different game.",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 HangmanActivity.this.finish();
@@ -222,9 +195,8 @@ public class HangmanActivity extends AppCompatActivity {
 
                 winBuild.show();
             }
-        } else if (currPart < numParts) {//some guesses left
-            bodyParts[currPart].setVisibility(View.VISIBLE);
-            currPart++;
+        } else if (!body.isComplete()) {//some guesses left
+            body.addPart();
         } else { //user has lost rip
             //todo: update scoreboard?
             makeToastLost();
