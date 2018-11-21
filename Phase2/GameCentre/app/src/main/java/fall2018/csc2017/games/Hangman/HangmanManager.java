@@ -1,15 +1,12 @@
 package fall2018.csc2017.games.Hangman;
 
-import android.support.v7.app.AppCompatActivity;
-
 import java.io.Serializable;
 import java.util.Random;
 
 import fall2018.csc2017.games.Game;
-import fall2018.csc2017.games.R;
 
 /**
- * Managers a Hangman object.
+ * Manages a Hangman object.
  */
 //todo: implement game
 class HangmanManager implements Game, Serializable {
@@ -117,7 +114,7 @@ class HangmanManager implements Game, Serializable {
      *
      * @return if the game is solved
      */
-    boolean puzzleSolved() {
+    public boolean puzzleSolved() {
         return hangman.getNumCorr() == hangman.getNumChars();
     }
 
