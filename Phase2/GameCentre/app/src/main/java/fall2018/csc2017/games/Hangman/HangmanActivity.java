@@ -25,8 +25,14 @@ import java.util.Random;
 import fall2018.csc2017.games.R;
 import fall2018.csc2017.games.SlidingTiles.GameScreenActivity;
 
-//todo: implement game
-//implements View.OnClickListener
+/*
+ * HangmanActivity adapted from Sue Smith's tutorial in envatotuts+
+ * <https://code.tutsplus.com/series/create-a-hangman-game-for-android--cms-702>
+ * Retrieved: November 2018
+ * Title: Create a Hangman Game for Android
+ * Author: Sue Smith
+ */
+
 public class HangmanActivity extends AppCompatActivity {
 
     //Todo: MINIMIZE THE # OF INSTANCE VARIABLES; ONLY 5 OR LESS PER CLASS.
