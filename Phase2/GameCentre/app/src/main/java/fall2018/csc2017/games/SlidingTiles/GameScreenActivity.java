@@ -122,7 +122,7 @@ public class GameScreenActivity extends AppCompatActivity {
      * Switch to the GameActivity view to start a new game.
      */
     private void switchToNewGame() {
-        Intent tmp = new Intent(this, GameComplexityActivity.class);
+        Intent tmp = new Intent(this, SlidingTilesComplexityActivity.class);
         startActivity(tmp);
     }
 

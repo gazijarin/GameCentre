@@ -12,7 +12,7 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name="fall2018.csc2017.games.SignupActivity"
+            android:name=".SignupActivity"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,19 +20,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="fall2018.csc2017.games.SlidingTiles.GameScreenActivity" />
+        <activity android:name=".SlidingTiles.GameScreenActivity" />
         <activity
-            android:name="fall2018.csc2017.games.LoginActivity"
+            android:name=".LoginActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name="fall2018.csc2017.games.SlidingTiles.GameActivity" />
-        <activity android:name="fall2018.csc2017.games.GameSelectActivity" />
-        <activity android:name="fall2018.csc2017.games.AuthenticationActivity" />
-        <activity android:name="fall2018.csc2017.games.FinishedActivity" />
-        <activity android:name="fall2018.csc2017.games.Hangman.HangmanActivity" />
-        <activity android:name="fall2018.csc2017.games.Hangman.HangmanScreenActivity" />
-        <activity android:name="fall2018.csc2017.games.Hangman.HangmanComplexityActivity" />
-        <activity android:name="fall2018.csc2017.games.Ttt.TttActivity" />
-        <activity android:name="fall2018.csc2017.games.SlidingTiles.GameComplexityActivity"></activity>
+        <activity android:name=".SlidingTiles.GameActivity" />
+        <activity android:name=".GameSelectActivity" />
+        <activity android:name=".AuthenticationActivity" />
+        <activity android:name=".FinishedActivity" />
+        <activity android:name=".Hangman.HangmanActivity" />
+        <activity android:name=".Hangman.HangmanScreenActivity" />
+        <activity android:name=".Hangman.HangmanComplexityActivity" />
+        <activity android:name=".Ttt.TttActivity" />
+        <activity android:name=".SlidingTiles.SlidingTilesComplexityActivity" />
+        <activity android:name=".ComplexityActivity"></activity>
     </application>
 
 </manifest>

@@ -71,12 +71,19 @@ class BoardManager implements Serializable, Game {
             }
         }
 
-        while (!isSolvable(tiles)) {
+        do {
             Collections.shuffle(tiles);
-        }
+        } while (!isSolvable(tiles));
+
         return tiles;
     }
 
+    /**
+     * Return's whether the input tile configuration describes a solvable board
+     *
+     * @param tiles the list of tiles in the board
+     * @return whether the inputted tile configuration describes a solvable board
+     */
     public boolean isSolvable(List<Tile> tiles) {
         int dimension = (int) Math.sqrt(tiles.size());
 
@@ -137,14 +144,31 @@ class BoardManager implements Serializable, Game {
     }
 
     @Override
+    public void setDifficulty(String difficulty) {
+        int dimension;
+
+        switch (difficulty) {
+            case "easy":
+                dimension = 3;
+                break;
+            case "medium":
+                dimension = 4;
+                break;
+            default:
+                dimension = 5;
+                break;
+        }
+
+        board = new Board(generateTiles(dimension * dimension));
+    }
+
+    @Override
     public String getDifficulty() {
-        final int DEFAULT_DIMENSION = 3;
-        int size = getBoard().getDimension();
-        int difficulty = size - DEFAULT_DIMENSION;
-        if (difficulty == 4) {
-            return "medium";
-        } else if (difficulty == 3) {
+        int difficulty = getBoard().getDimension();
+        if (difficulty == 3) {
             return "easy";
+        } else if (difficulty == 4) {
+            return "medium";
         } else
             return "hard";
     }

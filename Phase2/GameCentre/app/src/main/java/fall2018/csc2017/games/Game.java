@@ -4,6 +4,12 @@ package fall2018.csc2017.games;
  * an interface for a Game
  */
 public interface Game {
+
+    /**
+     * Set the game difficulty level, "easy", "medium", or "hard"
+     */
+    void setDifficulty(String difficulty);
+
     /**
      * Gets the game difficulty level, higher number means higher difficulty,
      * starts at 0

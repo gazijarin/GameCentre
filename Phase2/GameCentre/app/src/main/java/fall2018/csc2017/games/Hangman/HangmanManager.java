@@ -44,7 +44,14 @@ class HangmanManager implements Game, Serializable {
      */
     HangmanManager(String difficulty) {
         hangman = new Hangman(getNewWord());
+        this.difficulty = difficulty;
         setNumUndos(3);
+    }
+
+    @Override
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+        hangman = new Hangman(getNewWord());
     }
 
     @Override
