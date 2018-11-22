@@ -32,6 +32,7 @@
         <activity android:name="fall2018.csc2017.games.Hangman.HangmanScreenActivity" />
         <activity android:name="fall2018.csc2017.games.Hangman.HangmanComplexityActivity" />
         <activity android:name="fall2018.csc2017.games.Ttt.TttActivity" />
+        <activity android:name=".Ttt.TttComplexityActivity" />
         <activity android:name="fall2018.csc2017.games.SlidingTiles.GameComplexityActivity"></activity>
     </application>
 

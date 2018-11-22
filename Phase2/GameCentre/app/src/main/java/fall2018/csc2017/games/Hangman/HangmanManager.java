@@ -107,7 +107,6 @@ class HangmanManager implements Game, Serializable {
 
     }
 
-    @Override
     public boolean redo() {
         return false;
     }

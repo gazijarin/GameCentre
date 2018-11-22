@@ -10,17 +10,15 @@ import android.widget.Toast;
 
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import fall2018.csc2017.games.R;
 
-//Todo: Implement autoSave
+
 
 public class TttActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button[][] buttons = new Button[3][3];
 
-    private boolean p1Turn = true;
 
     private int roundCount;
 
@@ -30,11 +28,10 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
     private TextView textViewp1;
     private TextView textViewp2;
 
-
-    private ArrayList<Button> log = new ArrayList<>();
-
     private int mode;
 
+    TttManager manager = new TttManager();
+    boolean p1Turn = manager.getTurn();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +50,12 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
             }
         }
 
+
         Button buttonUndo = findViewById(R.id.button_undo);
         buttonUndo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                undoMove();
+                manager.undo();
             }
         });
 
@@ -78,7 +76,7 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
             ((Button) v).setText("O");
         }
 
-        this.log.add((Button) v);
+        manager.log.add((Button) v);
 
         roundCount++;
 
@@ -182,20 +180,12 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
             }
         }
 
-        this.log = new ArrayList<>();
+        manager.log = new ArrayList<>();
 
         roundCount = 0;
         p1Turn = true;
     }
 
-    private void undoMove() {
-        if (log.size() > 0) {
-            Button x = this.log.get(log.size() - 1);
-            x.setText("");
-            this.log.remove(log.size() - 1);
-        }
-        p1Turn = !p1Turn;
-    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {

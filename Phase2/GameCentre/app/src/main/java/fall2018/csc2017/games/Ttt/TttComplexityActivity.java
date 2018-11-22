@@ -9,7 +9,7 @@ import android.widget.Button;
 
 import fall2018.csc2017.games.R;
 
-public class TicTacToeComplexityActivity extends AppCompatActivity {
+public class TttComplexityActivity extends AppCompatActivity {
 
     private int mode;
 
