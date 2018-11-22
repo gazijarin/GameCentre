@@ -204,7 +204,7 @@ class BoardManager implements Serializable, Game {
         return false;
     }
 
-    @Override
+
     public boolean redo() {
         if (redoMoves.size() > 0) {
             int lastUndo = redoMoves.pop();

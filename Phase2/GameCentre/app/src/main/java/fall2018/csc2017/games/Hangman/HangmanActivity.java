@@ -5,7 +5,9 @@ import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -16,12 +18,21 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.Random;
 
 import fall2018.csc2017.games.R;
+import fall2018.csc2017.games.SlidingTiles.GameScreenActivity;
 
-//todo: implement game
-//implements View.OnClickListener
+/*
+ * HangmanActivity adapted from Sue Smith's tutorial in envatotuts+
+ * <https://code.tutsplus.com/series/create-a-hangman-game-for-android--cms-702>
+ * Retrieved: November 2018
+ * Title: Create a Hangman Game for Android
+ * Author: Sue Smith
+ */
+
 public class HangmanActivity extends AppCompatActivity {
 
     //Todo: MINIMIZE THE # OF INSTANCE VARIABLES; ONLY 5 OR LESS PER CLASS.
@@ -30,6 +41,8 @@ public class HangmanActivity extends AppCompatActivity {
     private String currWord;
     private LinearLayout wordLayout;
     private TextView[] charViews;
+
+    private Handler handler;
 
     //number correctly guessed
     private int numCorr;
@@ -72,16 +85,61 @@ public class HangmanActivity extends AppCompatActivity {
      * Adds all elements into the activity
      */
     private void playGame() {
-
-
         pickNewWord();
         charViews = new TextView[currWord.length()];
         wordLayout.removeAllViews();
         createUnderlines();
         body.createHangman();
         addSubmitButton();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        handler = new Handler();
+        makeToastAutoSavedText();
+        autoSaveTimer.run();
+    }
+
+    /**
+     * Display that a game was autosaved successfully.
+     */
+    private void makeToastAutoSavedText() {
+        Toast.makeText(this, "Auto Saved", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Runnable autoSaveTimer that saves the game every 30 seconds.
+     */
+    public Runnable autoSaveTimer = new Runnable() {
+        public void run() {
+            saveToFile(GameScreenActivity.SAVE_FILENAME);
+
+            handler.postDelayed(this, 30 * 1000);
+        }
+    };
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        handler.removeCallbacks(autoSaveTimer);
+    }
 
 
+    /**
+     * Save the board manager to fileName.
+     *
+     * @param fileName the name of the file
+     */
+    public void saveToFile(String fileName) {
+        try {
+            ObjectOutputStream outputStream = new ObjectOutputStream(
+                    this.openFileOutput(fileName, MODE_PRIVATE));
+            outputStream.writeObject(manager);
+            outputStream.close();
+        } catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
     }
 
     /**

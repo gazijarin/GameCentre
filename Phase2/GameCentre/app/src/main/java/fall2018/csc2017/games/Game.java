@@ -44,10 +44,5 @@ public interface Game {
      */
     boolean undo();
 
-    /**
-     * Performs an redo
-     *
-     * @return whether redo was successful
-     */
-    boolean redo();
+
 }

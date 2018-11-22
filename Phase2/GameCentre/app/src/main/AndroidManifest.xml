@@ -33,7 +33,8 @@
         <activity android:name=".Hangman.HangmanComplexityActivity" />
         <activity android:name=".Ttt.TttActivity" />
         <activity android:name=".SlidingTiles.SlidingTilesComplexityActivity" />
-        <activity android:name=".ComplexityActivity"></activity>
+        <activity android:name=".ComplexityActivity" />
+        <activity android:name=".Ttt.TttComplexityActivity" />
     </application>
 
 </manifest>

@@ -10,10 +10,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import fall2018.csc2017.games.Hangman.HangmanScreenActivity;
 import fall2018.csc2017.games.SlidingTiles.GameScreenActivity;
-import fall2018.csc2017.games.R;
-import fall2018.csc2017.games.Ttt.TicTacToeComplexityActivity;
-import fall2018.csc2017.games.Ttt.TttActivity;
-import fall2018.csc2017.games.Hangman.HangmanActivity;
+import fall2018.csc2017.games.Ttt.TttComplexityActivity;
 
 /**
  * An activity to select which game to play
@@ -74,7 +71,7 @@ public class GameSelectActivity extends AppCompatActivity {
      * Switches activity to the tic-tac-toe game
      */
     public  void goToTTTGame(){
-        Intent tmp = new Intent(this, TicTacToeComplexityActivity.class);
+        Intent tmp = new Intent(this, TttComplexityActivity.class);
         tmp.putExtra("USERNAME", getIntent().getStringExtra("USERNAME"));
         startActivity(tmp);
     }
