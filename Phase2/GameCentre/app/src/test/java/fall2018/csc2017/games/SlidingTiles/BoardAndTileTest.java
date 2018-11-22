@@ -3,6 +3,8 @@ package fall2018.csc2017.games.SlidingTiles;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import fall2018.csc2017.games.SlidingTiles.*;
@@ -96,6 +98,24 @@ public class BoardAndTileTest {
         assertEquals(true, boardManager.isValidTap(11));
         assertEquals(true, boardManager.isValidTap(14));
         assertEquals(false, boardManager.isValidTap(10));
+    }
+
+    /**
+     * Tests whether isSolvable works
+     */
+    @Test
+    public void testIsSolvable() {
+        setUpCorrect();
+        List<Tile> tiles = makeTiles(16);
+        List<Tile> tilesUnsolvable = makeTiles(16);
+        List<Tile> tilesSolvable = makeTiles(16);
+        tilesSolvable.add(tilesUnsolvable.remove(12));
+        tilesSolvable.add(tilesUnsolvable.remove(12));
+        tilesUnsolvable.add(tilesUnsolvable.remove(12));
+        Collections.shuffle(tilesUnsolvable);
+        assertEquals(true, boardManager.isSolvable(tiles));
+        assertEquals(false, boardManager.isSolvable(tilesUnsolvable));
+        assertEquals(true, boardManager.isSolvable(tilesSolvable));
     }
 }
 

@@ -1,9 +1,12 @@
 package fall2018.csc2017.games.Hangman;
 
+import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-public class HangmanBody {
+/**
+ * The Hangman Body.
+ */
+class HangmanBody {
     /**
      * Body part images.
      */
@@ -11,33 +14,59 @@ public class HangmanBody {
     /**
      * The number of body parts in total.
      */
-    private int numParts = 6;
+    private int numParts;
     /**
      * The current body part.
      */
     private int currPart;
 
-    public ImageView[] getBodyParts() {
-        return bodyParts;
+    /**
+     * Creates a new Hangman body.
+     */
+    HangmanBody() {
+        this.numParts = 6;
+        this.currPart = 0;
     }
 
-    public void setBodyParts(ImageView[] bodyParts) {
-        this.bodyParts = bodyParts;
+    /**
+     * Draws the hangman on the activity
+     */
+    void createHangman() {
+        currPart = 0;
+
+        for (int p = 0; p < numParts; p++) {
+            bodyParts[p].setVisibility(View.INVISIBLE);
+        }
     }
 
-    public int getNumParts() {
-        return numParts;
+    /**
+     * Checks if the hangman is not dismembered.
+     *
+     * @return if the hangman is complete
+     */
+    boolean isComplete() {
+        return numParts == currPart;
     }
 
-    public void setNumParts(int numParts) {
-        this.numParts = numParts;
+    /**
+     * Increments hangman body part.
+     */
+    void addPart() {
+        bodyParts[currPart].setVisibility(View.VISIBLE);
+        currPart++;
     }
 
-    public int getCurrPart() {
-        return currPart;
-    }
-
-    public void setCurrPart(int currPart) {
-        this.currPart = currPart;
+    /**
+     * Initializes hangman body parts.
+     */
+    void initBodyParts(View head, View body, View arm1,
+                       View arm2, View leg1, View leg2) {
+        bodyParts = new ImageView[numParts];
+        bodyParts[0] = (ImageView) head;
+        bodyParts[1] = (ImageView) body;
+        bodyParts[2] = (ImageView) arm1;
+        bodyParts[3] = (ImageView) arm2;
+        bodyParts[4] = (ImageView) leg1;
+        bodyParts[5] = (ImageView) leg2;
     }
 }

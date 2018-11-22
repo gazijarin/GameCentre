@@ -71,8 +71,37 @@ class BoardManager implements Serializable, Game {
             }
         }
 
-        Collections.shuffle(tiles);
+        while (!isSolvable(tiles)) {
+            Collections.shuffle(tiles);
+        }
         return tiles;
+    }
+
+    public boolean isSolvable(List<Tile> tiles) {
+        int dimension = (int) Math.sqrt(tiles.size());
+
+        int inversions = 0;
+        int blankpos = 0;
+        for (int i = 0; i < tiles.size(); i++) {
+            if (tiles.get(i).getId() != tiles.size()) {   //if this tile isnt the blank tile
+                for (int j = i; j < tiles.size(); j++) {  //some nice n^2 complexity
+                    if (tiles.get(i).getId() > tiles.get(j).getId()
+                            && tiles.get(j).getId() != tiles.size()) {
+                        inversions++;
+                    }
+                }
+            } else {
+                blankpos = i;
+            }
+        }
+
+        boolean evenRow = ((dimension - ((int) (blankpos / dimension))) % 2) == 0;
+        boolean evenInversions = inversions % 2 == 0;
+        boolean evenDimension = (dimension % 2 == 0);
+
+        return ((!evenDimension && evenInversions) ||
+                (evenDimension && (!evenRow == evenInversions)));
+
     }
 
     /**
