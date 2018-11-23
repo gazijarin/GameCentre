@@ -56,6 +56,15 @@ public class Hangman {
     }
 
     /**
+     * Returns the number of characters.
+     *
+     * @return the number of characters
+     */
+    String getCurrWord() {
+        return currWord;
+    }
+
+    /**
      * Reveals the correctly guessed characters.
      *
      * @param guessedChar the guessed character

@@ -8,7 +8,6 @@ import fall2018.csc2017.games.Game;
 /**
  * Manages a Hangman object.
  */
-//todo: implement game
 class HangmanManager implements Game, Serializable {
     /**
      * The current score.
@@ -70,6 +69,10 @@ class HangmanManager implements Game, Serializable {
         this.numUndos = numUndos;
     }
 
+    public int getNumUndos() {
+        return numUndos;
+    }
+
     @Override
     public boolean undo() {
         return false;
@@ -82,6 +85,15 @@ class HangmanManager implements Game, Serializable {
      */
     void makeMove(char letter) {
         hangman.makeVisible(letter);
+    }
+
+    /**
+     * Returns the hangman for this manager
+     *
+     * @return the hangman for this game
+     */
+    Hangman getHangman() {
+        return hangman;
     }
 
     //Todo: Find a way to get resources without making this class an activity class?

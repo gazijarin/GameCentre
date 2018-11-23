@@ -34,6 +34,11 @@ public class TttManager implements Game {
         return this.turn;
     }
 
+    @Override
+    public void setDifficulty(String difficulty) {
+        //todo make this do something
+    }
+
     /**
      * Gets the game difficulty level, higher number means higher difficulty,
      * starts at 0
