@@ -45,14 +45,14 @@ class HangmanManager implements Game, Serializable {
     }
 
     @Override
-    public void setDifficulty(String difficulty) {
-        this.difficulty = difficulty;
-        hangman = new Hangman(getNewWord());
+    public String getDifficulty() {
+        return difficulty;
     }
 
     @Override
-    public String getDifficulty() {
-        return difficulty;
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+        hangman = new Hangman(getNewWord());
     }
 
     @Override
@@ -65,12 +65,12 @@ class HangmanManager implements Game, Serializable {
         return false;
     }
 
-    public void setNumUndos(int numUndos) {
-        this.numUndos = numUndos;
-    }
-
     public int getNumUndos() {
         return numUndos;
+    }
+
+    public void setNumUndos(int numUndos) {
+        this.numUndos = numUndos;
     }
 
     @Override
@@ -78,14 +78,6 @@ class HangmanManager implements Game, Serializable {
         return false;
     }
 
-    /**
-     * Makes a move based on user input str.
-     *
-     * @param letter user's guess
-     */
-    void makeMove(char letter) {
-        hangman.makeVisible(letter);
-    }
 
     /**
      * Returns the hangman for this manager
@@ -97,14 +89,16 @@ class HangmanManager implements Game, Serializable {
     }
 
     //Todo: Find a way to get resources without making this class an activity class?
+
     /**
      * Generates a new word based on difficulty.
      *
      * @return a word for the user to guess
      */
-    private String getNewWord() {
+    String getNewWord() {
         Random rand = new Random();
         String[] words;
+        String result = "test";
 
 //        switch (difficulty) {
 //            case "easy":
@@ -119,7 +113,7 @@ class HangmanManager implements Game, Serializable {
 //                break;
 //        }
 //        return words[rand.nextInt(words.length)];
-        return "test";
+        return result;
 
     }
 
@@ -142,7 +136,7 @@ class HangmanManager implements Game, Serializable {
      * @param guess, the users guess
      * @return if guess is a valid guess, single char from english alphabet
      */
-    private boolean isValid(String guess) {
+    boolean isValid(String guess) {
         return guess.matches("[a-zA-Z]");
     }
 }

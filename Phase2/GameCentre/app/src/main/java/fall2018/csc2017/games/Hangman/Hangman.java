@@ -1,30 +1,28 @@
 package fall2018.csc2017.games.Hangman;
 
-import android.graphics.Color;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A class that represents a Hangman game.
  */
 public class Hangman {
     /**
-     * The number of characters in current word.
+     * The current word being guessed.
      */
-    private int numChars;
+    String currWord;
     /**
      * The number of characters correctly guessed.
      */
-    private int numCorr = 0;
-    /**
-     * The current word being guessed.
-     */
-    private String currWord;
+    int numCorr = 0;
     /**
      * View of all the characters.
      */
-    private TextView[] charViews;
+    List<Character> chars;
+    /**
+     * The number of characters in current word.
+     */
+    private int numChars;
 
     /**
      * Represents a hangman object with generic difficulty.
@@ -33,8 +31,17 @@ public class Hangman {
      */
     Hangman(String word) {
         currWord = word;
-        charViews = new TextView[currWord.length()];
+        chars = new ArrayList<Character>();
         numChars = currWord.length();
+    }
+
+    /**
+     * Forms ArrayList of chars from currWord to be used by activity
+     */
+    void populateChars() {
+        for (int c = 0; c < currWord.length(); c++) {
+            chars.add(currWord.charAt(c));
+        }
     }
 
     /**
@@ -64,18 +71,5 @@ public class Hangman {
         return currWord;
     }
 
-    /**
-     * Reveals the correctly guessed characters.
-     *
-     * @param guessedChar the guessed character
-     */
-    void makeVisible(char guessedChar) {
-        for (int k = 0; k < currWord.length(); k++) {
-            if (currWord.charAt(k) == guessedChar) {
-                numCorr++;
-                charViews[k].setTextColor(Color.BLACK);
-            }
-        }
-    }
 
 }
