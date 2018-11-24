@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import fall2018.csc2017.games.R;
 
@@ -98,15 +99,17 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     private void computerPlay() {
+        ArrayList<Button> possibilities = new ArrayList<>();
+        Random rand = new Random();
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (buttons[i][j].getText().toString().equals("")) {
-                    onClick(findViewById(buttons[i][j].getId()));
-                    i = 400;
-                    j = 500;
+                    possibilities.add(buttons[i][j]);
                 }
             }
         }
+        onClick(findViewById(possibilities.get
+                (rand.nextInt(possibilities.size() - 1)).getId()));
     }
 
     private boolean checkForWin() {
