@@ -3,7 +3,6 @@ package fall2018.csc2017.games.Hangman;
 import android.content.Intent;
 import android.os.Bundle;
 
-import fall2018.csc2017.games.R;
 import fall2018.csc2017.games.ComplexityActivity;
 
 public class HangmanComplexityActivity extends ComplexityActivity {
