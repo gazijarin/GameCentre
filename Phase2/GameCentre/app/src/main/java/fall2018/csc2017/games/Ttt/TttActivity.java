@@ -15,6 +15,12 @@ import java.util.ArrayList;
 
 import fall2018.csc2017.games.R;
 
+//todo: AUTO SAVE, SAVE AND LOAD
+//todo:  SCOREBOARD INTEGRATION
+//todo: X and O selection
+//todo: hard mode for single player
+//todo: fix the yellows
+
 
 
 public class TttActivity extends AppCompatActivity implements View.OnClickListener {
@@ -29,7 +35,7 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
 
     private int mode;
 
-    TttManager manager = new TttManager();
+    TttManager manager;
     //boolean p1Turn = manager.getTurn();
 
     @Override
@@ -63,7 +69,7 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
 
         Bundle b = getIntent().getExtras();
         this.mode = b.getInt("mode");
-
+        manager = new TttManager(this.mode);
     }
 
     @Override

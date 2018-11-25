@@ -42,8 +42,12 @@ public class TttManager implements Game {
     public int roundCount = 0;
 
 
+    //game mode
+    private int mode;
 
-    TttManager() {
+
+    TttManager(int mode) {
+        this.mode = mode;
     }
 
     public boolean getTurn() {
