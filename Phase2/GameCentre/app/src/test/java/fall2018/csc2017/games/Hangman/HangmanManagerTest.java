@@ -15,14 +15,14 @@ public class HangmanManagerTest {
      */
     HangmanManager hangmanManager;
 
-
+    @Before
     public void setUp() {
         hangmanManager = new HangmanManager("medium");
     }
 
     @Test
     public void testDifficulty() {
-        setUp();
+
         String prevWord = hangmanManager.getHangman().getCurrWord();
         assertEquals("medium", hangmanManager.getDifficulty());
         hangmanManager.setDifficulty("hard");
@@ -35,14 +35,14 @@ public class HangmanManagerTest {
 
     @Test
     public void testGameProperties() {
-        setUp();
+
         assertEquals("hangman", hangmanManager.getGameId());
         assertFalse(hangmanManager.highTopScore());
     }
 
     @Test
     public void setNumUndos() {
-        setUp();
+
         assertEquals(3, hangmanManager.getNumUndos());
         hangmanManager.setNumUndos(5);
         assertEquals(5, hangmanManager.getNumUndos());
@@ -50,48 +50,64 @@ public class HangmanManagerTest {
 
     @Test
     public void testGetHangman() {
-        setUp();
+
         assertNotNull(hangmanManager.getHangman());
     }
 
     @Test
     public void testGetNewWord() {
-        setUp();
+
         assertNotNull(hangmanManager.getHangman());
     }
 
-    @Test
-    public void testPuzzleSolved() {
-        setUp();
-        String word = hangmanManager.getHangman().currWord;
 
+    @Test
+    public void testPuzzleSolvedCustomWord() {
+        HangmanManager manager = new HangmanManager(1, "A");
+        Hangman hangman = manager.getHangman();
+        hangman.makeVisible('A');
+        assertTrue(manager.puzzleSolved());
+    }
+
+    @Test
+    public void testPuzzleSolveTrueForward() {
+
+        String word = hangmanManager.getHangman().currWord;
         for (int i = 0; i < word.length(); i++) {
             hangmanManager.getHangman().makeVisible(word.charAt(i));
         }
-
         assertTrue(hangmanManager.puzzleSolved());
+    }
 
-        setUp();
+    @Test
+    public void testPuzzleSolveTrueReverse() {
 
-        word = hangmanManager.getHangman().currWord;
-
+        String word = hangmanManager.getHangman().currWord;
         for (int i = word.length() - 1; i >= 0; i--) {
             hangmanManager.getHangman().makeVisible(word.charAt(i));
         }
 
         assertTrue(hangmanManager.puzzleSolved());
+    }
 
-        setUp();
-        word = hangmanManager.getHangman().currWord;
 
+    @Test
+    public void testPuzzleSolvedFalseInitial() {
+
+        assertFalse(hangmanManager.puzzleSolved());
+    }
+
+    @Test
+    public void testPuzzleSolvedFalseOneGuess() {
+
+        String word = hangmanManager.getHangman().currWord;
         hangmanManager.getHangman().makeVisible(word.charAt(0));
         assertFalse(hangmanManager.puzzleSolved());
-
     }
 
     @Test
     public void testPuzzleLost() {
-        setUp();
+
         assertFalse(hangmanManager.puzzleLost());
 
         for (int i = 0; i < 6; i++) {
@@ -100,7 +116,7 @@ public class HangmanManagerTest {
 
         assertTrue(hangmanManager.puzzleLost());
 
-        setUp();
+
         String word = hangmanManager.getHangman().currWord;
         hangmanManager.getHangman().makeVisible(word.charAt(0));
 
@@ -113,7 +129,7 @@ public class HangmanManagerTest {
 
     @Test
     public void testIsValid() {
-        setUp();
+
         assertTrue(hangmanManager.isValid("a"));
         assertTrue(hangmanManager.isValid("B"));
         assertFalse(hangmanManager.isValid("%"));

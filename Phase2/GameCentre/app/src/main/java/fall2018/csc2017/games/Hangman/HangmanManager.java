@@ -29,8 +29,8 @@ class HangmanManager implements Game, Serializable {
     /**
      * Creates a new manager for a specific word.
      */
-    HangmanManager() {
-        hangman = new Hangman("test");
+    HangmanManager(int mode, String word) {
+        hangman = new Hangman(word);
     }
 
     /**
@@ -97,7 +97,7 @@ class HangmanManager implements Game, Serializable {
     String getNewWord() {
         Random rand = new Random();
         String[] words;
-        String result = "test";
+        String result = "TEST";
 
 //        switch (difficulty) {
 //            case "easy":
