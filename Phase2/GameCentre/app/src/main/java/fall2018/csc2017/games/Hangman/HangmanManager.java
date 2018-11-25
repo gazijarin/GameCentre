@@ -127,7 +127,16 @@ class HangmanManager implements Game, Serializable {
      * @return if the game is solved
      */
     public boolean puzzleSolved() {
-        return hangman.getNumCorr() == hangman.getNumChars();
+        return (new String(hangman.getRevealedWord())).equals(hangman.currWord);
+    }
+
+    /**
+     * Returns if the game has been lost.
+     *
+     * @return if the game has been lost.
+     */
+    public boolean puzzleLost() {
+        return hangman.getCurrentGuesses() == hangman.TOTAL_GUESSES;
     }
 
     /**

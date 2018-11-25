@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.Arrays;
 
 import fall2018.csc2017.games.R;
 import fall2018.csc2017.games.SlidingTiles.GameScreenActivity;
@@ -33,15 +34,14 @@ import fall2018.csc2017.games.SlidingTiles.GameScreenActivity;
 public class HangmanActivity extends AppCompatActivity {
 
     //Todo: MINIMIZE THE # OF INSTANCE VARIABLES; ONLY 5 OR LESS PER CLASS.
-    private LinearLayout wordLayout;
-    private TextView[] charViews;
+    private TextView current_word;
 
     private Handler handler;
 
     //number correctly guessed
     private HangmanBody body;
-    private Hangman hangman;
     private HangmanManager manager;
+    private Hangman hangman;
 
     /**
      * Runnable autoSaveTimer that saves the game every 30 seconds.
@@ -59,9 +59,6 @@ public class HangmanActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //sets up all the body parts + some variables
         body = new HangmanBody();
-        manager = new HangmanManager("medium");
-        //next line creates error because hangman isn't defined yet
-        hangman = manager.getHangman();
 
         setContentView(R.layout.activity_hangman);
         //todo: fix this
@@ -73,8 +70,8 @@ public class HangmanActivity extends AppCompatActivity {
 //            System.out.print(e);
 //        }
 
-        //the layout of the word being guessed
-        wordLayout = findViewById(R.id.word);
+        //the Textview of the word being guessed
+        current_word = findViewById(R.id.current_word);
 
         //Todo: Ew, too many arguments. Maybe create an array and pass in as single argument.
         body.initBodyParts(findViewById(R.id.head), findViewById(R.id.body),
@@ -88,11 +85,11 @@ public class HangmanActivity extends AppCompatActivity {
      * Adds all elements into the activity
      */
     private void playGame() {
-        hangman.currWord = pickNewWord();
-        charViews = new TextView[hangman.getNumChars()];
-        wordLayout.removeAllViews();
-        createUnderlines();
+        manager = new HangmanManager("medium");
+        hangman = manager.getHangman();
         body.createHangman();
+        displayCurrentWord();
+
         addSubmitButton();
         //todo: read below
         //playGame will run and finish because line below is printed
@@ -106,7 +103,7 @@ public class HangmanActivity extends AppCompatActivity {
         super.onStart();
         handler = new Handler();
         makeToastAutoSavedText();
-        autoSaveTimer.run();
+        // autoSaveTimer.run();
     }
 
     /**
@@ -120,33 +117,6 @@ public class HangmanActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         handler.removeCallbacks(autoSaveTimer);
-    }
-
-    private void populateCharViews() {
-        for (int c = 0; c < hangman.getNumChars(); c++) {
-            charViews[c].setText(c);
-        }
-    }
-
-    /**
-     * Sets up the hidden word + underlines based on current word
-     */
-    private void createUnderlines() {
-        for (int i = 0; i < hangman.getNumChars(); i++) {
-
-            //sets up the amount of underlines
-            charViews[i] = new TextView(this);
-            charViews[i].setText("" + hangman.currWord.charAt(i));
-            charViews[i].setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-            charViews[i].setGravity(Gravity.CENTER);
-            //colour set to white to hide letter on white background, will reveal to black
-            charViews[i].setTextColor(Color.WHITE);
-            charViews[i].setBackgroundResource(R.drawable.letter_underline);
-
-            //add to layout
-            wordLayout.addView(charViews[i]);
-
-        }
     }
 
     /**
@@ -166,23 +136,15 @@ public class HangmanActivity extends AppCompatActivity {
     }
 
     /**
-     * pics a new word, ensure it's different from previous game
-     */
-    private String pickNewWord() {
-        return manager.getNewWord();
-    }
-
-
-    /**
      * Activate the submit button.
      */
     private void addSubmitButton() {
-        Button undoButton = findViewById(R.id.submit);
-        undoButton.setOnClickListener(new View.OnClickListener() {
+        Button submitButton = findViewById(R.id.submit);
+        submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String guess = getInput();
-                if (!isValid(guess)) {
+                if (!manager.isValid(guess)) {
                     makeToastInvalid();
                 } else {
                     updateLetters(guess);
@@ -198,19 +160,8 @@ public class HangmanActivity extends AppCompatActivity {
      * @return user guess
      */
     private String getInput() {
-        String guess = ((EditText) findViewById(R.id.user_guess)).getText().toString();
-        return guess.toUpperCase();
+        return ((EditText) findViewById(R.id.user_guess)).getText().toString();
     }
-
-    /**
-     * @param guess, the users guess
-     * @return if guess is a valid guess, single char from english alphabet
-     */
-    private boolean isValid(String guess) {
-        return manager.isValid(guess);
-    }
-
-    //Todo: Too long. Create another method to share the hefty burden.
 
     /**
      * updates variables based on the valid guess
@@ -221,16 +172,38 @@ public class HangmanActivity extends AppCompatActivity {
         // if guess is wrong then add a body part
         char letterChar = guess.charAt(0);
 
-        makeVisible(letterChar);
+        boolean found = hangman.makeVisible(letterChar);
+        displayCurrentWord();
 
-        if (hangman.currWord.indexOf(letterChar) != -1) {
+        if (manager.puzzleSolved()) {
             showEndScreen();
-        } else if (!body.isComplete()) {//some guesses left
+        } else if (!found && !manager.puzzleLost()) {//some guesses left
             body.addPart();
-        } else { //user has lost rip
+        } else if (manager.puzzleLost()) { //user has lost rip
             //todo: update scoreboard?
             makeToastLost();
+        } else {
+            Log.i("orange", "updateLetters: " + Arrays.toString(hangman.getRevealedWord()));
         }
+    }
+
+    /**
+     * Displays the current word on the screen
+     */
+    private void displayCurrentWord() {
+        char[] current = hangman.getRevealedWord();
+        StringBuilder toDisplay = new StringBuilder();
+        for (int i = 0; i < current.length; i++) {
+            if (current[i] != '@') {
+                toDisplay.append(current[i]);
+                toDisplay.append(" ");
+            } else {
+                toDisplay.append("_");
+                toDisplay.append(" ");
+            }
+        }
+
+        current_word.setText(toDisplay.toString());
     }
 
     private void showEndScreen() {
@@ -267,22 +240,6 @@ public class HangmanActivity extends AppCompatActivity {
     private void makeToastLost() {
         Toast.makeText(this, "Ran out of guesses, try again", Toast.LENGTH_SHORT).show();
         HangmanActivity.this.playGame();
-
-    }
-
-    /**
-     * Makes the right characters from charView visible on screen
-     *
-     * @param c, the char to make visible on screen
-     */
-    private void makeVisible(char c) {
-
-        for (int k = 0; k < hangman.currWord.length(); k++) {
-            if (hangman.currWord.charAt(k) == c) {
-                hangman.numCorr++;
-                charViews[k].setTextColor(Color.BLACK);
-            }
-        }
 
     }
 

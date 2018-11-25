@@ -12,17 +12,19 @@ public class Hangman {
      */
     String currWord;
     /**
-     * The number of characters correctly guessed.
+     * A char array representing the parts of the word that have been revealed
      */
-    int numCorr = 0;
+    private char[] revealedWord;
+
     /**
-     * View of all the characters.
+     * The total number of guesses for the hangman game.
      */
-    List<Character> chars;
+    public final int TOTAL_GUESSES = 6;
+
     /**
-     * The number of characters in current word.
+     * The current guess amount.
      */
-    private int numChars;
+    private int currentGuesses;
 
     /**
      * Represents a hangman object with generic difficulty.
@@ -31,45 +33,59 @@ public class Hangman {
      */
     Hangman(String word) {
         currWord = word;
-        chars = new ArrayList<Character>();
-        numChars = currWord.length();
-    }
+        currentGuesses = 0;
+        revealedWord = new char[word.length()];
 
-    /**
-     * Forms ArrayList of chars from currWord to be used by activity
-     */
-    void populateChars() {
-        for (int c = 0; c < currWord.length(); c++) {
-            chars.add(currWord.charAt(c));
+        for (int i = 0; i < revealedWord.length; i++) {
+            revealedWord[i] = '@';
         }
     }
 
     /**
-     * Returns the number of characters.
+     * Returns the current word
      *
-     * @return the number of characters
-     */
-    int getNumChars() {
-        return numChars;
-    }
-
-    /**
-     * Returns the number of characters.
-     *
-     * @return the number of characters
-     */
-    int getNumCorr() {
-        return numCorr;
-    }
-
-    /**
-     * Returns the number of characters.
-     *
-     * @return the number of characters
+     * @return the current word
      */
     String getCurrWord() {
         return currWord;
     }
 
+    /**
+     * Makes a character visible in this hangman
+     *
+     * @param character the character to make visible
+     * @return whether the letter was found
+     */
+    boolean makeVisible(char character) {
+        boolean found = false;
+        for (int i = 0; i < currWord.length(); i++) {
+            if (Character.toLowerCase(currWord.charAt(i)) ==
+                    Character.toLowerCase(character)) {
+                revealedWord[i] = character;
+                found = true;
+            }
+        }
+        if (!found) {
+            currentGuesses++;
+        }
+        return found;
+    }
 
+    /**
+     * returns the char array representing the parts revealed of the word.
+     *
+     * @return the char array representing the parts revealed of the word.
+     */
+    char[] getRevealedWord() {
+        return revealedWord;
+    }
+
+    /**
+     * Returns how many guesses so far
+     *
+     * @return how many guesses so far
+     */
+    public int getCurrentGuesses() {
+        return currentGuesses;
+    }
 }
