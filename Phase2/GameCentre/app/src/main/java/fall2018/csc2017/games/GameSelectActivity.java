@@ -37,21 +37,21 @@ public class GameSelectActivity extends AppCompatActivity {
         sliding_tiles_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToGame();
+                goToGame("slidingtiles");
             }
         });
 
         ttt_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToTTTGame();
+                goToGame("Ttt");
             }
         });
 
         hangman_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToHangmanGameScreen();
+                goToGame("hangman");
             }
         });
 
@@ -59,30 +59,29 @@ public class GameSelectActivity extends AppCompatActivity {
     }
 
     /**
-     * Switches activity to the Sliding Tiles game
+     * Progresses to the game activity specified
+     * @param gameid the id of the game that the user wishes to switch to
      */
-    public void goToGame() {
-        Intent tmp = new Intent(this, SlidingTilesScreenActivity.class);
+    public void goToGame(String gameid) {
+
+        Intent tmp;
+
+        switch (gameid) {
+            case "slidingtiles":
+                tmp = new Intent(this, SlidingTilesScreenActivity.class);
+                break;
+            case "hangman":
+                tmp = new Intent(this, HangmanScreenActivity.class);
+                break;
+            case "Ttt":
+                tmp = new Intent(this, TttComplexityActivity.class);
+                break;
+            default:
+                tmp = new Intent(this, SlidingTilesScreenActivity.class);
+                break;
+        }
+
         tmp.putExtra("USERNAME", getIntent().getStringExtra("USERNAME"));
         startActivity(tmp);
     }
-
-    /**
-     * Switches activity to the tic-tac-toe game
-     */
-    public  void goToTTTGame(){
-        Intent tmp = new Intent(this, TttComplexityActivity.class);
-        tmp.putExtra("USERNAME", getIntent().getStringExtra("USERNAME"));
-        startActivity(tmp);
-    }
-
-    /**
-     * Switches activity to the hangman game
-     */
-    public void goToHangmanGameScreen() {
-        Intent tmp = new Intent(this, HangmanScreenActivity.class);
-        tmp.putExtra("USERNAME", getIntent().getStringExtra("USERNAME"));
-        startActivity(tmp);
-    }
-
 }

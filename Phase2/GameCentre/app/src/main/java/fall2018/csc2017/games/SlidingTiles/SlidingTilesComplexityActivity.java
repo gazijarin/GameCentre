@@ -2,6 +2,7 @@ package fall2018.csc2017.games.SlidingTiles;
 import android.content.Intent;
 import android.os.Bundle;
 import fall2018.csc2017.games.ComplexityActivity;
+import fall2018.csc2017.games.GameScreenActivity;
 
 /**
  * An activity to select settings for the game.
@@ -18,7 +19,7 @@ public class SlidingTilesComplexityActivity extends ComplexityActivity {
      */
     protected void switchToGame() {
         game.setNumUndos(Integer.parseInt(numUndos.getText().toString()));
-        saveToFile(SlidingTilesScreenActivity.SAVE_FILENAME);
+        saveToFile(GameScreenActivity.SAVE_FILENAME);
         Intent tmp = new Intent(this, GameActivity.class);
         startActivity(tmp);
     }

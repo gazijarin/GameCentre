@@ -10,4 +10,6 @@
     <string name="sliding_tiles">Sliding Tiles</string>
     <string name="todo">TODO</string>
     <string name="select_game">Select Game</string>
+    <string name="sliding_tiles_description">Welcome To Sliding Tiles.\n A puzzle game where you must order the tiles."</string>
+    <string name="hangman_description">Welcome To Hangman. \n A Puzzle Game where you must guess a random word.</string>
 </resources>

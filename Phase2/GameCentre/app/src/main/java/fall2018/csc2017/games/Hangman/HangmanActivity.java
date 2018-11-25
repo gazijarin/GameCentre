@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Arrays;
 
+import fall2018.csc2017.games.GameScreenActivity;
 import fall2018.csc2017.games.R;
 import fall2018.csc2017.games.SlidingTiles.SlidingTilesScreenActivity;
 
@@ -44,7 +45,7 @@ public class HangmanActivity extends AppCompatActivity {
      */
     public Runnable autoSaveTimer = new Runnable() {
         public void run() {
-            saveToFile(SlidingTilesScreenActivity.SAVE_FILENAME);
+            saveToFile(GameScreenActivity.SAVE_FILENAME);
 
             handler.postDelayed(this, 30 * 1000);
         }
@@ -99,7 +100,7 @@ public class HangmanActivity extends AppCompatActivity {
         super.onStart();
         handler = new Handler();
         makeToastAutoSavedText();
-        // autoSaveTimer.run();
+        autoSaveTimer.run();
     }
 
     /**

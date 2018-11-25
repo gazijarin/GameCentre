@@ -11,11 +11,7 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-public abstract class ComplexityActivity extends AppCompatActivity {
-    /**
-     * The HangmanManager for the game
-     */
-    protected Game game;
+public abstract class ComplexityActivity extends FileActivity<Game> {
     /**
      * The input for the number of undos
      */
@@ -100,21 +96,5 @@ public abstract class ComplexityActivity extends AppCompatActivity {
      * Switches to the game activity view to play the game.
      */
     protected abstract void switchToGame();
-
-    /**
-     * Save the board manager to fileName.
-     *
-     * @param fileName the name of the file
-     */
-    public void saveToFile(String fileName) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(game);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
 
 }
