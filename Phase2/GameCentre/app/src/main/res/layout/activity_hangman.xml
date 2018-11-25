@@ -83,15 +83,6 @@
     </RelativeLayout>
 
     <!--guessed letters + underlines-->
-    <LinearLayout
-        android:id="@+id/word"
-        android:layout_width="fill_parent"
-        android:layout_height="184dp"
-        android:layout_marginBottom="5dp"
-        android:background="#FFFFFFFF"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="10dp"></LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -103,6 +94,14 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin">
         <!--user input-->
+        <TextView
+            android:id="@+id/current_word"
+            android:layout_width="match_parent"
+            android:layout_height="268dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="30sp" />
+
         <EditText
             android:id="@+id/user_guess"
             android:layout_width="match_parent"
