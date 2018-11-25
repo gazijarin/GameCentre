@@ -3,36 +3,40 @@ package fall2018.csc2017.games.Ttt;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Random;
 
 import fall2018.csc2017.games.R;
+
+//todo: AUTO SAVE, SAVE AND LOAD
+//todo:  SCOREBOARD INTEGRATION
+//todo: X and O selection
+//todo: hard mode for single player
+//todo: fix the yellows
 
 
 
 public class TttActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button[][] buttons = new Button[3][3];
+
+    //private Button[][] buttons = new Button[3][3];
 
 
-    private int roundCount;
-
-    private int p1Points;
-    private int p2Points;
 
     private TextView textViewp1;
     private TextView textViewp2;
 
     private int mode;
 
-    TttManager manager = new TttManager();
-    boolean p1Turn = manager.getTurn();
+    TttManager manager;
+    //boolean p1Turn = manager.getTurn();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +46,15 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
         textViewp1 = findViewById(R.id.text_view_p1);
         textViewp2 = findViewById(R.id.text_view_p2);
 
+
+        //set up buttons for the UI
+
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 String buttonID = "button_" + i + j;
                 int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
-                buttons[i][j] = findViewById(resID);
-                buttons[i][j].setOnClickListener(this);
+                manager.buttons[i][j] = findViewById(resID);
+                manager.buttons[i][j].setOnClickListener(this);
             }
         }
 
@@ -62,7 +69,7 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
 
         Bundle b = getIntent().getExtras();
         this.mode = b.getInt("mode");
-
+        manager = new TttManager(this.mode);
     }
 
     @Override
@@ -71,122 +78,66 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
             return;
         }
 
-        if (p1Turn) {
+        if (manager.p1Turn) {
             ((Button) v).setText("X");
+
         } else {
             ((Button) v).setText("O");
         }
 
         manager.log.add((Button) v);
+        manager.roundCount++;
 
-        roundCount++;
+        winActivities();
 
-        if (checkForWin()) {
-            if (p1Turn) {
-                player1Wins();
-            } else {
-                player2Wins();
-            }
-        } else if (roundCount == 9) {
-            draw();
-        } else {
-            p1Turn = !p1Turn;
-        }
 
-        if (!p1Turn && this.mode == 1) {
-            computerPlay();
+        if (!manager.p1Turn && this.mode == 1) {
+            onClick(findViewById(manager.easyMode().getId()));
         }
     }
 
-    private void computerPlay() {
-        ArrayList<Button> possibilities = new ArrayList<>();
-        Random rand = new Random();
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (buttons[i][j].getText().toString().equals("")) {
-                    possibilities.add(buttons[i][j]);
-                }
-            }
-        }
-        onClick(findViewById(possibilities.get
-                (rand.nextInt(possibilities.size() - 1)).getId()));
-    }
 
-    private boolean checkForWin() {
-        String[][] field = new String[3][3];
-
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                field[i][j] = buttons[i][j].getText().toString();
-            }
-        }
-
-        for (int i = 0; i < 3; i++) {
-            if (field[i][0].equals(field[i][1])
-                    && field[i][0].equals(field[i][2])
-                    && !field[i][0].equals("")) {
-                return true;
-            }
-        }
-
-        for (int i = 0; i < 3; i++) {
-            if (field[0][i].equals(field[1][i])
-                    && field[0][i].equals(field[2][i])
-                    && !field[0][i].equals("")) {
-                return true;
-            }
-        }
-
-        if (field[0][0].equals(field[1][1])
-                && field[0][0].equals(field[2][2])
-                && !field[0][0].equals("")) {
-            return true;
-        }
-
-        if (field[0][2].equals(field[1][1])
-                && field[0][2].equals(field[2][0])
-                && !field[0][2].equals("")) {
-            return true;
-        }
-
-        return false;
-    }
-
-    private void player1Wins() {
-        p1Points++;
-        Toast.makeText(this, "Player 1 wins!", Toast.LENGTH_SHORT).show();
+    private void announcement() {
+        Toast.makeText(this, manager.winMessage, Toast.LENGTH_SHORT).show();
         updatePointsText();
-        resetBoard();
-    }
-
-    private void player2Wins() {
-        p2Points++;
-        Toast.makeText(this, "Player 2 wins!", Toast.LENGTH_SHORT).show();
-        updatePointsText();
-        resetBoard();
-    }
-
-    private void draw() {
-        Toast.makeText(this, "Draw!", Toast.LENGTH_SHORT).show();
-        resetBoard();
+        manager.resetBoard();
     }
 
     private void updatePointsText() {
-        textViewp1.setText("Player 1: " + p1Points);
-        textViewp2.setText("Player 2: " + p2Points);
+        textViewp1.setText("Player 1: " + manager.p1Points);
+        textViewp2.setText("Player 2: " + manager.p2Points);
     }
 
-    private void resetBoard() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                buttons[i][j].setText("");
+    private void winActivities() {
+        if (manager.checkForWin() || manager.roundCount >= 9) {
+
+            if (manager.roundCount >= 9) {
+                manager.winMessage = "Draw";
+            } else if (manager.p1Turn) {
+                manager.winMessage = "Player 1 wins!";
+                manager.p1Points++;
+            } else {
+                manager.winMessage = "Player 2 wins!";
+                manager.p2Points++;
             }
+            announcement();
+
+        } else {
+            manager.p1Turn = !manager.p1Turn;
         }
 
-        manager.log = new ArrayList<>();
+    }
 
-        roundCount = 0;
-        p1Turn = true;
+
+    public void saveToFile(String fileName) {
+        try {
+            ObjectOutputStream outputStream = new ObjectOutputStream(
+                    this.openFileOutput(fileName, MODE_PRIVATE));
+            outputStream.writeObject(manager);
+            outputStream.close();
+        } catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
     }
 
 
@@ -194,20 +145,19 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putInt("roundCount", roundCount);
-        outState.putInt("p1Points", p1Points);
-        outState.putInt("p2Points", p2Points);
-        outState.putBoolean("p1Turn", p1Turn);
+        outState.putInt("roundCount", manager.roundCount);
+        outState.putInt("p1Points", manager.p1Points);
+        outState.putInt("p2Points", manager.p2Points);
+        outState.putBoolean("p1Turn", manager.p1Turn);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
 
-        roundCount = savedInstanceState.getInt("roundCount");
-        p1Points = savedInstanceState.getInt("p1Points");
-        p2Points = savedInstanceState.getInt("p2Points");
-        p1Turn = savedInstanceState.getBoolean("p1Turn");
+        manager.roundCount = savedInstanceState.getInt("roundCount");
+        manager.p1Points = savedInstanceState.getInt("p1Points");
+        manager.p2Points = savedInstanceState.getInt("p2Points");
+        manager.p1Turn = savedInstanceState.getBoolean("p1Turn");
     }
-
 }

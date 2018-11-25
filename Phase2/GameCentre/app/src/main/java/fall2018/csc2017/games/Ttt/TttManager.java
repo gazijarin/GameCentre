@@ -2,7 +2,9 @@ package fall2018.csc2017.games.Ttt;
 
 import android.widget.Button;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Random;
 
 import fall2018.csc2017.games.Game;
 
@@ -20,18 +22,36 @@ public class TttManager implements Game {
     /**
      * boolean to keep track of turn
      */
-    private boolean turn;
+    public boolean p1Turn = true;
 
     /**
      * Creates a new manager for a specific word.
      */
-    TttManager() {
-        this.turn = true;
-        this.log = log;
+
+    // points
+    public int p1Points = 0;
+    public int p2Points = 0;
+
+    //win message
+    public String winMessage;
+
+    //game Tracker
+    public Button[][] buttons = new Button[3][3];
+
+    //round count
+    public int roundCount = 0;
+
+
+    //game mode
+    private int mode;
+
+
+    TttManager(int mode) {
+        this.mode = mode;
     }
 
     public boolean getTurn() {
-        return this.turn;
+        return p1Turn;
     }
 
     @Override
@@ -96,7 +116,76 @@ public class TttManager implements Game {
             x.setText("");
             this.log.remove(log.size() - 1);
         }
-        this.turn = !this.turn;
+        p1Turn = !p1Turn;
         return true;
     }
+
+    public Button easyMode() {
+        ArrayList<Button> possibilities = new ArrayList<>();
+        Random rand = new Random();
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (buttons[i][j].getText().toString().equals("")) {
+                    possibilities.add(buttons[i][j]);
+                }
+            }
+        }
+
+        return possibilities.get(rand.nextInt(possibilities.size() - 1));
+    }
+
+    public boolean checkForWin() {
+        String[][] field = new String[3][3];
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                field[i][j] = buttons[i][j].getText().toString();
+            }
+        }
+
+        for (int i = 0; i < 3; i++) {
+            if (field[i][0].equals(field[i][1])
+                    && field[i][0].equals(field[i][2])
+                    && !field[i][0].equals("")) {
+                return true;
+            }
+        }
+
+        for (int i = 0; i < 3; i++) {
+            if (field[0][i].equals(field[1][i])
+                    && field[0][i].equals(field[2][i])
+                    && !field[0][i].equals("")) {
+                return true;
+            }
+        }
+
+        if (field[0][0].equals(field[1][1])
+                && field[0][0].equals(field[2][2])
+                && !field[0][0].equals("")) {
+            return true;
+        }
+
+        if (field[0][2].equals(field[1][1])
+                && field[0][2].equals(field[2][0])
+                && !field[0][2].equals("")) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+    public void resetBoard() {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                buttons[i][j].setText("");
+            }
+        }
+        log = new ArrayList<>();
+        roundCount = 0;
+        p1Turn = true;
+    }
+
+
+
 }
