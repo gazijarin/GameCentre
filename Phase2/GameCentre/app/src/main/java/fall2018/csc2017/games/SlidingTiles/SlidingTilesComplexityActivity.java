@@ -2,6 +2,7 @@ package fall2018.csc2017.games.SlidingTiles;
 import android.content.Intent;
 import android.os.Bundle;
 import fall2018.csc2017.games.ComplexityActivity;
+import fall2018.csc2017.games.GameScreenActivity;
 
 /**
  * An activity to select settings for the game.

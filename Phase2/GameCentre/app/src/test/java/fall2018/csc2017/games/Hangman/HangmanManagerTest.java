@@ -3,7 +3,11 @@ package fall2018.csc2017.games.Hangman;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class HangmanManagerTest {
     /**
@@ -11,7 +15,7 @@ public class HangmanManagerTest {
      */
     HangmanManager hangmanManager;
 
-    @Before
+
     public void setUp() {
         hangmanManager = new HangmanManager("medium");
     }
@@ -26,7 +30,7 @@ public class HangmanManagerTest {
         assertEquals("hard", hangmanManager.getDifficulty());
         assertNotEquals(prevWord, nextWord);
         hangmanManager.setDifficulty("dummy");
-        //assertEquals("medium", hangmanManager.getDifficulty()); //should default to medium
+        assertEquals("medium", hangmanManager.getDifficulty()); //should default to medium
     }
 
     @Test
@@ -44,26 +48,78 @@ public class HangmanManagerTest {
         assertEquals(5, hangmanManager.getNumUndos());
     }
 
-    public void testMakeMove() {
-
-
+    @Test
+    public void testGetHangman() {
+        setUp();
+        assertNotNull(hangmanManager.getHangman());
     }
 
     @Test
-    public void testPuzzleSolvedTrue() {
-        HangmanManager manager = new HangmanManager(1, "a");
-        Hangman hangman = manager.getHangman();
-        hangman.makeVisible('a');
-        assertTrue(manager.puzzleSolved());
-
-
+    public void testGetNewWord() {
+        setUp();
+        assertNotNull(hangmanManager.getHangman());
     }
 
     @Test
-    public void testPuzzleSolvedFalse() {
+    public void testPuzzleSolved() {
+        setUp();
+        String word = hangmanManager.getHangman().currWord;
+
+        for (int i = 0; i < word.length(); i++) {
+            hangmanManager.getHangman().makeVisible(word.charAt(i));
+        }
+
+        assertTrue(hangmanManager.puzzleSolved());
+
+        setUp();
+
+        word = hangmanManager.getHangman().currWord;
+
+        for (int i = word.length() - 1; i >= 0; i--) {
+            hangmanManager.getHangman().makeVisible(word.charAt(i));
+        }
+
+        assertTrue(hangmanManager.puzzleSolved());
+
+        setUp();
+        word = hangmanManager.getHangman().currWord;
+
+        hangmanManager.getHangman().makeVisible(word.charAt(0));
         assertFalse(hangmanManager.puzzleSolved());
+
     }
 
+    @Test
+    public void testPuzzleLost() {
+        setUp();
+        assertFalse(hangmanManager.puzzleLost());
 
+        for (int i = 0; i < 6; i++) {
+            hangmanManager.getHangman().makeVisible('@');
+        }
+
+        assertTrue(hangmanManager.puzzleLost());
+
+        setUp();
+        String word = hangmanManager.getHangman().currWord;
+        hangmanManager.getHangman().makeVisible(word.charAt(0));
+
+        for (int i = 0; i < 5; i++) {
+            hangmanManager.getHangman().makeVisible('@');
+        }
+
+        assertFalse(hangmanManager.puzzleLost());
+    }
+
+    @Test
+    public void testIsValid() {
+        setUp();
+        assertTrue(hangmanManager.isValid("a"));
+        assertTrue(hangmanManager.isValid("B"));
+        assertFalse(hangmanManager.isValid("%"));
+        assertFalse(hangmanManager.isValid("@"));
+        assertFalse(hangmanManager.isValid(""));
+        assertFalse(hangmanManager.isValid("aa"));
+    }
 
 }

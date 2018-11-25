@@ -59,9 +59,9 @@ public class Hangman {
     boolean makeVisible(char character) {
         boolean found = false;
         for (int i = 0; i < currWord.length(); i++) {
-            if (Character.toLowerCase(currWord.charAt(i)) ==
-                    Character.toLowerCase(character)) {
-                revealedWord[i] = character;
+            if (Character.toUpperCase(currWord.charAt(i)) ==
+                    Character.toUpperCase(character)) {
+                revealedWord[i] = Character.toUpperCase(character);
                 found = true;
             }
         }

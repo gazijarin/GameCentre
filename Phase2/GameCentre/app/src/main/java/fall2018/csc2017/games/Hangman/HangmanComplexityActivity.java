@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import fall2018.csc2017.games.ComplexityActivity;
+import fall2018.csc2017.games.GameScreenActivity;
 
 public class HangmanComplexityActivity extends ComplexityActivity {
 
@@ -18,7 +19,7 @@ public class HangmanComplexityActivity extends ComplexityActivity {
      */
     protected void switchToGame() {
         game.setNumUndos(Integer.parseInt(numUndos.getText().toString()));
-        saveToFile(HangmanScreenActivity.SAVE_FILENAME);
+        saveToFile(GameScreenActivity.SAVE_FILENAME);
         Intent tmp = new Intent(this, HangmanActivity.class);
         startActivity(tmp);
     }

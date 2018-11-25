@@ -19,14 +19,17 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import fall2018.csc2017.games.FileActivity;
+import fall2018.csc2017.games.GameScreenActivity;
 import fall2018.csc2017.games.R;
 
 /**
  * The game activity.
  */
-public class GameActivity extends AppCompatActivity implements Observer {
+public class GameActivity extends FileActivity implements Observer {
+
     /**
-     * The board manager.
+     * The board manager
      */
     private BoardManager boardManager;
     /**
@@ -54,10 +57,10 @@ public class GameActivity extends AppCompatActivity implements Observer {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadFromFile(GameScreenActivity.SAVE_FILENAME);
+        boardManager = (BoardManager) game;
+
         createTileButtons(this);
         setContentView(R.layout.activity_main);
-
-        Log.i("AYYLMAO", "" + boardManager.numUndos);
 
         addUndoButtonListener();
         addRedoButtonListener();
@@ -153,44 +156,6 @@ public class GameActivity extends AppCompatActivity implements Observer {
     protected void onPause() {
         super.onPause();
         saveToFile(GameScreenActivity.SAVE_FILENAME);
-    }
-
-    /**
-     * Load the board manager from fileName.
-     *
-     * @param fileName the name of the file
-     */
-    private void loadFromFile(String fileName) {
-        try {
-            InputStream inputStream = this.openFileInput(fileName);
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                boardManager = (BoardManager) input.readObject();
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
-        }
-    }
-
-    /**
-     * Save the board manager to fileName.
-     *
-     * @param fileName the name of the file
-     */
-    public void saveToFile(String fileName) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(boardManager);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
     }
 
     @Override
