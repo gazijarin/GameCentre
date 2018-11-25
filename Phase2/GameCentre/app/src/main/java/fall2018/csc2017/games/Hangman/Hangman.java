@@ -17,16 +17,6 @@ public class Hangman {
     private char[] revealedWord;
 
     /**
-     * The number of characters correctly guessed.
-     */
-    int numCorr = 0;
-
-    /**
-     * The number of characters in current word.
-     */
-    private int numChars;
-
-    /**
      * The total number of guesses for the hangman game.
      */
     public final int TOTAL_GUESSES = 6;
@@ -49,26 +39,6 @@ public class Hangman {
         for (int i = 0; i < revealedWord.length; i++) {
             revealedWord[i] = '@';
         }
-
-        numChars = currWord.length();
-    }
-
-    /**
-     * Returns the number of characters.
-     *
-     * @return the number of characters
-     */
-    int getNumChars() {
-        return numChars;
-    }
-
-    /**
-     * Returns the number of characters correctly guessed.
-     *
-     * @return the number of characters correctly guessed.
-     */
-    int getNumCorr() {
-        return numCorr;
     }
 
     /**
