@@ -18,7 +18,7 @@ public class SlidingTilesComplexityActivity extends ComplexityActivity {
      */
     protected void switchToGame() {
         game.setNumUndos(Integer.parseInt(numUndos.getText().toString()));
-        saveToFile(GameScreenActivity.SAVE_FILENAME);
+        saveToFile(SlidingTilesScreenActivity.SAVE_FILENAME);
         Intent tmp = new Intent(this, GameActivity.class);
         startActivity(tmp);
     }

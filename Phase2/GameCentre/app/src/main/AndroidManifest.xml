@@ -20,7 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SlidingTiles.GameScreenActivity" />
+        <activity android:name=".SlidingTiles.SlidingTilesScreenActivity" />
         <activity
             android:name=".LoginActivity"
             android:windowSoftInputMode="stateHidden" />
@@ -35,6 +35,7 @@
         <activity android:name=".SlidingTiles.SlidingTilesComplexityActivity" />
         <activity android:name=".ComplexityActivity" />
         <activity android:name=".Ttt.TttComplexityActivity" />
+        <activity android:name=".FileActivity"></activity>
     </application>
 
 </manifest>

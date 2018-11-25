@@ -53,7 +53,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFromFile(GameScreenActivity.SAVE_FILENAME);
+        loadFromFile(SlidingTilesScreenActivity.SAVE_FILENAME);
         createTileButtons(this);
         setContentView(R.layout.activity_main);
 
@@ -119,7 +119,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
      */
     public Runnable autoSaveTimer = new Runnable() {
         public void run() {
-            saveToFile(GameScreenActivity.SAVE_FILENAME);
+            saveToFile(SlidingTilesScreenActivity.SAVE_FILENAME);
             makeToastAutoSavedText();
             handler.postDelayed(this, 30 * 1000);
         }
@@ -152,7 +152,7 @@ public class GameActivity extends AppCompatActivity implements Observer {
     @Override
     protected void onPause() {
         super.onPause();
-        saveToFile(GameScreenActivity.SAVE_FILENAME);
+        saveToFile(SlidingTilesScreenActivity.SAVE_FILENAME);
     }
 
     /**

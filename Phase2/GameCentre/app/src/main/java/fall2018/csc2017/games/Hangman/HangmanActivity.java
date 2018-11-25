@@ -2,17 +2,13 @@ package fall2018.csc2017.games.Hangman;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +17,7 @@ import java.io.ObjectOutputStream;
 import java.util.Arrays;
 
 import fall2018.csc2017.games.R;
-import fall2018.csc2017.games.SlidingTiles.GameScreenActivity;
+import fall2018.csc2017.games.SlidingTiles.SlidingTilesScreenActivity;
 
 /*
  * HangmanActivity adapted from Sue Smith's tutorial in envatotuts+
@@ -48,7 +44,7 @@ public class HangmanActivity extends AppCompatActivity {
      */
     public Runnable autoSaveTimer = new Runnable() {
         public void run() {
-            saveToFile(GameScreenActivity.SAVE_FILENAME);
+            saveToFile(SlidingTilesScreenActivity.SAVE_FILENAME);
 
             handler.postDelayed(this, 30 * 1000);
         }

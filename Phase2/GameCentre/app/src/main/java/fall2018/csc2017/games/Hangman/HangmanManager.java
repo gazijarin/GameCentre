@@ -78,7 +78,6 @@ class HangmanManager implements Game, Serializable {
         return false;
     }
 
-
     /**
      * Returns the hangman for this manager
      *

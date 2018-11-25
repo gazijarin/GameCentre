@@ -9,7 +9,7 @@ import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import fall2018.csc2017.games.Hangman.HangmanScreenActivity;
-import fall2018.csc2017.games.SlidingTiles.GameScreenActivity;
+import fall2018.csc2017.games.SlidingTiles.SlidingTilesScreenActivity;
 import fall2018.csc2017.games.Ttt.TttComplexityActivity;
 
 /**
@@ -62,7 +62,7 @@ public class GameSelectActivity extends AppCompatActivity {
      * Switches activity to the Sliding Tiles game
      */
     public void goToGame() {
-        Intent tmp = new Intent(this, GameScreenActivity.class);
+        Intent tmp = new Intent(this, SlidingTilesScreenActivity.class);
         tmp.putExtra("USERNAME", getIntent().getStringExtra("USERNAME"));
         startActivity(tmp);
     }

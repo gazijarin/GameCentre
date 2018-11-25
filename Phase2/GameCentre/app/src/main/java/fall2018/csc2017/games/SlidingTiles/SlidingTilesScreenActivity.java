@@ -19,7 +19,7 @@ import fall2018.csc2017.games.R;
 /**
  * The initial activity for the sliding puzzle tile game.
  */
-public class GameScreenActivity extends AppCompatActivity {
+public class SlidingTilesScreenActivity extends AppCompatActivity {
 
     /**
      * The main save file.
