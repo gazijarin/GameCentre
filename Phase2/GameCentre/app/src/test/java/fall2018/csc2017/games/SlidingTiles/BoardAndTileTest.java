@@ -1,5 +1,6 @@
 package fall2018.csc2017.games.SlidingTiles;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import fall2018.csc2017.games.R;
 import fall2018.csc2017.games.SlidingTiles.*;
 
 import static org.junit.Assert.*;
@@ -37,7 +39,8 @@ public class BoardAndTileTest {
     /**
      * Make a solved Board.
      */
-    private void setUpCorrect() {
+    @Before
+    public void setUpCorrect() {
         int numRows = 4;
         int numCols = 4;
         List<Tile> tiles = makeTiles(numRows * numCols);
@@ -116,6 +119,38 @@ public class BoardAndTileTest {
         assertEquals(true, boardManager.isSolvable(tiles));
         assertEquals(false, boardManager.isSolvable(tilesUnsolvable));
         assertEquals(true, boardManager.isSolvable(tilesSolvable));
+    }
+
+    @Test
+    public void testGetBoard() {
+        assertTrue(boardManager.getBoard() instanceof Board);
+    }
+
+    @Test
+    public void testGetScore() {
+        assertTrue(boardManager.getScore() == (int) boardManager.getScore());
+    }
+
+    @Test
+    public void testBlankTile() {
+        Tile tile = new Tile("test", 15);
+        assertTrue(tile.getId() == 15);
+        assertTrue(tile.getBackground() == R.drawable.tile_blank);
+    }
+
+    @Test
+    public void testTileEqual() {
+        Tile tile1 = new Tile(1);
+        Tile tile2 = new Tile(1);
+        assertTrue(tile1.compareTo(tile2) == 0);
+
+    }
+
+    @Test
+    public void testTileNotEqual() {
+        Tile tile1 = new Tile(1);
+        Tile tile2 = new Tile(2);
+        assertTrue(tile1.compareTo(tile2) == 1);
     }
 }
 
