@@ -1,10 +1,13 @@
 package fall2018.csc2017.games.Hangman;
 
+import junit.framework.Assert;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertSame;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -13,24 +16,38 @@ public class HangmanManagerTest {
     /**
      * The board manager for testing.
      */
-    HangmanManager hangmanManager;
+    private HangmanManager hangmanManager;
 
     @Before
     public void setUp() {
         hangmanManager = new HangmanManager("medium");
     }
 
-    @Test
-    public void testDifficulty() {
 
-        String prevWord = hangmanManager.getHangman().getCurrWord();
-        assertEquals("medium", hangmanManager.getDifficulty());
-        hangmanManager.setDifficulty("hard");
-        String nextWord = hangmanManager.getHangman().getCurrWord();
-        assertEquals("hard", hangmanManager.getDifficulty());
-        assertNotEquals(prevWord, nextWord);
-        hangmanManager.setDifficulty("dummy");
+    @Test
+    public void testDifficultyDefault() {
         assertEquals("medium", hangmanManager.getDifficulty()); //should default to medium
+    }
+
+    @Test
+    public void testDifficultyEasy() {
+
+        hangmanManager.setDifficulty("easy");
+        assertSame("easy", hangmanManager.getDifficulty());
+    }
+
+    @Test
+    public void testDifficultyHard() {
+        hangmanManager.setDifficulty("hard");
+        assertSame("hard", hangmanManager.getDifficulty());
+    }
+
+    @Test
+    public void testNewWordNoRepeats() {
+        String oldWord = hangmanManager.getHangman().currWord;
+        for (int i = 0; i < 30; i++) {
+            assertNotEquals(oldWord, hangmanManager.getNewWord());
+        }
     }
 
     @Test
