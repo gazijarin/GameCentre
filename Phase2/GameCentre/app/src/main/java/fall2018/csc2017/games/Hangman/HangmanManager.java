@@ -10,6 +10,12 @@ import fall2018.csc2017.games.Game;
  */
 class HangmanManager implements Game, Serializable {
     /**
+     * The arrays holding the possible words
+     */
+    private final static String[] easyWords = {"CHARGER", "TABLET", "SYSTEM", "INTERNET", "STYLUS"};
+    private final static String[] mediumWords = {"AGGRESSIVE", "FUTURISTIC", "RELIGION", "ANACONDA", "EINSTEIN"};
+    private final static String[] hardWords = {"CROQUET", "BAGPIPES", "BANJO", "DWARVES", "GAZEBO"};
+    /**
      * The current score.
      */
     private int score;
@@ -87,8 +93,6 @@ class HangmanManager implements Game, Serializable {
         return hangman;
     }
 
-    //Todo: Find a way to get resources without making this class an activity class?
-
     /**
      * Generates a new word based on difficulty.
      *
@@ -97,22 +101,25 @@ class HangmanManager implements Game, Serializable {
     String getNewWord() {
         Random rand = new Random();
         String[] words;
-        String result = "TEST";
+        switch (difficulty) {
+            case "easy":
+                words = easyWords;
 
-//        switch (difficulty) {
-//            case "easy":
-//                words = getResources().getStringArray(R.array.easyWords);
-//
-//                break;
-//            case "hard":
-//                words = getResources().getStringArray(R.array.hardWords);
-//                break;
-//            default:
-//                words = getResources().getStringArray(R.array.mediumWords);
-//                break;
-//        }
-//        return words[rand.nextInt(words.length)];
-        return result;
+                break;
+            case "hard":
+                words = hardWords;
+                break;
+            default:
+                words = mediumWords;
+                break;
+        }
+        String newWord = words[rand.nextInt(words.length)];
+
+        while (hangman != null && newWord.equals(hangman.currWord)) {
+            newWord = words[rand.nextInt(words.length)];
+        }
+
+        return newWord;
 
     }
 
