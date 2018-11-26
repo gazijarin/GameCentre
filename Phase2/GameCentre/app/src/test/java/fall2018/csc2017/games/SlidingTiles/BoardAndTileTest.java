@@ -152,5 +152,83 @@ public class BoardAndTileTest {
         Tile tile2 = new Tile(2);
         assertTrue(tile1.compareTo(tile2) == 1);
     }
+
+    @Test
+    public void testStoreMove() {
+        boardManager.storeMove(14, boardManager.undoMoves);
+        assertEquals(15, (int) boardManager.undoMoves.pop());
+    }
+
+    @Test
+    public void testUndoOneMove() {
+        boardManager.storeMove(14, boardManager.undoMoves);
+        boardManager.touchMove(14);
+        boardManager.undo();
+        assertTrue(boardManager.puzzleSolved());
+
+    }
+
+    @Test
+    public void testUndoNoMoves() {
+        assertEquals(false, boardManager.undo());
+    }
+
+    @Test
+    public void testMaxAmountOfUndo() {
+        //todo: clean this up but test does what i want
+        boardManager.storeMove(14, boardManager.undoMoves);
+        boardManager.touchMove(14);
+        boardManager.storeMove(13, boardManager.undoMoves);
+        boardManager.touchMove(13);
+        boardManager.storeMove(12, boardManager.undoMoves);
+        boardManager.touchMove(12);
+        boardManager.storeMove(8, boardManager.undoMoves);
+        boardManager.touchMove(8);
+        boardManager.undo();
+        boardManager.undo();
+        boardManager.undo();
+        assertEquals(16, boardManager.getBoard().getTile(3, 2).getId());
+        assertEquals(15, boardManager.getBoard().getTile(3, 3).getId());
+
+    }
+
+    @Test
+    public void testRedoOneMove() {
+        boardManager.storeMove(14, boardManager.undoMoves);
+        boardManager.touchMove(14);
+        boardManager.undo();
+        boardManager.redo();
+        assertEquals(16, boardManager.getBoard().getTile(3, 2).getId());
+        assertEquals(15, boardManager.getBoard().getTile(3, 3).getId());
+
+    }
+
+    @Test
+    public void testRedoNoMoves() {
+        assertEquals(false, boardManager.redo());
+    }
+
+    @Test
+    public void testSetDifficultyEasy() {
+        boardManager.setDifficulty("easy");
+        assertEquals("easy", boardManager.getDifficulty());
+        assertEquals(3, boardManager.getBoard().getDimension());
+    }
+
+    @Test
+    public void testSetDifficultyHard() {
+        boardManager.setDifficulty("hard");
+        assertEquals("hard", boardManager.getDifficulty());
+        assertEquals(5, boardManager.getBoard().getDimension());
+    }
+
+    @Test
+    public void testDefaultDifficulty() {
+        assertEquals("medium", boardManager.getDifficulty());
+        assertEquals(4, boardManager.getBoard().getDimension());
+    }
+
+
+    //todo: test  get/set difficulty
 }
 
