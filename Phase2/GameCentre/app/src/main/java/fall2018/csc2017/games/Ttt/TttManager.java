@@ -2,13 +2,14 @@ package fall2018.csc2017.games.Ttt;
 
 import android.widget.Button;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
 import fall2018.csc2017.games.Game;
 
-public class TttManager implements Game {
+public class TttManager implements Game, Serializable {
     /**
      * The number of undos; default set to 3.
      */
@@ -43,7 +44,7 @@ public class TttManager implements Game {
 
 
     //game mode
-    private int mode;
+    public int mode;
 
 
     TttManager(int mode) {
@@ -111,12 +112,15 @@ public class TttManager implements Game {
      */
     @Override
     public boolean undo() {
-        if (log.size() > 0) {
-            Button x = this.log.get(log.size() - 1);
-            x.setText("");
-            this.log.remove(log.size() - 1);
+        for (int i = mode; i < 3; i++) {
+            if (log.size() > 0) {
+                Button x = this.log.get(log.size() - 1);
+                x.setText("");
+                this.log.remove(log.size() - 1);
+                p1Turn = !p1Turn;
+                roundCount--;
+            }
         }
-        p1Turn = !p1Turn;
         return true;
     }
 
@@ -163,9 +167,7 @@ public class TttManager implements Game {
                 && field[0][0].equals(field[2][2])
                 && !field[0][0].equals("")) {
             return true;
-        }
-
-        if (field[0][2].equals(field[1][1])
+        } else if (field[0][2].equals(field[1][1])
                 && field[0][2].equals(field[2][0])
                 && !field[0][2].equals("")) {
             return true;
