@@ -35,6 +35,7 @@
         <activity android:name=".SlidingTiles.SlidingTilesComplexityActivity" />
         <activity android:name=".ComplexityActivity" />
         <activity android:name=".Ttt.TttComplexityActivity" />
+        <activity android:name=".Ttt.TttScreenActivity" />
         <activity android:name=".FileActivity"></activity>
         <activity android:name=".GameScreenActivity"></activity>
     </application>

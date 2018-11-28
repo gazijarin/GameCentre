@@ -44,10 +44,10 @@ public class TttManager implements Game, Serializable {
 
 
     //game mode
-    public int mode;
+    public String mode;
 
 
-    TttManager(int mode) {
+    TttManager(String mode) {
         this.mode = mode;
     }
 
@@ -57,7 +57,7 @@ public class TttManager implements Game, Serializable {
 
     @Override
     public void setDifficulty(String difficulty) {
-        //todo make this do something
+        this.mode = difficulty;
     }
 
     /**
@@ -68,9 +68,7 @@ public class TttManager implements Game, Serializable {
      */
     @Override
     public String getDifficulty() {
-        return null;
-        //wtf is this
-        //doesn;t apply to us
+        return mode;
     }
 
     /**
@@ -112,7 +110,11 @@ public class TttManager implements Game, Serializable {
      */
     @Override
     public boolean undo() {
-        for (int i = mode; i < 3; i++) {
+        int time = 2;
+        if (mode.equals("single")) {
+            time = 1;
+        }
+        for (int i = time; i < 3; i++) {
             if (log.size() > 0) {
                 Button x = this.log.get(log.size() - 1);
                 x.setText("");
@@ -188,6 +190,38 @@ public class TttManager implements Game, Serializable {
         p1Turn = true;
     }
 
+    // setters and getters
+
+    public void setRoundCount(int roundCount) {
+        this.roundCount = roundCount;
+    }
+
+    public void setP1Points(int p1Points) {
+        this.p1Points = p1Points;
+    }
+
+    public void setP2Points(int p2Points) {
+        this.p2Points = p2Points;
+    }
+
+    public void setLog(ArrayList<Button> log) {
+        this.log = log;
+    }
+
+    public void setWinMessage(String winMessage) {
+        this.winMessage = winMessage;
+    }
+
+    public void setP1Turn(boolean p1Turn) {
+        this.p1Turn = p1Turn;
+    }
 
 
+    public int getRoundCount() {
+        return roundCount;
+    }
+
+    public ArrayList<Button> getLog() {
+        return log;
+    }
 }

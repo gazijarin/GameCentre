@@ -1,6 +1,7 @@
 package fall2018.csc2017.games.Ttt;
 
 
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,12 +14,11 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import fall2018.csc2017.games.GameScreenActivity;
 import fall2018.csc2017.games.R;
 
 //todo: AUTO SAVE, SAVE AND LOAD
 //todo:  SCOREBOARD INTEGRATION
-//todo: X and O selection
-//todo: hard mode for single player
 //todo: fix the yellows
 
 
@@ -33,10 +33,13 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
     private TextView textViewp1;
     private TextView textViewp2;
 
-    private int mode;
+    private String mode;
+
+    private Handler handler;
+
 
     TttManager manager;
-    //boolean p1Turn = manager.getTurn();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +71,7 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
         });
 
         Bundle b = getIntent().getExtras();
-        this.mode = b.getInt("mode");
+        this.mode = b.getString("mode");
         manager = new TttManager(this.mode);
     }
 
@@ -87,11 +90,10 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
 
         manager.log.add((Button) v);
         manager.roundCount++;
-
         winActivities();
 
 
-        if (!manager.p1Turn && this.mode == 1) {
+        if (!manager.p1Turn && manager.mode.equals("single")) {
             onClick(findViewById(manager.easyMode().getId()));
         }
     }
@@ -140,6 +142,27 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
         }
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        handler = new Handler();
+        autoSaveTimer.run();
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        handler.removeCallbacks(autoSaveTimer);
+    }
+
+    public Runnable autoSaveTimer = new Runnable() {
+        public void run() {
+            saveToFile(GameScreenActivity.SAVE_FILENAME);
+
+            handler.postDelayed(this, 30 * 1000);
+        }
+    };
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
