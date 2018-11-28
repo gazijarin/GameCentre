@@ -13,46 +13,49 @@ public class TttManager implements Game, Serializable {
     /**
      * The number of undos; default set to 3.
      */
-    private int numUndos = 1;
+    private int numUndos = 3;
 
     /**
-     * The log of all the moves in a game
+     * The log of all the moves made in a game
      */
     public ArrayList<Button> log = new ArrayList<>();
 
     /**
-     * boolean to keep track of turn
+     * boolean to keep track of p1's turn
      */
     public boolean p1Turn = true;
 
-    /**
-     * Creates a new manager for a specific word.
-     */
 
-    // points
+    /**
+     * Tracking each player's points
+     */
     public int p1Points = 0;
     public int p2Points = 0;
 
-    //win message
+    /**
+     * The message for when the game ends
+     */
     public String winMessage;
 
-    //game Tracker
+    /**
+     * Tacks the contents of the buttons
+     */
     public Button[][] buttons = new Button[3][3];
 
-    //round count
+    /**
+     * Tracks the number of rounds
+     */
     public int roundCount = 0;
 
 
-    //game mode
+    /**
+     * The game mode
+     */
     public String mode;
 
 
     TttManager(String mode) {
         this.mode = mode;
-    }
-
-    public boolean getTurn() {
-        return p1Turn;
     }
 
     @Override
@@ -126,6 +129,9 @@ public class TttManager implements Game, Serializable {
         return true;
     }
 
+    /**
+     * Computer makes a move on the board
+     */
     public Button easyMode() {
         ArrayList<Button> possibilities = new ArrayList<>();
         Random rand = new Random();
@@ -140,6 +146,10 @@ public class TttManager implements Game, Serializable {
         return possibilities.get(rand.nextInt(possibilities.size() - 1));
     }
 
+    /**
+     * Checks the board for wins
+     * @return whether there is a win
+     */
     public boolean checkForWin() {
         String[][] field = new String[3][3];
 
@@ -169,6 +179,7 @@ public class TttManager implements Game, Serializable {
                 && field[0][0].equals(field[2][2])
                 && !field[0][0].equals("")) {
             return true;
+
         } else if (field[0][2].equals(field[1][1])
                 && field[0][2].equals(field[2][0])
                 && !field[0][2].equals("")) {
@@ -178,7 +189,9 @@ public class TttManager implements Game, Serializable {
         return false;
     }
 
-
+    /**
+     * Reset the board and buttons
+     */
     public void resetBoard() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -188,40 +201,5 @@ public class TttManager implements Game, Serializable {
         log = new ArrayList<>();
         roundCount = 0;
         p1Turn = true;
-    }
-
-    // setters and getters
-
-    public void setRoundCount(int roundCount) {
-        this.roundCount = roundCount;
-    }
-
-    public void setP1Points(int p1Points) {
-        this.p1Points = p1Points;
-    }
-
-    public void setP2Points(int p2Points) {
-        this.p2Points = p2Points;
-    }
-
-    public void setLog(ArrayList<Button> log) {
-        this.log = log;
-    }
-
-    public void setWinMessage(String winMessage) {
-        this.winMessage = winMessage;
-    }
-
-    public void setP1Turn(boolean p1Turn) {
-        this.p1Turn = p1Turn;
-    }
-
-
-    public int getRoundCount() {
-        return roundCount;
-    }
-
-    public ArrayList<Button> getLog() {
-        return log;
     }
 }

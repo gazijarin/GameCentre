@@ -1,6 +1,4 @@
 package fall2018.csc2017.games.Ttt;
-
-
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,11 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-
 import fall2018.csc2017.games.GameScreenActivity;
 import fall2018.csc2017.games.R;
 
@@ -26,18 +21,20 @@ import fall2018.csc2017.games.R;
 public class TttActivity extends AppCompatActivity implements View.OnClickListener {
 
 
-    //private Button[][] buttons = new Button[3][3];
-
-
-
+    /**
+     * Player1 and 2 score displays on overhead
+     */
     private TextView textViewp1;
     private TextView textViewp2;
 
-    private String mode;
-
+    /**
+     * Handler to track time
+     */
     private Handler handler;
 
-
+    /**
+     * The game manager
+     */
     TttManager manager;
 
 
@@ -48,19 +45,10 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
 
         textViewp1 = findViewById(R.id.text_view_p1);
         textViewp2 = findViewById(R.id.text_view_p2);
+        Bundle b = getIntent().getExtras();
+        manager = new TttManager(b.getString("mode"));
 
-
-        //set up buttons for the UI
-
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                String buttonID = "button_" + i + j;
-                int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
-                manager.buttons[i][j] = findViewById(resID);
-                manager.buttons[i][j].setOnClickListener(this);
-            }
-        }
-
+        buttonInitializer();
 
         Button buttonUndo = findViewById(R.id.button_undo);
         buttonUndo.setOnClickListener(new View.OnClickListener() {
@@ -70,9 +58,20 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
             }
         });
 
-        Bundle b = getIntent().getExtras();
-        this.mode = b.getString("mode");
-        manager = new TttManager(this.mode);
+    }
+
+    /**
+     * Setting up buttons for the UI
+     */
+    private void buttonInitializer(){
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                String buttonID = "button_" + i + j;
+                int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
+                manager.buttons[i][j] = findViewById(resID);
+                manager.buttons[i][j].setOnClickListener(this);
+            }
+        }
     }
 
     @Override
@@ -98,18 +97,27 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
         }
     }
 
-
+    /**
+     * Displaying the appropriate message when game is over
+     */
     private void announcement() {
         Toast.makeText(this, manager.winMessage, Toast.LENGTH_SHORT).show();
         updatePointsText();
         manager.resetBoard();
     }
 
+    /**
+     * Updating points after every round
+     */
     private void updatePointsText() {
         textViewp1.setText("Player 1: " + manager.p1Points);
         textViewp2.setText("Player 2: " + manager.p2Points);
     }
 
+
+    /**
+     * Checking for a win after every round
+     */
     private void winActivities() {
         if (manager.checkForWin() || manager.roundCount >= 9) {
 
@@ -130,7 +138,9 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
 
     }
 
-
+    /**
+     * Saves the game to a file
+     */
     public void saveToFile(String fileName) {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
@@ -156,6 +166,9 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
         handler.removeCallbacks(autoSaveTimer);
     }
 
+    /**
+     * Auto saving the game
+     */
     public Runnable autoSaveTimer = new Runnable() {
         public void run() {
             saveToFile(GameScreenActivity.SAVE_FILENAME);
