@@ -2,6 +2,7 @@ package fall2018.csc2017.games.Hangman;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,9 @@ import java.io.ObjectOutputStream;
 import java.util.Arrays;
 
 import fall2018.csc2017.games.FileActivity;
+import fall2018.csc2017.games.FinishedActivity;
+import fall2018.csc2017.games.Game;
+import fall2018.csc2017.games.GameActivity;
 import fall2018.csc2017.games.GameScreenActivity;
 import fall2018.csc2017.games.R;
 import fall2018.csc2017.games.SlidingTiles.SlidingTilesScreenActivity;
@@ -29,36 +33,22 @@ import fall2018.csc2017.games.SlidingTiles.SlidingTilesScreenActivity;
  * Author: Sue Smith
  */
 
-public class HangmanActivity extends FileActivity {
+public class HangmanActivity extends GameActivity {
 
-    //Todo: MINIMIZE THE # OF INSTANCE VARIABLES; ONLY 5 OR LESS PER CLASS.
     private TextView current_word;
-
-    private Handler handler;
 
     //number correctly guessed
     private HangmanBody body;
     private HangmanManager manager;
     private Hangman hangman;
 
-    /**
-     * Runnable autoSaveTimer that saves the game every 30 seconds.
-     */
-    public Runnable autoSaveTimer = new Runnable() {
-        public void run() {
-            saveToFile(GameScreenActivity.SAVE_FILENAME);
-            makeToastAutoSavedText();
-            handler.postDelayed(this, 30 * 1000);
-        }
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         loadFromFile(GameScreenActivity.SAVE_FILENAME);
-        manager = new HangmanManager("medium");
+        manager = (HangmanManager) game;
         hangman = manager.getHangman();
+
         //sets up all the body parts + some variables
         body = new HangmanBody();
 
@@ -79,67 +69,11 @@ public class HangmanActivity extends FileActivity {
         body.initBodyParts(findViewById(R.id.head), findViewById(R.id.body),
                 findViewById(R.id.arm1), findViewById(R.id.arm2), findViewById(R.id.leg1),
                 findViewById(R.id.leg2));
-        playGame();
 
-    }
-
-    /**
-     * Adds all elements into the activity
-     */
-    private void playGame() {
-//        manager = new HangmanManager("medium");
-        body.createHangman();
+        body.createHangman(hangman.getCurrentGuesses());
         displayCurrentWord();
-
         addSubmitButton();
-        //todo: read below
-        //playGame will run and finish because line below is printed
-        //the game will still crash however
-        //no idea of why
-        System.out.println("here 4 at least?");
     }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        handler = new Handler();
-        autoSaveTimer.run();
-    }
-
-    /**
-     * Display that a game was autosaved successfully.
-     */
-    private void makeToastAutoSavedText() {
-        Toast.makeText(this, "Auto Saved", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        handler.removeCallbacks(autoSaveTimer);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        saveToFile(GameScreenActivity.SAVE_FILENAME);
-    }
-
-//    /**
-//     * Save the board manager to fileName.
-//     *
-//     * @param fileName the name of the file
-//     */
-//    public void saveToFile(String fileName) {
-//        try {
-//            ObjectOutputStream outputStream = new ObjectOutputStream(
-//                    this.openFileOutput(fileName, MODE_PRIVATE));
-//            outputStream.writeObject(manager);
-//            outputStream.close();
-//        } catch (IOException e) {
-//            Log.e("Exception", "File write failed: " + e.toString());
-//        }
-//    }
 
     /**
      * Activate the submit button.
@@ -182,7 +116,7 @@ public class HangmanActivity extends FileActivity {
         displayCurrentWord();
 
         if (manager.puzzleSolved()) {
-            showEndScreen();
+            switchActivity();
         } else if (!found && !manager.puzzleLost()) {//some guesses left
             body.addPart();
         } else if (manager.puzzleLost()) { //user has lost rip
@@ -191,6 +125,16 @@ public class HangmanActivity extends FileActivity {
         } else {
             Log.i("orange", "updateLetters: " + Arrays.toString(hangman.getRevealedWord()));
         }
+    }
+
+    /**
+     * Switches to the finished activity
+     */
+    private void switchActivity() {
+        Intent i = new Intent(this, FinishedActivity.class);
+        i.putExtra("SCORE", manager.getScore());
+        i.putExtra("GAME", manager);
+        startActivity(i);
     }
 
     /**
@@ -212,27 +156,6 @@ public class HangmanActivity extends FileActivity {
         current_word.setText(toDisplay.toString());
     }
 
-    private void showEndScreen() {
-        AlertDialog.Builder winBuild = new AlertDialog.Builder(this);
-        winBuild.setTitle("Yay, well done!");
-        winBuild.setMessage("You won!\n\nThe answer was:\n\n" + hangman.currWord);
-        winBuild.setPositiveButton("Play Again",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        HangmanActivity.this.playGame();
-                    }
-                });
-
-        winBuild.setNegativeButton("Play a different game.",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        HangmanActivity.this.finish();
-                    }
-                });
-
-        winBuild.show();
-    }
-
     /**
      * Lets user know input was invalid, what is valid input
      */
@@ -245,8 +168,6 @@ public class HangmanActivity extends FileActivity {
      */
     private void makeToastLost() {
         Toast.makeText(this, "Ran out of guesses, try again", Toast.LENGTH_SHORT).show();
-        HangmanActivity.this.playGame();
-
     }
 
 }

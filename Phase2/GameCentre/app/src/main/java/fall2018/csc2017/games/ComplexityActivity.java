@@ -65,7 +65,7 @@ public abstract class ComplexityActivity extends FileActivity<Game> {
      *
      * @param difficulty the current board size, in the form "3x3"
      */
-    private void toastDifficulty(String difficulty) {
+    public void toastDifficulty(String difficulty) {
         Toast.makeText(getApplicationContext(), difficulty +
                 " selected", Toast.LENGTH_SHORT).show();
     }

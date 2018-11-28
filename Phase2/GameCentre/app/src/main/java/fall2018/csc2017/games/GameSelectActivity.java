@@ -11,6 +11,7 @@ import butterknife.ButterKnife;
 import fall2018.csc2017.games.Hangman.HangmanScreenActivity;
 import fall2018.csc2017.games.SlidingTiles.SlidingTilesScreenActivity;
 import fall2018.csc2017.games.Ttt.TttComplexityActivity;
+import fall2018.csc2017.games.Ttt.TttScreenActivity;
 
 /**
  * An activity to select which game to play
@@ -74,7 +75,8 @@ public class GameSelectActivity extends AppCompatActivity {
                 tmp = new Intent(this, HangmanScreenActivity.class);
                 break;
             case "Ttt":
-                tmp = new Intent(this, TttComplexityActivity.class);
+                //tmp = new Intent(this, TttComplexityActivity.class);
+                tmp = new Intent(this, TttScreenActivity.class);
                 break;
             default:
                 tmp = new Intent(this, SlidingTilesScreenActivity.class);

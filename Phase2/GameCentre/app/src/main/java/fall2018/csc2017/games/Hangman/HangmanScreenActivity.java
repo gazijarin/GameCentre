@@ -30,7 +30,7 @@ public class HangmanScreenActivity extends GameScreenActivity {
         gameDescription.setText(getResources().getString(R.string.hangman_description));
     }
     /**
-     * Switch to the GameActivity view to play the game.
+     * Switch to the SlidingTilesActivity view to play the game.
      */
     protected void switchToGame() {
         Intent tmp = new Intent(this, HangmanActivity.class);
@@ -39,7 +39,7 @@ public class HangmanScreenActivity extends GameScreenActivity {
     }
 
     /**
-     * Switch to the GameActivity view to start a new game.
+     * Switch to the SlidingTilesActivity view to start a new game.
      */
     protected void switchToNewGame() {
         Intent tmp = new Intent(this, HangmanComplexityActivity.class);

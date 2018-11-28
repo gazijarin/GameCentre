@@ -122,8 +122,14 @@ public class BoardAndTileTest {
     }
 
     @Test
-    public void testGetBoard() {
+    public void testGetBoardGivenTiles() {
         assertTrue(boardManager.getBoard() instanceof Board);
+    }
+
+    @Test
+    public void testGetBoardGivenDimension() {
+        BoardManager manager = new BoardManager(4);
+        assertTrue(manager.getBoard() instanceof Board);
     }
 
     @Test
@@ -216,6 +222,13 @@ public class BoardAndTileTest {
     }
 
     @Test
+    public void testSetDifficultyMedium() {
+        boardManager.setDifficulty("medium");
+        assertEquals("medium", boardManager.getDifficulty());
+        assertEquals(4, boardManager.getBoard().getDimension());
+    }
+
+    @Test
     public void testSetDifficultyHard() {
         boardManager.setDifficulty("hard");
         assertEquals("hard", boardManager.getDifficulty());
@@ -228,7 +241,19 @@ public class BoardAndTileTest {
         assertEquals(4, boardManager.getBoard().getDimension());
     }
 
+    @Test
+    public void testGameId() {
+        assertEquals("slidingtiles", boardManager.getGameId());
+    }
 
-    //todo: test  get/set difficulty
+    @Test
+    public void highTopScore() {
+        assertFalse(boardManager.highTopScore());
+    }
+
+    @Test
+    public void testToString() {
+        //todo: write test
+    }
 }
 

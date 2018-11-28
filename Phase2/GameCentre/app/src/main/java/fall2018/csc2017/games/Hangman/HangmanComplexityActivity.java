@@ -15,7 +15,7 @@ public class HangmanComplexityActivity extends ComplexityActivity {
     }
 
     /**
-     * Switches to the GameActivity view to play the game.
+     * Switches to the SlidingTilesActivity view to play the game.
      */
     protected void switchToGame() {
         game.setNumUndos(Integer.parseInt(numUndos.getText().toString()));
