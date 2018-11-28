@@ -22,12 +22,17 @@ class HangmanBody {
 
     /**
      * Draws the hangman on the activity
+     * @param incorrectGuesses the number of body parts showing on the hangman
      */
-    void createHangman() {
-        currPart = 0;
+    void createHangman(int incorrectGuesses) {
+        currPart = incorrectGuesses;
 
         for (int p = 0; p < NUMPARTS; p++) {
-            bodyParts[p].setVisibility(View.INVISIBLE);
+            if (p < incorrectGuesses) {
+                bodyParts[p].setVisibility(View.VISIBLE);
+            } else {
+                bodyParts[p].setVisibility(View.INVISIBLE);
+            }
         }
     }
     /**

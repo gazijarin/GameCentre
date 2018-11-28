@@ -20,13 +20,15 @@ import java.util.Observable;
 import java.util.Observer;
 
 import fall2018.csc2017.games.FileActivity;
+import fall2018.csc2017.games.Game;
+import fall2018.csc2017.games.GameActivity;
 import fall2018.csc2017.games.GameScreenActivity;
 import fall2018.csc2017.games.R;
 
 /**
  * The game activity.
  */
-public class GameActivity extends FileActivity implements Observer {
+public class SlidingTilesActivity extends GameActivity implements Observer {
 
     /**
      * The board manager
@@ -39,10 +41,6 @@ public class GameActivity extends FileActivity implements Observer {
     // Grid View and calculated column height and width based on device size
     private GestureDetectGridView gridView;
     private static int columnWidth, columnHeight;
-    /**
-     * The handler.
-     */
-    private Handler handler;
 
     /**
      * Set up the background image for each button based on the master list
@@ -104,37 +102,6 @@ public class GameActivity extends FileActivity implements Observer {
         }
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        handler.removeCallbacks(autoSaveTimer);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        handler = new Handler();
-        autoSaveTimer.run();
-    }
-
-    /**
-     * Runnable autoSaveTimer that saves the game every 30 seconds.
-     */
-    public Runnable autoSaveTimer = new Runnable() {
-        public void run() {
-            saveToFile(GameScreenActivity.SAVE_FILENAME);
-            makeToastAutoSavedText();
-            handler.postDelayed(this, 30 * 1000);
-        }
-    };
-
-    /**
-     * Display that a game was autosaved successfully.
-     */
-    private void makeToastAutoSavedText() {
-        Toast.makeText(this, "Auto Saved", Toast.LENGTH_SHORT).show();
-    }
-
     /**
      * Update the backgrounds on the buttons to match the tiles.
      */
@@ -147,15 +114,6 @@ public class GameActivity extends FileActivity implements Observer {
             b.setBackgroundResource(board.getTile(row, col).getBackground());
             nextPos++;
         }
-    }
-
-    /**
-     * Dispatch onPause() to fragments.
-     */
-    @Override
-    protected void onPause() {
-        super.onPause();
-        saveToFile(GameScreenActivity.SAVE_FILENAME);
     }
 
     @Override

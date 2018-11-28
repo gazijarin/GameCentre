@@ -154,4 +154,28 @@ class HangmanManager implements Game, Serializable {
     boolean isValid(String guess) {
         return guess.matches("[a-zA-Z]");
     }
+
+    /**
+     * Returns the current score for this hangman game
+     *
+     * @return
+     */
+    int getScore() {
+        int modifier;
+        switch (getDifficulty()) {
+            case "easy":
+                modifier = 3;
+                break;
+            case "medium":
+                modifier = 6;
+                break;
+            case "hard":
+                modifier = 9;
+                break;
+            default:
+                modifier = 3;
+                break;
+        }
+        return modifier * (6 - hangman.getCurrentGuesses());
+    }
 }

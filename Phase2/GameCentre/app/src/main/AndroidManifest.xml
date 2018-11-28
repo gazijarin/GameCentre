@@ -24,7 +24,7 @@
         <activity
             android:name=".LoginActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".SlidingTiles.GameActivity" />
+        <activity android:name=".SlidingTiles.SlidingTilesActivity" />
         <activity android:name=".GameSelectActivity" />
         <activity android:name=".AuthenticationActivity" />
         <activity android:name=".FinishedActivity" />
@@ -36,8 +36,9 @@
         <activity android:name=".ComplexityActivity" />
         <activity android:name=".Ttt.TttComplexityActivity" />
         <activity android:name=".Ttt.TttScreenActivity" />
-        <activity android:name=".FileActivity"></activity>
-        <activity android:name=".GameScreenActivity"></activity>
+        <activity android:name=".FileActivity" />
+        <activity android:name=".GameScreenActivity" />
+        <activity android:name=".GameActivity"></activity>
     </application>
 
 </manifest>

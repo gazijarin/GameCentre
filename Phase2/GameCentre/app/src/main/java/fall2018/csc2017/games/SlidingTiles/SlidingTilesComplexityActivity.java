@@ -15,12 +15,12 @@ public class SlidingTilesComplexityActivity extends ComplexityActivity {
     }
 
     /**
-     * Switches to the GameActivity view to play the game.
+     * Switches to the SlidingTilesActivity view to play the game.
      */
     protected void switchToGame() {
         game.setNumUndos(Integer.parseInt(numUndos.getText().toString()));
         saveToFile(GameScreenActivity.SAVE_FILENAME);
-        Intent tmp = new Intent(this, GameActivity.class);
+        Intent tmp = new Intent(this, SlidingTilesActivity.class);
         startActivity(tmp);
     }
 

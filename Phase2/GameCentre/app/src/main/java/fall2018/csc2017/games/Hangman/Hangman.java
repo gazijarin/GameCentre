@@ -1,12 +1,13 @@
 package fall2018.csc2017.games.Hangman;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * A class that represents a Hangman game.
  */
-public class Hangman {
+public class Hangman implements Serializable {
     /**
      * The current word being guessed.
      */
