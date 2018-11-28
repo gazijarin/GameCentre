@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Arrays;
 
+import fall2018.csc2017.games.FileActivity;
 import fall2018.csc2017.games.GameScreenActivity;
 import fall2018.csc2017.games.R;
 import fall2018.csc2017.games.SlidingTiles.SlidingTilesScreenActivity;
@@ -28,7 +29,7 @@ import fall2018.csc2017.games.SlidingTiles.SlidingTilesScreenActivity;
  * Author: Sue Smith
  */
 
-public class HangmanActivity extends AppCompatActivity {
+public class HangmanActivity extends FileActivity {
 
     //Todo: MINIMIZE THE # OF INSTANCE VARIABLES; ONLY 5 OR LESS PER CLASS.
     private TextView current_word;
@@ -46,7 +47,7 @@ public class HangmanActivity extends AppCompatActivity {
     public Runnable autoSaveTimer = new Runnable() {
         public void run() {
             saveToFile(GameScreenActivity.SAVE_FILENAME);
-
+            makeToastAutoSavedText();
             handler.postDelayed(this, 30 * 1000);
         }
     };
@@ -54,6 +55,10 @@ public class HangmanActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        loadFromFile(GameScreenActivity.SAVE_FILENAME);
+        manager = new HangmanManager("medium");
+        hangman = manager.getHangman();
         //sets up all the body parts + some variables
         body = new HangmanBody();
 
@@ -82,8 +87,7 @@ public class HangmanActivity extends AppCompatActivity {
      * Adds all elements into the activity
      */
     private void playGame() {
-        manager = new HangmanManager("medium");
-        hangman = manager.getHangman();
+//        manager = new HangmanManager("medium");
         body.createHangman();
         displayCurrentWord();
 
@@ -99,7 +103,6 @@ public class HangmanActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         handler = new Handler();
-        makeToastAutoSavedText();
         autoSaveTimer.run();
     }
 
@@ -116,21 +119,27 @@ public class HangmanActivity extends AppCompatActivity {
         handler.removeCallbacks(autoSaveTimer);
     }
 
-    /**
-     * Save the board manager to fileName.
-     *
-     * @param fileName the name of the file
-     */
-    public void saveToFile(String fileName) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(manager);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        saveToFile(GameScreenActivity.SAVE_FILENAME);
     }
+
+//    /**
+//     * Save the board manager to fileName.
+//     *
+//     * @param fileName the name of the file
+//     */
+//    public void saveToFile(String fileName) {
+//        try {
+//            ObjectOutputStream outputStream = new ObjectOutputStream(
+//                    this.openFileOutput(fileName, MODE_PRIVATE));
+//            outputStream.writeObject(manager);
+//            outputStream.close();
+//        } catch (IOException e) {
+//            Log.e("Exception", "File write failed: " + e.toString());
+//        }
+//    }
 
     /**
      * Activate the submit button.
