@@ -5,19 +5,26 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 
+import fall2018.csc2017.games.ComplexityActivity;
 import fall2018.csc2017.games.R;
+
+//ToDo: make it extend complexity activity
 
 public class TttComplexityActivity extends AppCompatActivity {
 
-    private int mode;
+    private String mode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ttt_complexity);
         setupModeButtons();
+        setupNumUndoInput();
+        setupStartButton();
 
     }
 
@@ -28,28 +35,39 @@ public class TttComplexityActivity extends AppCompatActivity {
         singleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mode = 1;
-                switchToGame();
-
+                mode = "single";
             }
         });
 
         multiButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mode = 2;
-                switchToGame();
+                mode = "double";
             }
         });
 
     }
 
+    public void setupStartButton() {
+        Button startButton = findViewById(R.id.startButton2);
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchToGame();
+            }
+        });
+    }
 
-    private void switchToGame() {
+    private void setupNumUndoInput() {
+        EditText numUndos = findViewById(R.id.numUndos2);
+        String text = 0 + "";
+        numUndos.setText(text);
+    }
+
+    protected void switchToGame() {
         Intent tmp = new Intent(this, TttActivity.class);
         tmp.putExtra("mode", mode);
         startActivity(tmp);
     }
-
 
 }

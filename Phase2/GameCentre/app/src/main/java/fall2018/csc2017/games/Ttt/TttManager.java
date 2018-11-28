@@ -2,13 +2,14 @@ package fall2018.csc2017.games.Ttt;
 
 import android.widget.Button;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
 import fall2018.csc2017.games.Game;
 
-public class TttManager implements Game {
+public class TttManager implements Game, Serializable {
     /**
      * The number of undos; default set to 3.
      */
@@ -43,10 +44,10 @@ public class TttManager implements Game {
 
 
     //game mode
-    private int mode;
+    public String mode;
 
 
-    TttManager(int mode) {
+    TttManager(String mode) {
         this.mode = mode;
     }
 
@@ -56,7 +57,7 @@ public class TttManager implements Game {
 
     @Override
     public void setDifficulty(String difficulty) {
-        //todo make this do something
+        this.mode = difficulty;
     }
 
     /**
@@ -67,9 +68,7 @@ public class TttManager implements Game {
      */
     @Override
     public String getDifficulty() {
-        return null;
-        //wtf is this
-        //doesn;t apply to us
+        return mode;
     }
 
     /**
@@ -111,12 +110,19 @@ public class TttManager implements Game {
      */
     @Override
     public boolean undo() {
-        if (log.size() > 0) {
-            Button x = this.log.get(log.size() - 1);
-            x.setText("");
-            this.log.remove(log.size() - 1);
+        int time = 2;
+        if (mode.equals("single")) {
+            time = 1;
         }
-        p1Turn = !p1Turn;
+        for (int i = time; i < 3; i++) {
+            if (log.size() > 0) {
+                Button x = this.log.get(log.size() - 1);
+                x.setText("");
+                this.log.remove(log.size() - 1);
+                p1Turn = !p1Turn;
+                roundCount--;
+            }
+        }
         return true;
     }
 
@@ -163,9 +169,7 @@ public class TttManager implements Game {
                 && field[0][0].equals(field[2][2])
                 && !field[0][0].equals("")) {
             return true;
-        }
-
-        if (field[0][2].equals(field[1][1])
+        } else if (field[0][2].equals(field[1][1])
                 && field[0][2].equals(field[2][0])
                 && !field[0][2].equals("")) {
             return true;
@@ -186,6 +190,38 @@ public class TttManager implements Game {
         p1Turn = true;
     }
 
+    // setters and getters
+
+    public void setRoundCount(int roundCount) {
+        this.roundCount = roundCount;
+    }
+
+    public void setP1Points(int p1Points) {
+        this.p1Points = p1Points;
+    }
+
+    public void setP2Points(int p2Points) {
+        this.p2Points = p2Points;
+    }
+
+    public void setLog(ArrayList<Button> log) {
+        this.log = log;
+    }
+
+    public void setWinMessage(String winMessage) {
+        this.winMessage = winMessage;
+    }
+
+    public void setP1Turn(boolean p1Turn) {
+        this.p1Turn = p1Turn;
+    }
 
 
+    public int getRoundCount() {
+        return roundCount;
+    }
+
+    public ArrayList<Button> getLog() {
+        return log;
+    }
 }
