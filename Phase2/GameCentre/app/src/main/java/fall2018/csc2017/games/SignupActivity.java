@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import fall2018.csc2017.games.R;
 
 /*
  * Android login, signup and authentication activities adapted from Kam Low's github
@@ -65,7 +64,7 @@ public class SignupActivity extends AuthenticationActivity {
         _enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signup();
+                signUp();
             }
         });
 
@@ -84,7 +83,7 @@ public class SignupActivity extends AuthenticationActivity {
     /**
      * Attempts to sign in the user after the sign in button has been pressed
      */
-    public void signup() {
+    public void signUp() {
         Log.d(TAG, "Signup");
 
         if (!validate()) {

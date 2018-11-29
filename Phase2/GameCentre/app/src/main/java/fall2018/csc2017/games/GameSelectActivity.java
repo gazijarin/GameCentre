@@ -10,7 +10,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import fall2018.csc2017.games.Hangman.HangmanScreenActivity;
 import fall2018.csc2017.games.SlidingTiles.SlidingTilesScreenActivity;
-import fall2018.csc2017.games.Ttt.TttComplexityActivity;
 import fall2018.csc2017.games.Ttt.TttScreenActivity;
 
 /**

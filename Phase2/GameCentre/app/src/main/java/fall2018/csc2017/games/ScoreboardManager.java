@@ -18,8 +18,7 @@ import java.util.Observable;
 /**
  * a class that communicates with firebase to send and fetch scores
  */
-public class ScoreboardManager extends Observable {
-
+class ScoreboardManager extends Observable {
     /**
      * the tag for logging
      */
@@ -39,7 +38,7 @@ public class ScoreboardManager extends Observable {
     /**
      * the amount of scores to fetch when retrieving user scores
      */
-    public static final int NUM_TOP_SCORES = 5;
+    private static final int NUM_TOP_SCORES = 5;
 
     /**
      * The code signalling that an error has occured
@@ -49,24 +48,24 @@ public class ScoreboardManager extends Observable {
     /**
      * The code signalling that adding a user score has completed
      */
-    public static final Integer ADDED_USER_SCORE = 0;
+    static final Integer ADDED_USER_SCORE = 0;
     /**
      * The code signalling that retrieving the current user's
      * top scores for the current game has completed
      */
-    public static final Integer RETRIEVED_SCORES = 1;
+    static final Integer RETRIEVED_SCORES = 1;
     /**
      * The code signalling that retrieving all users'
      * top scores for the current game has completed
      */
-    public static final Integer RETRIEVED_TOP_SCORES = 2;
+    static final Integer RETRIEVED_TOP_SCORES = 2;
 
     /**
      * Creates a new ScoreboardManager
      *
      * @param currentGame the Game being played
      */
-    public ScoreboardManager(Game currentGame) {
+    ScoreboardManager(Game currentGame) {
         mDatabase = FirebaseDatabase.getInstance();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         this.currentUser = Objects.requireNonNull(mAuth.getCurrentUser()).getDisplayName();

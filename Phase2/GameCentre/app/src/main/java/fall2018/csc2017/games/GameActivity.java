@@ -1,18 +1,22 @@
 package fall2018.csc2017.games;
 
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+/**
+ * The Game Activity class.
+ */
 public class GameActivity extends FileActivity<Game> {
+    /**
+     * The handler.
+     */
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
-    private Handler handler;
 
     @Override
     protected void onStop() {

@@ -30,7 +30,7 @@ public class AuthenticationManager extends Observable {
     /**
      * Initializes the authentication manager
      */
-    public AuthenticationManager() {
+    AuthenticationManager() {
         mAuth = FirebaseAuth.getInstance();
     }
 
@@ -41,7 +41,7 @@ public class AuthenticationManager extends Observable {
      * @param password the user's password
      * @param username the user's username
      */
-    public void createAccount(String email, String password, final String username) {
+    void createAccount(String email, String password, final String username) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override

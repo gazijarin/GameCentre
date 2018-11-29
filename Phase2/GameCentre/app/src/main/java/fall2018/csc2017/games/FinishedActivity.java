@@ -10,42 +10,38 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import fall2018.csc2017.games.R;
-
 /**
  * An activity to display once the user has completed a game
  */
 public class FinishedActivity extends AppCompatActivity implements Observer {
-
     /**
-     * The display for the score achieved
+     * The display for the score achieved.
      */
     TextView currentScore;
     /**
-     * the display for the user's previous high scores for this game, for this difficulty
+     * The display for the user's previous high scores for this game, for this difficulty.
      */
     TextView prevScores;
     /**
-     * the display for all user's previous high scores for this game, for this difficulty
+     * The display for all user's previous high scores for this game, for this difficulty.
      */
     TextView topScores;
     /**
-     * a Game object for the current game
+     * A Game object for the current game.
      */
     Game currentGame;
-
     /**
-     * a list for for the user's previous high scores for this game, for this difficulty
+     * A list for for the user's previous high scores for this game, for this difficulty.
      */
     List<Integer> prevScoreList = new ArrayList<>();
     /**
-     * a list for all user's previous high scores for this game, for this difficulty
+     * A list for all user's previous high scores for this game, for this difficulty.
      */
     List<String[]> topScoreList = new ArrayList<>();
     /**
-     * a ScoreboardManager to access scores
+     * A ScoreboardManager to access scores.
      */
-    ScoreboardManager dm;
+    ScoreboardManager scoreManager;
 
     @SuppressLint({"DefaultLocale", "SetTextI18n"})
     @Override
@@ -55,9 +51,9 @@ public class FinishedActivity extends AppCompatActivity implements Observer {
         int lastScore = getIntent().getIntExtra("SCORE", 0);
         currentGame = (Game) getIntent().getSerializableExtra("GAME");
 
-        dm = new ScoreboardManager(currentGame);
-        dm.addObserver(this);
-        dm.addUserScore(lastScore);
+        scoreManager = new ScoreboardManager(currentGame);
+        scoreManager.addObserver(this);
+        scoreManager.addUserScore(lastScore);
 
         currentScore = findViewById(R.id.current_score);
         prevScores = findViewById(R.id.prev_scores);
@@ -69,8 +65,8 @@ public class FinishedActivity extends AppCompatActivity implements Observer {
     @Override
     public void update(Observable observable, Object o) {
         if (o == ScoreboardManager.ADDED_USER_SCORE) {
-            prevScoreList = dm.getSortedUserScores();
-            topScoreList = dm.getTopScores();
+            prevScoreList = scoreManager.getSortedUserScores();
+            topScoreList = scoreManager.getTopScores();
         }
         if (o == ScoreboardManager.RETRIEVED_SCORES) {
             prevScores.setText(userConverter(prevScoreList));
