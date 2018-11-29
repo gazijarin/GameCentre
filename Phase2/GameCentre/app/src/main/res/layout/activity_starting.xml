@@ -23,7 +23,7 @@
         android:layout_marginStart="31dp"
         android:layout_marginTop="396dp"
         android:gravity="center"
-        android:text="Welcome To Hangman. \n A Puzzle Game where you must guess a random word."
+        android:text="Welcome to the game!"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
     <Button

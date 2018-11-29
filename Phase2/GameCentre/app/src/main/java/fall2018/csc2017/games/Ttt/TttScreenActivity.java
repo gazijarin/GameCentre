@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import fall2018.csc2017.games.GameScreenActivity;
+import fall2018.csc2017.games.R;
+
 public class TttScreenActivity extends GameScreenActivity {
 
     @Override
@@ -12,6 +14,7 @@ public class TttScreenActivity extends GameScreenActivity {
         String username = getIntent().getStringExtra("USERNAME");
         SAVE_FILENAME = username + "_" + game.getGameId() + "_save_file.ser";
         super.onCreate(savedInstanceState);
+        gameDescription.setText(getResources().getString(R.string.ttt_description));
     }
 
     /**

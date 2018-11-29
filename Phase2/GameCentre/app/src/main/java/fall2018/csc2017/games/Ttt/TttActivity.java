@@ -1,4 +1,6 @@
 package fall2018.csc2017.games.Ttt;
+
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +11,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+
+import fall2018.csc2017.games.FinishedActivity;
+import fall2018.csc2017.games.GameActivity;
 import fall2018.csc2017.games.GameScreenActivity;
 import fall2018.csc2017.games.R;
 
@@ -17,20 +22,13 @@ import fall2018.csc2017.games.R;
 //todo: fix the yellows
 
 
-
-public class TttActivity extends AppCompatActivity implements View.OnClickListener {
-
+public class TttActivity extends GameActivity implements View.OnClickListener {
 
     /**
      * Player1 and 2 score displays on overhead
      */
-    private TextView textViewp1;
-    private TextView textViewp2;
-
-    /**
-     * Handler to track time
-     */
-    private Handler handler;
+    private TextView p1Score;
+    private TextView p2Score;
 
     /**
      * The game manager
@@ -43,10 +41,11 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ttt);
 
-        textViewp1 = findViewById(R.id.text_view_p1);
-        textViewp2 = findViewById(R.id.text_view_p2);
-        Bundle b = getIntent().getExtras();
-        manager = new TttManager(b.getString("mode"));
+        p1Score = findViewById(R.id.text_view_p1);
+        p2Score = findViewById(R.id.text_view_p2);
+
+        loadFromFile(GameScreenActivity.SAVE_FILENAME);
+        manager = (TttManager) game;
 
         buttonInitializer();
 
@@ -58,6 +57,24 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
             }
         });
 
+        Button finish = findViewById(R.id.finishButton);
+        finish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchActivity();
+            }
+        });
+
+    }
+
+    /**
+     * Switches to the finished activity
+     */
+    private void switchActivity() {
+        Intent i = new Intent(this, FinishedActivity.class);
+        i.putExtra("SCORE", manager.getScore());
+        i.putExtra("GAME", manager);
+        startActivity(i);
     }
 
     /**
@@ -110,8 +127,8 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
      * Updating points after every round
      */
     private void updatePointsText() {
-        textViewp1.setText("Player 1: " + manager.p1Points);
-        textViewp2.setText("Player 2: " + manager.p2Points);
+        p1Score.setText("You: " + manager.p1Points);
+        p2Score.setText("Player 2: " + manager.p2Points);
     }
 
 
@@ -137,46 +154,6 @@ public class TttActivity extends AppCompatActivity implements View.OnClickListen
         }
 
     }
-
-    /**
-     * Saves the game to a file
-     */
-    public void saveToFile(String fileName) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(manager);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        handler = new Handler();
-        autoSaveTimer.run();
-    }
-
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        handler.removeCallbacks(autoSaveTimer);
-    }
-
-    /**
-     * Auto saving the game
-     */
-    public Runnable autoSaveTimer = new Runnable() {
-        public void run() {
-            saveToFile(GameScreenActivity.SAVE_FILENAME);
-
-            handler.postDelayed(this, 30 * 1000);
-        }
-    };
-
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);

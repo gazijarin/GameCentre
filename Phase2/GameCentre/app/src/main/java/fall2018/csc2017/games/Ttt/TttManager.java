@@ -38,7 +38,7 @@ public class TttManager implements Game, Serializable {
     public String winMessage;
 
     /**
-     * Tacks the contents of the buttons
+     * Tracks the contents of the buttons
      */
     public Button[][] buttons = new Button[3][3];
 
@@ -54,13 +54,18 @@ public class TttManager implements Game, Serializable {
     public String mode;
 
 
+    /**
+     * Creates a new manager
+     *
+     * @param mode the mode for this manager
+     */
     TttManager(String mode) {
         this.mode = mode;
     }
 
     @Override
     public void setDifficulty(String difficulty) {
-        this.mode = difficulty;
+        this.mode = difficulty.equals("easy") ? "single" : "double";
     }
 
     /**
@@ -71,7 +76,7 @@ public class TttManager implements Game, Serializable {
      */
     @Override
     public String getDifficulty() {
-        return mode;
+        return this.mode.equals("single") ? "easy" : "medium";
     }
 
     /**
@@ -201,5 +206,9 @@ public class TttManager implements Game, Serializable {
         log = new ArrayList<>();
         roundCount = 0;
         p1Turn = true;
+    }
+
+    public int getScore() {
+        return p1Points - p2Points;
     }
 }

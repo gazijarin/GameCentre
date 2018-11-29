@@ -158,7 +158,7 @@ class HangmanManager implements Game, Serializable {
     /**
      * Returns the current score for this hangman game
      *
-     * @return
+     * @return the current score for this hangman game
      */
     int getScore() {
         int modifier;
