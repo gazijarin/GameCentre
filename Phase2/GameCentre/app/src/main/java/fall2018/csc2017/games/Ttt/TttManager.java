@@ -2,47 +2,50 @@ package fall2018.csc2017.games.Ttt;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Random;
+
 import fall2018.csc2017.games.Game;
 
+/**
+ * Manages a Tic Tac Toe game.
+ */
 public class TttManager implements Game, Serializable {
     /**
      * The number of undos; default set to 1.
      */
     private int numUndos = 1;
-
     /**
      * boolean to keep track of p1's turn
      */
-    public boolean p1Turn = true;
-
+    boolean p1Turn = true;
     /**
-     * Tracking each player's points
+     * Hash-map points system of p1 and p2.
      */
-    public int p1Points = 0;
-    public int p2Points = 0;
-
+    Map<String, Integer> points = new HashMap<String, Integer>() {
+        {
+            put("p1", 0);
+            put("p2", 0);
+        }
+    };
     /**
-     * The message for when the game ends
+     * The game board.
      */
-    public String winMessage;
-
-
-    public int[][] board = new int[3][3];
+    int[][] board = new int[3][3];
     /**
      * Tracks the number of rounds
      */
-    public int roundCount = 0;
-
-
+    int roundCount = 0;
     /**
-     * The game mode
+     * The game mode.
      */
-    public String mode;
-
-    public ArrayList<int[]>undoTracker = new ArrayList<>();
-    public int finishedUndos;
+    String mode;
+    /**
+     * The undo tracker.
+     */
+    ArrayList<int[]> undoTracker = new ArrayList<>();
 
 
     /**
@@ -95,15 +98,14 @@ public class TttManager implements Game, Serializable {
     /**
      * Sets how many undos are possible in this game
      *
-     * @param undos
+     * @param undos the number of undos
      */
     @Override
     public void setNumUndos(int undos) {
         numUndos = undos;
-        finishedUndos = undos;
     }
 
-    public int getNumUndos(){
+    public int getNumUndos() {
         return numUndos;
     }
 
@@ -126,16 +128,15 @@ public class TttManager implements Game, Serializable {
                 roundCount--;
             }
         }
-        numUndos = numUndos-1;
+        numUndos = numUndos - 1;
         return success;
     }
-
 
 
     /**
      * Computer makes a move on the board
      */
-    public int[] computerPlay() {
+    int[] computerPlay() {
 
         ArrayList<int[]> possibilities = new ArrayList<>();
         Random rand = new Random();
@@ -156,15 +157,16 @@ public class TttManager implements Game, Serializable {
     }
 
 
-    public void play(int row, int col, int item){
+    void play(int row, int col, int item) {
         board[row][col] = item;
     }
 
     /**
      * Checks the board for wins
+     *
      * @return whether there is a win
      */
-    public boolean checkForWin() {
+    boolean checkForWin() {
 
         for (int i = 0; i < 3; i++) {
             if (board[i][0] == (board[i][1])
@@ -187,29 +189,26 @@ public class TttManager implements Game, Serializable {
                 && board[0][0] != 0) {
             return true;
 
-        } else if (board[0][2] == (board[1][1])
+        } else return board[0][2] == (board[1][1])
                 && board[0][2] == (board[2][0])
-                && board[0][2] != 0) {
-            return true;
-        }
+                && board[0][2] != 0;
 
-        return false;
     }
 
     /**
      * Reset the board and buttons
      */
-    public void resetBoard() {
+    void resetBoard() {
         board = new int[3][3];
         roundCount = 0;
         p1Turn = true;
-        numUndos = finishedUndos;
+        numUndos = 3;
     }
 
     /**
      * Returns how many times undo should occur (twice for single-player and once for multi)
      */
-    public int getUndoTime(){
+    int getUndoTime() {
         int time = 2;
         if (mode.equals("single")) {
             time = 1;
@@ -219,6 +218,6 @@ public class TttManager implements Game, Serializable {
 
 
     public int getScore() {
-        return p1Points - p2Points;
+        return points.get("p1") - points.get("p2");
     }
 }
