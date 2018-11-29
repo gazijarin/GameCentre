@@ -6,6 +6,9 @@ import android.os.Bundle;
 import fall2018.csc2017.games.GameScreenActivity;
 import fall2018.csc2017.games.R;
 
+/**
+ * A class that represents the Tic Tac Toe game screen activity.
+ */
 public class TttScreenActivity extends GameScreenActivity {
 
     @Override
