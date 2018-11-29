@@ -88,15 +88,7 @@ class ScoreboardManager extends Observable {
      * @param score the score the user got
      */
     void addUserScore(final int score) {
-        DatabaseReference myRef = mDatabase.getReference(
-                "scores/" + currentGame.getGameId() + "/"
-                        + currentGame.getDifficulty() + "/" + currentUser);
-        myRef.push().setValue(score);
-
-
-        final DatabaseReference topScoresRef = mDatabase.getReference(
-                "scores/" + currentGame.getGameId() +
-                        "/" + currentGame.getDifficulty() + "/@topscores@");
+        final DatabaseReference topScoresRef = getDatabaseReference(score);
 
         topScoresRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -115,16 +107,7 @@ class ScoreboardManager extends Observable {
                     }
                 }
 
-                if (count < NUM_TOP_SCORES) {
-                    String newKey = topScoresRef.push().getKey();
-                    assert newKey != null;
-                    topScoresRef.child(newKey).child("username").setValue(currentUser);
-                    topScoresRef.child(newKey).child("score").setValue(score);
-                } else if (worstKey != null) {
-                    topScoresRef.child(worstKey).child("username").setValue(currentUser);
-                    topScoresRef.child(worstKey).child("score").setValue(score);
-                }
-
+                setScoreValues(worstKey, count, topScoresRef, score);
                 setChanged();
                 notifyObservers(ADDED_USER_SCORE);
             }
@@ -138,6 +121,44 @@ class ScoreboardManager extends Observable {
         });
 
 
+    }
+
+    /**
+     * Sets the score values for current user.
+     *
+     * @param worstKey     the worst key
+     * @param count        the count
+     * @param topScoresRef the top scores reference
+     * @param score        the score
+     */
+    private void setScoreValues(String worstKey, int count, DatabaseReference topScoresRef, int score) {
+        if (count < NUM_TOP_SCORES) {
+            String newKey = topScoresRef.push().getKey();
+            assert newKey != null;
+            topScoresRef.child(newKey).child("username").setValue(currentUser);
+            topScoresRef.child(newKey).child("score").setValue(score);
+        } else if (worstKey != null) {
+            topScoresRef.child(worstKey).child("username").setValue(currentUser);
+            topScoresRef.child(worstKey).child("score").setValue(score);
+        }
+    }
+
+    /**
+     * Returns the database reference.
+     *
+     * @param score the score
+     * @return the database reference
+     */
+    private DatabaseReference getDatabaseReference(int score) {
+        DatabaseReference myRef = mDatabase.getReference(
+                "scores/" + currentGame.getGameId() + "/"
+                        + currentGame.getDifficulty() + "/" + currentUser);
+        myRef.push().setValue(score);
+
+
+        return mDatabase.getReference(
+                "scores/" + currentGame.getGameId() +
+                        "/" + currentGame.getDifficulty() + "/@topscores@");
     }
 
     /**
@@ -190,20 +211,7 @@ class ScoreboardManager extends Observable {
         topScoresRef.orderByChild("score").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    String username = (String) snapshot.child("username").getValue();
-                    String score = (Objects.requireNonNull(snapshot.child("score").getValue())).
-                            toString();
-                    String[] info = new String[2];
-                    info[0] = username;
-                    info[1] = score;
-
-                    if (!currentGame.highTopScore()) {
-                        scores.add(info);
-                    } else { //add to the first position to reverse list
-                        scores.add(0, info);
-                    }
-                }
+                updateScoresData(dataSnapshot, scores);
 
                 setChanged();
                 notifyObservers(RETRIEVED_TOP_SCORES);
@@ -217,6 +225,29 @@ class ScoreboardManager extends Observable {
             }
         });
         return scores;
+    }
+
+    /**
+     * Updates scores and changes data according to recent top scores.
+     *
+     * @param dataSnapshot the data snapshot
+     * @param scores       scores
+     */
+    private void updateScoresData(@NonNull DataSnapshot dataSnapshot, List<String[]> scores) {
+        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+            String username = (String) snapshot.child("username").getValue();
+            String score = (Objects.requireNonNull(snapshot.child("score").getValue())).
+                    toString();
+            String[] info = new String[2];
+            info[0] = username;
+            info[1] = score;
+
+            if (!currentGame.highTopScore()) {
+                scores.add(info);
+            } else { //add to the first position to reverse list
+                scores.add(0, info);
+            }
+        }
     }
 
 
