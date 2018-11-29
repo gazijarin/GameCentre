@@ -2,21 +2,13 @@ package fall2018.csc2017.games.Hangman;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 import fall2018.csc2017.games.GameScreenActivity;
 import fall2018.csc2017.games.R;
 
+/**
+ * A class that represents the Hangman screen activity.
+ */
 public class HangmanScreenActivity extends GameScreenActivity {
 
     @Override
@@ -29,6 +21,7 @@ public class HangmanScreenActivity extends GameScreenActivity {
         gameImage.setImageResource(R.drawable.hangman_title_image);
         gameDescription.setText(getResources().getString(R.string.hangman_description));
     }
+
     /**
      * Switch to the SlidingTilesActivity view to play the game.
      */

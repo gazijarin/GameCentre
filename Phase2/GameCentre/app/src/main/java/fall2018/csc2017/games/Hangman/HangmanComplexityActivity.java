@@ -6,6 +6,9 @@ import android.os.Bundle;
 import fall2018.csc2017.games.ComplexityActivity;
 import fall2018.csc2017.games.GameScreenActivity;
 
+/**
+ * A class that represents the Hangman complexity activity.
+ */
 public class HangmanComplexityActivity extends ComplexityActivity {
 
     @Override
@@ -15,7 +18,7 @@ public class HangmanComplexityActivity extends ComplexityActivity {
     }
 
     /**
-     * Switches to the SlidingTilesActivity view to play the game.
+     * Switches to the HangmanActivity view to play the game.
      */
     protected void switchToGame() {
         game.setNumUndos(Integer.parseInt(numUndos.getText().toString()));
