@@ -13,4 +13,6 @@
     <string name="sliding_tiles_description">Welcome To Sliding Tiles.\n A puzzle game where you must order the tiles."</string>
     <string name="hangman_description">Welcome To Hangman. \n A Puzzle Game where you must guess a random word.</string>
     <string name="ttt_description">Welcome To Tic Tac Toe. \n A game where you must try to get three markers in a line.</string>
+    <string name="title_activity_scoreboard">ScoreboardActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

@@ -38,7 +38,11 @@
         <activity android:name=".Ttt.TttScreenActivity" />
         <activity android:name=".FileActivity" />
         <activity android:name=".GameScreenActivity" />
-        <activity android:name=".GameActivity"></activity>
+        <activity android:name=".GameActivity" />
+        <activity
+            android:name=".ScoreboardActivity"
+            android:label="@string/title_activity_scoreboard"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>
