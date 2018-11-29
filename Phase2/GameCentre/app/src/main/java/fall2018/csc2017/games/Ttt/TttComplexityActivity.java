@@ -1,5 +1,6 @@
 package fall2018.csc2017.games.Ttt;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,9 +9,10 @@ import fall2018.csc2017.games.ComplexityActivity;
 import fall2018.csc2017.games.GameScreenActivity;
 import fall2018.csc2017.games.R;
 
+/**
+ * The class representing Tic Tac Toe complexity activity.
+ */
 public class TttComplexityActivity extends ComplexityActivity {
-
-    private String mode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +22,7 @@ public class TttComplexityActivity extends ComplexityActivity {
         game = new TttManager("double");
     }
 
+    @SuppressLint("SetTextI18n")
     private void setupDifficultyButtons() {
         Button singlePlayer = findViewById(R.id.button);
         Button obsolete = findViewById(R.id.button2);
@@ -33,7 +36,6 @@ public class TttComplexityActivity extends ComplexityActivity {
             public void onClick(View v) {
                 game.setDifficulty("single");
                 toastDifficulty("Single Player");
-                mode = "single";
             }
         });
 
@@ -43,7 +45,6 @@ public class TttComplexityActivity extends ComplexityActivity {
             public void onClick(View v) {
                 game.setDifficulty("double");
                 toastDifficulty("Multi Player");
-                mode = "double";
             }
         });
     }
