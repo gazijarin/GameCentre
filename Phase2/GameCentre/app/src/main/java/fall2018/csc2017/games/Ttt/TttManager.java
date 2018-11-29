@@ -32,7 +32,7 @@ public class TttManager implements Game, Serializable {
         }
     };
     /**
-     * The game board.
+     * The game board where 1 represents player 1 and 2 represents player 2
      */
     int[][] board = new int[3][3];
     /**
@@ -47,6 +47,8 @@ public class TttManager implements Game, Serializable {
      * The undo tracker.
      */
     ArrayList<int[]> undoTracker = new ArrayList<>();
+
+    private int initialUndos = 1;
 
 
     /**
@@ -104,6 +106,7 @@ public class TttManager implements Game, Serializable {
     @Override
     public void setNumUndos(int undos) {
         numUndos = undos;
+        initialUndos = undos;
     }
 
     public int getNumUndos() {
@@ -203,7 +206,7 @@ public class TttManager implements Game, Serializable {
         board = new int[3][3];
         roundCount = 0;
         p1Turn = true;
-        numUndos = 3;
+        numUndos = initialUndos;
     }
 
     /**

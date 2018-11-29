@@ -69,7 +69,7 @@ public class TttActivity extends GameActivity implements View.OnClickListener {
                         x.setText("");
                         log.remove(log.size() - 1);
                         int[] coord = identifier(x);
-                        manager.undoTracker.add(coord);
+                        manager.undoTracker.add(0,coord);
                     }
                 }
                 manager.undo();
