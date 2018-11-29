@@ -8,24 +8,38 @@ import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertSame;
 import static org.junit.Assert.*;
 
+/**
+ * Example local unit test, which will execute on the development machine (host).
+ *
+ * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ */
+
 public class TttManagerTest {
     /**
-     * The tic tac toe board manager for testing
+     * The board manager for testing.
      */
     private TttManager tttManager;
 
+    /**
+     * Set up a default single player manager
+     */
     @Before
     public void setUp() {
         tttManager = new TttManager("single");
     }
 
-
+    /**
+     * Test the difficulty functionality for default setup
+     */
     @Test
     public void testDifficultyDefault() {
-        assertEquals("single", tttManager.getDifficulty()); //should default to single
+        assertEquals("single", tttManager.getDifficulty());
 
     }
 
+    /**
+     * Test the difficulty functionality for single player setup
+     */
     @Test
     public void testModeSingle() {
 
@@ -33,13 +47,14 @@ public class TttManagerTest {
         assertSame("single", tttManager.getDifficulty());
     }
 
+    /** Test the difficulty functionality for multiplayer setup */
     @Test
     public void testModeDouble() {
         tttManager.setDifficulty("double");
         assertSame("double", tttManager.getDifficulty());
     }
 
-
+    /** Test for the game properties */
     @Test
     public void testGameProperties() {
 
@@ -47,6 +62,7 @@ public class TttManagerTest {
         assertFalse(tttManager.highTopScore());
     }
 
+    /** Test for the functionality of undo */
     @Test
     public void setNumUndos() {
 
