@@ -1,39 +1,30 @@
 package fall2018.csc2017.games.Ttt;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
-
 
 import fall2018.csc2017.games.FinishedActivity;
 import fall2018.csc2017.games.GameActivity;
 import fall2018.csc2017.games.GameScreenActivity;
 import fall2018.csc2017.games.R;
 
-//todo: AUTO SAVE, SAVE AND LOAD
-//todo:  SCOREBOARD INTEGRATION
-//todo: fix the yellows
-
-
+/**
+ * The Tic Tac Toe Activity.
+ */
 public class TttActivity extends GameActivity implements View.OnClickListener {
-
     /**
      * Player1 and 2 score displays on overhead
      */
     private TextView p1Score;
     private TextView p2Score;
-
     /**
      * The game manager
      */
@@ -42,11 +33,14 @@ public class TttActivity extends GameActivity implements View.OnClickListener {
      * The button log of all the moves made in a game
      */
     public ArrayList<Button> log = new ArrayList<>();
-
     /**
      * Tacks the contents of the buttons
      */
     public Button[][] buttons = new Button[3][3];
+    /**
+     * A message to display after the game has ended.
+     */
+    String message;
 
 
     @Override
@@ -106,11 +100,11 @@ public class TttActivity extends GameActivity implements View.OnClickListener {
     /**
      * Setting up buttons for the UI
      */
-    private void buttonInitializer(){
-        HashMap<Integer, String> map = new HashMap<>();
-        map.put(0,"");
-        map.put(1,"X");
-        map.put(2,"O");
+    private void buttonInitializer() {
+        @SuppressLint("UseSparseArrays") HashMap<Integer, String> map = new HashMap<>();
+        map.put(0, "");
+        map.put(1, "X");
+        map.put(2, "O");
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -130,12 +124,10 @@ public class TttActivity extends GameActivity implements View.OnClickListener {
             return;
         }
 
-        int[] cords = identifier((Button)v);
+        int[] cords = identifier((Button) v);
         if (manager.p1Turn) {
             ((Button) v).setText("X");
             manager.play(cords[0], cords[1], 1);
-
-
 
 
         } else {
@@ -155,14 +147,14 @@ public class TttActivity extends GameActivity implements View.OnClickListener {
     }
 
 
-    private  int[] identifier(Button b){
+    private int[] identifier(Button b) {
         int[] coord = new int[2];
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (b.getId() == buttons[i][j].getId()){
-                    coord[0] =i;
+                if (b.getId() == buttons[i][j].getId()) {
+                    coord[0] = i;
                     coord[1] = j;
-                    }
+                }
             }
         }
         return coord;
@@ -173,7 +165,7 @@ public class TttActivity extends GameActivity implements View.OnClickListener {
      * Displaying the appropriate message when game is over
      */
     private void announcement() {
-        Toast.makeText(this, manager.winMessage, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         updatePointsText();
         log = new ArrayList<>();
         clearScreen();
@@ -182,12 +174,13 @@ public class TttActivity extends GameActivity implements View.OnClickListener {
     /**
      * Updating points after every round
      */
+    @SuppressLint("SetTextI18n")
     private void updatePointsText() {
-        p1Score.setText("You: " + manager.p1Points);
-        p2Score.setText("Player 2: " + manager.p2Points);
+        p1Score.setText("You: " + manager.points.get("p1"));
+        p2Score.setText("Player 2: " + manager.points.get("p2"));
     }
 
-    private void clearScreen(){
+    private void clearScreen() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 buttons[i][j].setText("");
@@ -204,13 +197,13 @@ public class TttActivity extends GameActivity implements View.OnClickListener {
         if (manager.checkForWin() || manager.roundCount >= 9) {
 
             if (manager.roundCount >= 9) {
-                manager.winMessage = "Draw";
+                message = "Draw";
             } else if (manager.p1Turn) {
-                manager.winMessage = "Player 1 wins!";
-                manager.p1Points++;
+                message = "Player 1 wins!";
+                manager.points.put("p1", manager.points.get("p1") + 1);
             } else {
-                manager.winMessage = "Player 2 wins!";
-                manager.p2Points++;
+                message = "Player 2 wins!";
+                manager.points.put("p2", manager.points.get("p2") + 1);
             }
             announcement();
 
@@ -219,13 +212,14 @@ public class TttActivity extends GameActivity implements View.OnClickListener {
         }
 
     }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
         outState.putInt("roundCount", manager.roundCount);
-        outState.putInt("p1Points", manager.p1Points);
-        outState.putInt("p2Points", manager.p2Points);
+        outState.putInt("p1Points", manager.points.get("p1"));
+        outState.putInt("p2Points", manager.points.get("p2"));
         outState.putBoolean("p1Turn", manager.p1Turn);
     }
 
@@ -234,8 +228,8 @@ public class TttActivity extends GameActivity implements View.OnClickListener {
         super.onRestoreInstanceState(savedInstanceState);
 
         manager.roundCount = savedInstanceState.getInt("roundCount");
-        manager.p1Points = savedInstanceState.getInt("p1Points");
-        manager.p2Points = savedInstanceState.getInt("p2Points");
+        manager.points.put("p1", savedInstanceState.getInt("p1Points"));
+        manager.points.put("p2", savedInstanceState.getInt("p2Points"));
         manager.p1Turn = savedInstanceState.getBoolean("p1Turn");
     }
 }
