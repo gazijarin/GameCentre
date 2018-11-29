@@ -146,12 +146,17 @@ public class TttActivity extends GameActivity implements View.OnClickListener {
         }
     }
 
-
-    private int[] identifier(Button b) {
+    /**
+     * Returns the coordinate of the specified button.
+     *
+     * @param btn the button
+     * @return coordinates of button
+     */
+    private int[] identifier(Button btn) {
         int[] coord = new int[2];
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (b.getId() == buttons[i][j].getId()) {
+                if (btn.getId() == buttons[i][j].getId()) {
                     coord[0] = i;
                     coord[1] = j;
                 }
@@ -180,6 +185,9 @@ public class TttActivity extends GameActivity implements View.OnClickListener {
         p2Score.setText("Player 2: " + manager.points.get("p2"));
     }
 
+    /**
+     * Clears the screen and resets the board.
+     */
     private void clearScreen() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
