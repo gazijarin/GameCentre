@@ -21,6 +21,7 @@ public class TttManager implements Game, Serializable {
      * boolean to keep track of p1's turn
      */
     boolean p1Turn = true;
+
     /**
      * Hash-map points system of p1 and p2.
      */
@@ -216,7 +217,9 @@ public class TttManager implements Game, Serializable {
         return time;
     }
 
-
+    /**
+     * gets the score of the game round
+     */
     public int getScore() {
         return points.get("p1") - points.get("p2");
     }

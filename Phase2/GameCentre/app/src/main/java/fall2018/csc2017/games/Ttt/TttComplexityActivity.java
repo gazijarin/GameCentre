@@ -49,6 +49,7 @@ public class TttComplexityActivity extends ComplexityActivity {
         });
     }
 
+    //TODO: javadoc for this
     protected void switchToGame() {
         game.setNumUndos(Integer.parseInt(numUndos.getText().toString()));
         saveToFile(GameScreenActivity.SAVE_FILENAME);
@@ -56,6 +57,9 @@ public class TttComplexityActivity extends ComplexityActivity {
         startActivity(tmp);
     }
 
+    /**
+     * Sets up the number of undos based on input
+     */
     private void setupNumUndoInput() {
         numUndos = findViewById(R.id.numUndos);
         String text = 1 + "";
