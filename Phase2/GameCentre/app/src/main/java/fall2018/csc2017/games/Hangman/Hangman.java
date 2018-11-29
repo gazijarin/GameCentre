@@ -1,8 +1,6 @@
 package fall2018.csc2017.games.Hangman;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A class that represents a Hangman game.
@@ -16,7 +14,6 @@ public class Hangman implements Serializable {
      * A char array representing the parts of the word that have been revealed
      */
     private char[] revealedWord;
-
     /**
      * The total number of guesses for the hangman game.
      */
