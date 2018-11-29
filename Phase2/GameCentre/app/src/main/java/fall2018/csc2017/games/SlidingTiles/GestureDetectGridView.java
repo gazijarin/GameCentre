@@ -15,30 +15,73 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.GridView;
 
+/**
+ * The Gesture Grid View class.
+ */
 public class GestureDetectGridView extends GridView {
+    /**
+     * The minimum swipe distance.
+     */
     public static final int SWIPE_MIN_DISTANCE = 100;
+    /**
+     * The gesture detector.
+     */
     private GestureDetector gDetector;
+    /**
+     * The movement controller.
+     */
     private MovementController mController;
+    /**
+     * Whether or not the fling confirmed.
+     */
     private boolean mFlingConfirmed = false;
+    /**
+     * The touch X.
+     */
     private float mTouchX;
+    /**
+     * The touch Y.
+     */
     private float mTouchY;
-    private BoardManager boardManager;
 
+    /**
+     * Creates a new Gesture Detect Grid View.
+     *
+     * @param context the context
+     */
     public GestureDetectGridView(Context context) {
         super(context);
         init(context);
     }
 
+    /**
+     * Creates a new Gesture Detect Grid View.
+     * @param context the context
+     * @param attrs the attributes
+     */
     public GestureDetectGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
+    /**
+     * Creates a new Gesture Detect Grid View.
+     * @param context the context
+     * @param attrs the attributes
+     * @param defStyleAttr the style attribute
+     */
     public GestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }
 
+    /**
+     * Creates a new Gesture Detect Grid View.
+     * @param context the context
+     * @param attrs the attributes
+     * @param defStyleAttr the style attribute
+     * @param defStyleRes the style resource
+     */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP) // API 21
     public GestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr,
                                  int defStyleRes) {
@@ -46,6 +89,10 @@ public class GestureDetectGridView extends GridView {
         init(context);
     }
 
+    /**
+     * Initializes given context.
+     * @param context the context
+     */
     private void init(final Context context) {
         mController = new MovementController();
         gDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
@@ -99,8 +146,11 @@ public class GestureDetectGridView extends GridView {
         return gDetector.onTouchEvent(ev);
     }
 
+    /**
+     * Sets the board manager to specified manager.
+     * @param boardManager the board manager
+     */
     public void setBoardManager(BoardManager boardManager) {
-        this.boardManager = boardManager;
         mController.setBoardManager(boardManager);
     }
 }
