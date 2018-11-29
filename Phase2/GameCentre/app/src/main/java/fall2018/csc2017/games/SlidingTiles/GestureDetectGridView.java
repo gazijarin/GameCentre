@@ -56,8 +56,9 @@ public class GestureDetectGridView extends GridView {
 
     /**
      * Creates a new Gesture Detect Grid View.
+     *
      * @param context the context
-     * @param attrs the attributes
+     * @param attrs   the attributes
      */
     public GestureDetectGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -66,8 +67,9 @@ public class GestureDetectGridView extends GridView {
 
     /**
      * Creates a new Gesture Detect Grid View.
-     * @param context the context
-     * @param attrs the attributes
+     *
+     * @param context      the context
+     * @param attrs        the attributes
      * @param defStyleAttr the style attribute
      */
     public GestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -77,10 +79,11 @@ public class GestureDetectGridView extends GridView {
 
     /**
      * Creates a new Gesture Detect Grid View.
-     * @param context the context
-     * @param attrs the attributes
+     *
+     * @param context      the context
+     * @param attrs        the attributes
      * @param defStyleAttr the style attribute
-     * @param defStyleRes the style resource
+     * @param defStyleRes  the style resource
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP) // API 21
     public GestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr,
@@ -91,6 +94,7 @@ public class GestureDetectGridView extends GridView {
 
     /**
      * Initializes given context.
+     *
      * @param context the context
      */
     private void init(final Context context) {
@@ -148,6 +152,7 @@ public class GestureDetectGridView extends GridView {
 
     /**
      * Sets the board manager to specified manager.
+     *
      * @param boardManager the board manager
      */
     public void setBoardManager(BoardManager boardManager) {
