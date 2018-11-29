@@ -1,6 +1,10 @@
 package fall2018.csc2017.games.Hangman;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import fall2018.csc2017.games.Game;
@@ -9,12 +13,6 @@ import fall2018.csc2017.games.Game;
  * Manages a Hangman object.
  */
 class HangmanManager implements Game, Serializable {
-    /**
-     * The arrays holding the possible words
-     */
-    private final static String[] easyWords = {"CHARGER", "TABLET", "SYSTEM", "INTERNET", "STYLUS"};
-    private final static String[] mediumWords = {"AGGRESSIVE", "FUTURISTIC", "RELIGION", "ANACONDA", "EINSTEIN"};
-    private final static String[] hardWords = {"CROQUET", "BAGPIPES", "BANJO", "DWARVES", "GAZEBO"};
     /**
      * The current score.
      */
@@ -31,6 +29,29 @@ class HangmanManager implements Game, Serializable {
      * The difficulty of the word; default set to medium.
      */
     private String difficulty = "medium";
+    /**
+     * The map containing list of all possible words, sorted by difficulty keys.
+     */
+    private final static Map<String, ArrayList<String>> words = new HashMap<String, ArrayList<String>>() {{
+        put("easy", new ArrayList<String>() {{
+            add("CHARGER");
+            add("TABLET");
+            add("SYSTEM");
+            add("INTERNET");
+        }});
+        put("medium", new ArrayList<String>() {{
+            add("AGGRESSIVE");
+            add("FUTURISTIC");
+            add("ANACONDA");
+            add("EINSTEIN");
+        }});
+        put("hard", new ArrayList<String>() {{
+            add("CROQUET");
+            add("BAGPIPES");
+            add("BANJO");
+            add("GAZEBO");
+        }});
+    }};
 
     /**
      * Creates a new manager for a specific word.
@@ -71,10 +92,20 @@ class HangmanManager implements Game, Serializable {
         return false;
     }
 
+    /**
+     * Returns the number of undos
+     *
+     * @return the number of undos
+     */
     public int getNumUndos() {
         return numUndos;
     }
 
+    /**
+     * Sets the number of undos to a specified one.
+     *
+     * @param numUndos number of undos
+     */
     public void setNumUndos(int numUndos) {
         this.numUndos = numUndos;
     }
@@ -100,31 +131,26 @@ class HangmanManager implements Game, Serializable {
      */
     String getNewWord() {
         Random rand = new Random();
-        String[] words;
+        ArrayList<String> chosenWords;
         switch (difficulty) {
             case "easy":
-                words = easyWords;
-
+                chosenWords = words.get("easy");
                 break;
             case "hard":
-                words = hardWords;
+                chosenWords = words.get("hard");
                 break;
             default:
-                words = mediumWords;
+                chosenWords = words.get("medium");
                 break;
         }
-        String newWord = words[rand.nextInt(words.length)];
+        String newWord = chosenWords.get(rand.nextInt(chosenWords.size()));
 
         while (hangman != null && newWord.equals(hangman.currWord)) {
-            newWord = words[rand.nextInt(words.length)];
+            newWord = chosenWords.get(rand.nextInt(chosenWords.size()));
         }
 
         return newWord;
 
-    }
-
-    public boolean redo() {
-        return false;
     }
 
     /**
@@ -156,9 +182,9 @@ class HangmanManager implements Game, Serializable {
     }
 
     /**
-     * Returns the current score for this hangman game
+     * Returns the current score for this hangman game.
      *
-     * @return the current score for this hangman game
+     * @return the current score for this hangman game.
      */
     int getScore() {
         int modifier;
