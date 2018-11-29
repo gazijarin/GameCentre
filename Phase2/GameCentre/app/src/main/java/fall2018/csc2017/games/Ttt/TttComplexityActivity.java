@@ -15,10 +15,10 @@ public class TttComplexityActivity extends ComplexityActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setupNumUndoInput();
         setupDifficultyButtons();
         game = new TttManager("double");
     }
-
 
     private void setupDifficultyButtons() {
         Button singlePlayer = findViewById(R.id.button);
@@ -53,6 +53,12 @@ public class TttComplexityActivity extends ComplexityActivity {
         saveToFile(GameScreenActivity.SAVE_FILENAME);
         Intent tmp = new Intent(this, TttActivity.class);
         startActivity(tmp);
+    }
+
+    private void setupNumUndoInput() {
+        numUndos = findViewById(R.id.numUndos);
+        String text = 1 + "";
+        numUndos.setText(text);
     }
 
 }

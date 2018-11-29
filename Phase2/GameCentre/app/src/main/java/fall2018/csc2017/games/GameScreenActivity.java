@@ -99,7 +99,7 @@ public abstract class GameScreenActivity extends FileActivity<Game> {
     /**
      * Display that a game was loaded successfully.
      */
-    private void makeToastLoadedText() {
+    public void makeToastLoadedText() {
         Toast.makeText(this, "Loaded Game", Toast.LENGTH_SHORT).show();
     }
 

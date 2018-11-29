@@ -11,6 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 
 import fall2018.csc2017.games.FinishedActivity;
 import fall2018.csc2017.games.GameActivity;
@@ -34,6 +38,15 @@ public class TttActivity extends GameActivity implements View.OnClickListener {
      * The game manager
      */
     TttManager manager;
+    /**
+     * The button log of all the moves made in a game
+     */
+    public ArrayList<Button> log = new ArrayList<>();
+
+    /**
+     * Tacks the contents of the buttons
+     */
+    public Button[][] buttons = new Button[3][3];
 
 
     @Override
@@ -53,7 +66,20 @@ public class TttActivity extends GameActivity implements View.OnClickListener {
         buttonUndo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //undoing moves in front end
+                int time = manager.getUndoTime();
+                for (int i = time; i < 3; i++) {
+                    if (log.size() > 0 & manager.getNumUndos() > 0) {
+                        Button x = log.get(log.size() - 1);
+                        x.setText("");
+                        log.remove(log.size() - 1);
+                        int[] coord = identifier(x);
+                        manager.undoTracker.add(coord);
+                    }
+                }
                 manager.undo();
+
             }
         });
 
@@ -81,38 +107,67 @@ public class TttActivity extends GameActivity implements View.OnClickListener {
      * Setting up buttons for the UI
      */
     private void buttonInitializer(){
+        HashMap<Integer, String> map = new HashMap<>();
+        map.put(0,"");
+        map.put(1,"X");
+        map.put(2,"O");
+
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 String buttonID = "button_" + i + j;
                 int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
-                manager.buttons[i][j] = findViewById(resID);
-                manager.buttons[i][j].setOnClickListener(this);
+                buttons[i][j] = findViewById(resID);
+                buttons[i][j].setOnClickListener(this);
+                buttons[i][j].setText(map.get(manager.board[i][j]));
             }
         }
     }
 
     @Override
     public void onClick(View v) {
+
         if (!((Button) v).getText().toString().equals("")) {
             return;
         }
 
+        int[] cords = identifier((Button)v);
         if (manager.p1Turn) {
             ((Button) v).setText("X");
+            manager.play(cords[0], cords[1], 1);
+
+
+
 
         } else {
             ((Button) v).setText("O");
+            manager.play(cords[0], cords[1], 2);
         }
 
-        manager.log.add((Button) v);
+        log.add((Button) v);
         manager.roundCount++;
         winActivities();
 
 
         if (!manager.p1Turn && manager.mode.equals("single")) {
-            onClick(findViewById(manager.easyMode().getId()));
+            int[] chosen = manager.computerPlay();
+            onClick(findViewById(buttons[chosen[0]][chosen[1]].getId()));
         }
     }
+
+
+    private  int[] identifier(Button b){
+        int[] coord = new int[2];
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (b.getId() == buttons[i][j].getId()){
+                    coord[0] =i;
+                    coord[1] = j;
+                    }
+            }
+        }
+        return coord;
+    }
+
 
     /**
      * Displaying the appropriate message when game is over
@@ -120,7 +175,8 @@ public class TttActivity extends GameActivity implements View.OnClickListener {
     private void announcement() {
         Toast.makeText(this, manager.winMessage, Toast.LENGTH_SHORT).show();
         updatePointsText();
-        manager.resetBoard();
+        log = new ArrayList<>();
+        clearScreen();
     }
 
     /**
@@ -129,6 +185,15 @@ public class TttActivity extends GameActivity implements View.OnClickListener {
     private void updatePointsText() {
         p1Score.setText("You: " + manager.p1Points);
         p2Score.setText("Player 2: " + manager.p2Points);
+    }
+
+    private void clearScreen(){
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                buttons[i][j].setText("");
+            }
+        }
+        manager.resetBoard();
     }
 
 

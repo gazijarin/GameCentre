@@ -8,8 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 
 public abstract class ComplexityActivity extends FileActivity<Game> {
     /**
@@ -82,7 +80,7 @@ public abstract class ComplexityActivity extends FileActivity<Game> {
     /**
      * Sets up the button that allows the user to start the game
      */
-    public void setupStartButton() {
+    private void setupStartButton() {
         Button startButton = findViewById(R.id.startButton);
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override

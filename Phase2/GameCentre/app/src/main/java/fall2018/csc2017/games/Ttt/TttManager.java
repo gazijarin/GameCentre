@@ -1,30 +1,21 @@
 package fall2018.csc2017.games.Ttt;
 
-import android.widget.Button;
-
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
-
 import fall2018.csc2017.games.Game;
 
 public class TttManager implements Game, Serializable {
     /**
-     * The number of undos; default set to 3.
+     * The number of undos; default set to 1.
      */
-    private int numUndos = 3;
-
-    /**
-     * The log of all the moves made in a game
-     */
-    public ArrayList<Button> log = new ArrayList<>();
+    private int numUndos = 1;
 
     /**
      * boolean to keep track of p1's turn
      */
     public boolean p1Turn = true;
-
 
     /**
      * Tracking each player's points
@@ -37,11 +28,8 @@ public class TttManager implements Game, Serializable {
      */
     public String winMessage;
 
-    /**
-     * Tracks the contents of the buttons
-     */
-    public Button[][] buttons = new Button[3][3];
 
+    public int[][] board = new int[3][3];
     /**
      * Tracks the number of rounds
      */
@@ -52,6 +40,9 @@ public class TttManager implements Game, Serializable {
      * The game mode
      */
     public String mode;
+
+    public ArrayList<int[]>undoTracker = new ArrayList<>();
+    public int finishedUndos;
 
 
     /**
@@ -65,7 +56,7 @@ public class TttManager implements Game, Serializable {
 
     @Override
     public void setDifficulty(String difficulty) {
-        this.mode = difficulty.equals("easy") ? "single" : "double";
+        this.mode = difficulty;
     }
 
     /**
@@ -76,7 +67,7 @@ public class TttManager implements Game, Serializable {
      */
     @Override
     public String getDifficulty() {
-        return this.mode.equals("single") ? "easy" : "medium";
+        return mode;
     }
 
     /**
@@ -108,7 +99,12 @@ public class TttManager implements Game, Serializable {
      */
     @Override
     public void setNumUndos(int undos) {
-        this.numUndos = undos;
+        numUndos = undos;
+        finishedUndos = undos;
+    }
+
+    public int getNumUndos(){
+        return numUndos;
     }
 
     /**
@@ -118,37 +114,50 @@ public class TttManager implements Game, Serializable {
      */
     @Override
     public boolean undo() {
-        int time = 2;
-        if (mode.equals("single")) {
-            time = 1;
-        }
+        Boolean success = false;
+        Iterator<int[]> it = undoTracker.iterator();
+        int time = getUndoTime();
         for (int i = time; i < 3; i++) {
-            if (log.size() > 0) {
-                Button x = this.log.get(log.size() - 1);
-                x.setText("");
-                this.log.remove(log.size() - 1);
+            if (roundCount > 0 & it.hasNext() & getNumUndos() > 0) {
+                int[] coords = it.next();
+                play(coords[0], coords[1], 0);
+                success = true;
                 p1Turn = !p1Turn;
                 roundCount--;
             }
         }
-        return true;
+        numUndos = numUndos-1;
+        return success;
     }
+
+
 
     /**
      * Computer makes a move on the board
      */
-    public Button easyMode() {
-        ArrayList<Button> possibilities = new ArrayList<>();
+    public int[] computerPlay() {
+
+        ArrayList<int[]> possibilities = new ArrayList<>();
         Random rand = new Random();
+
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (buttons[i][j].getText().toString().equals("")) {
-                    possibilities.add(buttons[i][j]);
+                if (board[i][j] == 0) {
+                    int[] candidate = new int[2];
+                    candidate[0] = i;
+                    candidate[1] = j;
+                    possibilities.add(candidate);
                 }
             }
         }
+        int[] chosen = possibilities.get(rand.nextInt(possibilities.size() - 1));
+        play(chosen[0], chosen[1], 2);
+        return chosen;
+    }
 
-        return possibilities.get(rand.nextInt(possibilities.size() - 1));
+
+    public void play(int row, int col, int item){
+        board[row][col] = item;
     }
 
     /**
@@ -156,38 +165,31 @@ public class TttManager implements Game, Serializable {
      * @return whether there is a win
      */
     public boolean checkForWin() {
-        String[][] field = new String[3][3];
 
         for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                field[i][j] = buttons[i][j].getText().toString();
-            }
-        }
-
-        for (int i = 0; i < 3; i++) {
-            if (field[i][0].equals(field[i][1])
-                    && field[i][0].equals(field[i][2])
-                    && !field[i][0].equals("")) {
+            if (board[i][0] == (board[i][1])
+                    && board[i][0] == (board[i][2])
+                    && board[i][0] != 0) {
                 return true;
             }
         }
 
         for (int i = 0; i < 3; i++) {
-            if (field[0][i].equals(field[1][i])
-                    && field[0][i].equals(field[2][i])
-                    && !field[0][i].equals("")) {
+            if (board[0][i] == (board[1][i])
+                    && board[0][i] == (board[2][i])
+                    && board[0][i] != 0) {
                 return true;
             }
         }
 
-        if (field[0][0].equals(field[1][1])
-                && field[0][0].equals(field[2][2])
-                && !field[0][0].equals("")) {
+        if (board[0][0] == (board[1][1])
+                && board[0][0] == (board[2][2])
+                && board[0][0] != 0) {
             return true;
 
-        } else if (field[0][2].equals(field[1][1])
-                && field[0][2].equals(field[2][0])
-                && !field[0][2].equals("")) {
+        } else if (board[0][2] == (board[1][1])
+                && board[0][2] == (board[2][0])
+                && board[0][2] != 0) {
             return true;
         }
 
@@ -198,15 +200,23 @@ public class TttManager implements Game, Serializable {
      * Reset the board and buttons
      */
     public void resetBoard() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                buttons[i][j].setText("");
-            }
-        }
-        log = new ArrayList<>();
+        board = new int[3][3];
         roundCount = 0;
         p1Turn = true;
+        numUndos = finishedUndos;
     }
+
+    /**
+     * Returns how many times undo should occur (twice for single-player and once for multi)
+     */
+    public int getUndoTime(){
+        int time = 2;
+        if (mode.equals("single")) {
+            time = 1;
+        }
+        return time;
+    }
+
 
     public int getScore() {
         return p1Points - p2Points;
