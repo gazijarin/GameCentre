@@ -19,7 +19,7 @@ import fall2018.csc2017.games.Ttt.TttScreenActivity;
 public class GameSelectActivity extends AppCompatActivity {
 
     /**
-     * Sets up the sliding_tiles_button
+     * Sets up the game buttons.
      */
     @BindView(R.id.sliding_tiles_button)
     Button sliding_tiles_button;
@@ -35,6 +35,7 @@ public class GameSelectActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_select);
         ButterKnife.bind(this);
+
         sliding_tiles_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

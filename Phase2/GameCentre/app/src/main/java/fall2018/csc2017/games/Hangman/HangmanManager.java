@@ -3,7 +3,6 @@ package fall2018.csc2017.games.Hangman;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -158,7 +157,7 @@ class HangmanManager implements Game, Serializable {
      *
      * @return if the game is solved
      */
-    public boolean puzzleSolved() {
+    boolean puzzleSolved() {
         return (new String(hangman.getRevealedWord())).equals(hangman.currWord);
     }
 
@@ -167,7 +166,7 @@ class HangmanManager implements Game, Serializable {
      *
      * @return if the game has been lost.
      */
-    public boolean puzzleLost() {
+    boolean puzzleLost() {
         return hangman.getCurrentGuesses() == hangman.TOTAL_GUESSES;
     }
 
