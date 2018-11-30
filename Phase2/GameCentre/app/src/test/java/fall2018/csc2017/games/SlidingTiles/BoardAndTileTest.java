@@ -4,14 +4,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import fall2018.csc2017.games.R;
-import fall2018.csc2017.games.SlidingTiles.*;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -20,11 +21,14 @@ import static org.junit.Assert.*;
  */
 public class BoardAndTileTest {
 
-    /** The board manager for testing. */
-    BoardManager boardManager;
+    /**
+     * The board manager for testing.
+     */
+    private BoardManager boardManager;
 
     /**
      * Make a set of tiles that are in order.
+     *
      * @return a set of tiles that are in order
      */
     private List<Tile> makeTiles(int numTiles) {
@@ -61,9 +65,9 @@ public class BoardAndTileTest {
     @Test
     public void testIsSolved() {
         setUpCorrect();
-        assertEquals(true, boardManager.puzzleSolved());
+        assertTrue(boardManager.puzzleSolved());
         swapFirstTwoTiles();
-        assertEquals(false, boardManager.puzzleSolved());
+        assertFalse(boardManager.puzzleSolved());
     }
 
     /**
@@ -98,9 +102,9 @@ public class BoardAndTileTest {
     @Test
     public void testIsValidTap() {
         setUpCorrect();
-        assertEquals(true, boardManager.isValidTap(11));
-        assertEquals(true, boardManager.isValidTap(14));
-        assertEquals(false, boardManager.isValidTap(10));
+        assertTrue(boardManager.isValidTap(11));
+        assertTrue(boardManager.isValidTap(14));
+        assertFalse(boardManager.isValidTap(10));
     }
 
     /**
@@ -116,55 +120,80 @@ public class BoardAndTileTest {
         tilesSolvable.add(tilesUnsolvable.remove(12));
         tilesUnsolvable.add(tilesUnsolvable.remove(12));
         Collections.shuffle(tilesUnsolvable);
-        assertEquals(true, boardManager.isSolvable(tiles));
-        assertEquals(false, boardManager.isSolvable(tilesUnsolvable));
-        assertEquals(true, boardManager.isSolvable(tilesSolvable));
+        assertTrue(boardManager.isSolvable(tiles));
+        assertFalse(boardManager.isSolvable(tilesUnsolvable));
+        assertTrue(boardManager.isSolvable(tilesSolvable));
     }
 
+    /**
+     * Tests that boardManager given tiles creates a proper board object
+     */
     @Test
     public void testGetBoardGivenTiles() {
-        assertTrue(boardManager.getBoard() instanceof Board);
+        assertNotNull(boardManager.getBoard());
     }
 
+    /**
+     * Tests that a board is created given dimensions instead
+     */
     @Test
     public void testGetBoardGivenDimension() {
         BoardManager manager = new BoardManager(4);
-        assertTrue(manager.getBoard() instanceof Board);
+        assertNotNull(manager.getBoard());
     }
 
+    /**
+     * Tests that get score returns a proper score
+     */
+    //todo: probably do some moves to get a real score?
     @Test
     public void testGetScore() {
-        assertTrue(boardManager.getScore() == (int) boardManager.getScore());
+        assertNotNull(boardManager.getScore());
     }
 
+    /**
+     * Tests that blank tiles are made properly
+     */
     @Test
     public void testBlankTile() {
         Tile tile = new Tile("test", 15);
-        assertTrue(tile.getId() == 15);
-        assertTrue(tile.getBackground() == R.drawable.tile_blank);
+        assertEquals(15, tile.getId());
+        assertEquals(tile.getBackground(), R.drawable.tile_blank);
     }
 
+    /**
+     * Tests equality method for similar tiles
+     */
     @Test
     public void testTileEqual() {
         Tile tile1 = new Tile(1);
         Tile tile2 = new Tile(1);
-        assertTrue(tile1.compareTo(tile2) == 0);
+        assertEquals(0, tile1.compareTo(tile2));
 
     }
 
+    /**
+     * Tests equality for non similar tiles
+     */
     @Test
     public void testTileNotEqual() {
         Tile tile1 = new Tile(1);
         Tile tile2 = new Tile(2);
-        assertTrue(tile1.compareTo(tile2) == 1);
+        assertEquals(1, tile1.compareTo(tile2));
     }
 
+    /**
+     * Test that moves are stored properly in the FixedStack(s)
+     */
     @Test
     public void testStoreMove() {
         boardManager.storeMove(14, boardManager.undoMoves);
         assertEquals(15, (int) boardManager.undoMoves.pop());
     }
 
+    /**
+     * Testing undo of a single move
+     */
     @Test
     public void testUndoOneMove() {
         boardManager.storeMove(14, boardManager.undoMoves);
@@ -174,11 +203,17 @@ public class BoardAndTileTest {
 
     }
 
+    /**
+     * Test that undo works for empty stack
+     */
     @Test
     public void testUndoNoMoves() {
-        assertEquals(false, boardManager.undo());
+        assertFalse(boardManager.undo());
     }
 
+    /**
+     * Test that undo only works until max specified amount
+     */
     @Test
     public void testMaxAmountOfUndo() {
         //todo: clean this up but test does what i want
@@ -198,6 +233,10 @@ public class BoardAndTileTest {
 
     }
 
+
+    /**
+     * Tests redo of a single move after a single uno
+     */
     @Test
     public void testRedoOneMove() {
         boardManager.storeMove(14, boardManager.undoMoves);
@@ -209,11 +248,17 @@ public class BoardAndTileTest {
 
     }
 
+    /**
+     * Test that undo works for empty stack
+     */
     @Test
     public void testRedoNoMoves() {
-        assertEquals(false, boardManager.redo());
+        assertFalse(boardManager.redo());
     }
 
+    /**
+     * Next 4 tests check each seperate if/else case for setting difficulty
+     */
     @Test
     public void testSetDifficultyEasy() {
         boardManager.setDifficulty("easy");
@@ -241,19 +286,30 @@ public class BoardAndTileTest {
         assertEquals(4, boardManager.getBoard().getDimension());
     }
 
+    /**
+     * Tests the getter for game name
+     */
     @Test
     public void testGameId() {
         assertEquals("slidingtiles", boardManager.getGameId());
     }
 
+    /**
+     * Tests the getter for one of our scoreboard methods
+     */
     @Test
     public void highTopScore() {
         assertFalse(boardManager.highTopScore());
     }
 
+    /**
+     * Tests that printing out the board follows the expected format
+     */
     @Test
     public void testToString() {
-        //todo: write test
+        System.out.println(boardManager.getBoard().toString());
+        assertEquals("Board{tiles=[[Lfall2018.csc2017.games.SlidingTiles.Tile;@694f9431, [Lfall2018.csc2017.games.SlidingTiles.Tile;@f2a0b8e, [Lfall2018.csc2017.games.SlidingTiles.Tile;@593634ad, [Lfall2018.csc2017.games.SlidingTiles.Tile;@20fa23c1]}", boardManager.getBoard().toString());
+
     }
 }
 
