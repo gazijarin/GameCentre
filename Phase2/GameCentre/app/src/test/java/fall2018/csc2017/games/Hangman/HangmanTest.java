@@ -12,31 +12,119 @@ import static org.junit.Assert.assertEquals;
 
 public class HangmanTest {
 
-    Hangman hangman;
+    private Hangman hangman;
 
     @Before
     public void setUp() {
         hangman = new Hangman("test");
     }
 
+    /**
+     * Tests for all the getters for private variables
+     */
     @Test
-    public void testGetters() {
-        assertNotNull(hangman.getCurrWord());
-        assertNotNull(hangman.getRevealedWord());
+    public void testGetCurrWord() {
+        assertEquals("test", hangman.getCurrWord());
+    }
+
+    /**
+     * Tests revealed word is initialized correctly
+     */
+    @Test
+    public void testGetRevealedWord() {
+        for (int i = 0; i < 4; i++) {
+            assertEquals('@', hangman.getRevealedWord()[i]);
+        }
+    }
+
+    /**
+     * Tests word gets revealed properly
+     */
+    @Test
+    public void testRevealedWordOneGuess() {
+        hangman.makeVisible('t');
+        assertEquals('T', hangman.getRevealedWord()[0]);
+        assertEquals('@', hangman.getRevealedWord()[1]);
+        assertEquals('@', hangman.getRevealedWord()[2]);
+        assertEquals('T', hangman.getRevealedWord()[3]);
+
+    }
+
+    /**
+     * Tests currentGuesses start at 0
+     */
+    @Test
+    public void testGetCurrentGuessesInitial() {
         assertEquals(0, hangman.getCurrentGuesses());
     }
 
+    /**
+     * Tests currentGuesses increments
+     */
     @Test
-    public void testMakeVisible() {
+    public void testGetCurrentGuessesOneGuess() {
+        hangman.makeVisible('z');
+        assertEquals(1, hangman.getCurrentGuesses());
+    }
+
+
+    /**
+     * tests on char not in word
+     */
+    @Test
+    public void testMakeVisibleCharNoInWord() {
         char[] reveal = hangman.getRevealedWord();
-        assertEquals('@', reveal[0]);
         hangman.makeVisible('d'); //a character that can't be in the word
         assertEquals('@', reveal[0]);
+    }
+
+    /**
+     * tests on lower case input
+     */
+    @Test
+    public void testMakeVisibleLowerCase() {
+        char[] reveal = hangman.getRevealedWord();
         hangman.makeVisible('t'); //case shouldn't matter
-        assertEquals("T@@T", new String(reveal)); //test if its been replaced
-        hangman.makeVisible('t'); //doing it again shouldn't make a difference
-        assertEquals("T@@T", new String(reveal)); //test if its been replaced
+    }
+
+    /**
+     * tests on upper case input
+     */
+    @Test
+    public void testMakeVisibleUpperCase() {
+        char[] reveal = hangman.getRevealedWord();
+        hangman.makeVisible('T');
+        assertEquals("T@@T", new String(reveal));
         hangman.makeVisible('E');
-        assertEquals("TE@T", new String(reveal)); //test if its been replaced
+        assertEquals("TE@T", new String(reveal));
+    }
+
+    /**
+     * tests same guess twice
+     */
+    @Test
+    public void testMakeVisibleSameGuess() {
+        char[] reveal = hangman.getRevealedWord();
+        hangman.makeVisible('T');
+        assertEquals("T@@T", new String(reveal));
+        hangman.makeVisible('t');
+        assertEquals("T@@T", new String(reveal));
+    }
+
+    /**
+     * tests return true when expected
+     */
+    @Test
+    public void testMakeVisibleReturnTrue() {
+        assertTrue(hangman.makeVisible('t'));
+
+    }
+
+    /**
+     * tests return false when expected
+     */
+    @Test
+    public void testMakeVisibleReturnFalse() {
+        assertFalse(hangman.makeVisible('z'));
     }
 }
