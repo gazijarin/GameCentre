@@ -122,10 +122,10 @@ public class TttManagerTest {
         tttManager = new TttManager("double");
         tttManager.play(0,0,1);
         tttManager.play(1,1,1);
-        assertFalse (tttManager.checkDiagnols());
+        assertFalse(tttManager.checkDiagonals());
 
         tttManager.play(2,2,1);
-        assertTrue(tttManager.checkDiagnols());
+        assertTrue(tttManager.checkDiagonals());
     }
 
     /**
