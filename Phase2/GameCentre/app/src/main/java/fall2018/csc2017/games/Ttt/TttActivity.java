@@ -15,6 +15,12 @@ import fall2018.csc2017.games.FinishedActivity;
 import fall2018.csc2017.games.GameActivity;
 import fall2018.csc2017.games.GameScreenActivity;
 import fall2018.csc2017.games.R;
+/*
+ * TttActivity adapted from tutorial in Coding in Flow
+ * <https://codinginflow.com/tutorials/android/tic-tac-toe/>
+ * Retrieved: November 2018
+ * Author: Florian Walther
+ */
 
 /**
  * The Tic Tac Toe Activity.
