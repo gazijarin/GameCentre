@@ -29,30 +29,6 @@ class HangmanManager implements Game, Serializable {
      */
     private String difficulty = "medium";
     /**
-     * The map containing list of all possible words, sorted by difficulty keys.
-     */
-    private final static Map<String, ArrayList<String>> words = new HashMap<String, ArrayList<String>>() {{
-        put("easy", new ArrayList<String>() {{
-            add("APPLE");
-            add("CHAIR");
-            add("PHONE");
-            add("HOUSE");
-        }});
-        put("medium", new ArrayList<String>() {{
-            add("AGGRESSIVE");
-            add("FUTURISTIC");
-            add("ANACONDA");
-            add("EINSTEIN");
-        }});
-        put("hard", new ArrayList<String>() {{
-            add("CROQUET");
-            add("BAGPIPES");
-            add("BANJO");
-            add("GAZEBO");
-        }});
-    }};
-
-    /**
      * Creates a new manager for a specific word.
      */
     HangmanManager(int mode, String word) {
@@ -79,8 +55,6 @@ class HangmanManager implements Game, Serializable {
     public void setDifficulty(String difficulty) {
         if(difficulty.equals("easy") || difficulty.equals("medium") || difficulty.equals("hard"))
            this.difficulty = difficulty;
-        else
-           this.difficulty = "medium";
 
         hangman = new Hangman(getNewWord());
     }
@@ -134,22 +108,23 @@ class HangmanManager implements Game, Serializable {
      */
     String getNewWord() {
         Random rand = new Random();
-        ArrayList<String> chosenWords;
+        String[] chosenWords;
         switch (difficulty) {
             case "easy":
-                chosenWords = words.get("easy");
+                chosenWords = Dictionary.easy;
                 break;
             case "hard":
-                chosenWords = words.get("hard");
+                chosenWords = Dictionary.hard;
                 break;
             default:
-                chosenWords = words.get("medium");
+                chosenWords = Dictionary.medium;
                 break;
         }
-        String newWord = chosenWords.get(rand.nextInt(chosenWords.size()));
+
+        String newWord = chosenWords[rand.nextInt(chosenWords.length)];
 
         while (hangman != null && newWord.equals(hangman.currWord)) {
-            newWord = chosenWords.get(rand.nextInt(chosenWords.size()));
+            newWord = chosenWords[rand.nextInt(chosenWords.length)];
         }
 
         return newWord;

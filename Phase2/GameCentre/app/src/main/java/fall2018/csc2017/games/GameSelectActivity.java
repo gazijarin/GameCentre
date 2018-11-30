@@ -86,4 +86,11 @@ public class GameSelectActivity extends AppCompatActivity {
         tmp.putExtra("USERNAME", getIntent().getStringExtra("USERNAME"));
         startActivity(tmp);
     }
+
+
+    //empty because we do not want the user to be able go go back to signing in
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 }
