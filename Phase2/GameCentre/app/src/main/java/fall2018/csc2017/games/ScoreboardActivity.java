@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,15 +45,19 @@ public class ScoreboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoreboard);
 
+        game = (Game) getIntent().getSerializableExtra("GAME");
+
+        int numTabs = game.getGameId().equals("Ttt") ? 2 : 3;
+
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), numTabs);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        game = (Game) getIntent().getSerializableExtra("GAME");
     }
 
 
@@ -62,38 +67,21 @@ public class ScoreboardActivity extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        private int numTabs;
+
+        public SectionsPagerAdapter(FragmentManager fm, int numTabs) {
             super(fm);
+            this.numTabs = numTabs;
         }
 
         @Override
         public Fragment getItem(int position) {
-
-            Fragment frag;
-
-            switch (position){
-                case 0:
-                    game.setDifficulty("easy");
-                    break;
-                case 1:
-                    game.setDifficulty("medium");
-                    break;
-                case 2:
-                    game.setDifficulty("hard");
-                    break;
-            }
-
-            frag = ScoreFragment.newInstance(position + 1, game);
-            return frag;
+            return ScoreFragment.newInstance(position + 1, game);
         }
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            if (!game.getGameId().equals("Ttt"))
-               return 3;
-            else
-               return 2;
+          return numTabs;
         }
     }
 }

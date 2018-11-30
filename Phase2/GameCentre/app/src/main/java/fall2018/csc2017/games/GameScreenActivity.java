@@ -1,11 +1,14 @@
 package fall2018.csc2017.games;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.Serializable;
 
 /**
  * The initial activity for the sliding puzzle tile game.
@@ -38,6 +41,7 @@ public abstract class GameScreenActivity extends FileActivity<Game> {
         addStartButtonListener();
         addLoadButtonListener();
         addSaveButtonListener();
+        addScoreButtonListener();
     }
 
     /**
@@ -86,6 +90,19 @@ public abstract class GameScreenActivity extends FileActivity<Game> {
     }
 
     /**
+     * Activate the score button
+     */
+    private void addScoreButtonListener() {
+        Button scoreButton = findViewById(R.id.score_button);
+        scoreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchToScores();
+            }
+        });
+    }
+
+    /**
      * Display that a game was saved successfully.
      */
     private void makeToastSavedText() {
@@ -105,6 +122,14 @@ public abstract class GameScreenActivity extends FileActivity<Game> {
         loadFromFile(SAVE_FILENAME);
     }
 
+    /**
+     * An activity that switches to the ScoreActivity
+     */
+    private void switchToScores(){
+        Intent tmp = new Intent(this, ScoreboardActivity.class);
+        tmp.putExtra("GAME", (Serializable) game);
+        startActivity(tmp);
+    }
     /**
      * Switch to the Activity to play the game.
      */

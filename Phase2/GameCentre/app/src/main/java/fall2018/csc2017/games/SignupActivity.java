@@ -119,8 +119,8 @@ public class SignupActivity extends AuthenticationActivity {
         String reEnterPassword = _reEnterPasswordText.getText().toString();
         String username = _usernameText.getText().toString();
 
-        if (username.isEmpty() || username.contains("@")) {
-            _emailText.setError("Username can not be empty or contain a '@' character");
+        if (username.isEmpty() || username.contains("@") || username.contains("_")) {
+            _emailText.setError("Username can not be empty or contain a '@' or '_' character");
             valid = false;
         } else {
             _emailText.setError(null);

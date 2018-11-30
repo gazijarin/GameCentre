@@ -2,6 +2,7 @@ package fall2018.csc2017.games;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +20,6 @@ import java.util.Observer;
  */
 public class ScoreFragment extends Fragment implements Observer {
 
-    /**
-     * The fragment argument representing the section number for this
-     * fragment.
-     */
-     private static final String ARG_SECTION_NUMBER = "section_number";
-
      /**
      * The display for this page's difficulty label
      */
@@ -38,10 +33,20 @@ public class ScoreFragment extends Fragment implements Observer {
          */
         TextView global;
 
+    /**
+     * This fragment's section number;
+     */
+    int sectionNumber;
+
         /**
          * The scoreboardManager
          */
         ScoreboardManager scoreManager;
+
+    /**
+     * The game associated with this fragment.
+     */
+    Game game;
 
         /**
          * A list for for the user's previous high scores for this game, for this difficulty.
@@ -62,10 +67,18 @@ public class ScoreFragment extends Fragment implements Observer {
         public static ScoreFragment newInstance(int sectionNumber, Game game) {
             ScoreFragment fragment = new ScoreFragment();
             Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            args.putInt("NUMBER", sectionNumber);
             args.putSerializable("GAME", (Serializable) game);
             fragment.setArguments(args);
             return fragment;
+        }
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            assert getArguments() != null;
+            sectionNumber = getArguments().getInt("NUMBER");
+            game = (Game) getArguments().getSerializable("GAME");
         }
 
         @Override
@@ -77,9 +90,19 @@ public class ScoreFragment extends Fragment implements Observer {
             global = (TextView) rootView.findViewById(R.id.global);
 
             assert getArguments() != null;
-            Game game = (Game) getArguments().getSerializable("GAME");
 
-            assert game != null;
+            switch(sectionNumber){
+                case 1:
+                    game.setDifficulty("easy");
+                    break;
+                case 2:
+                    game.setDifficulty("medium");
+                    break;
+                case 3:
+                    game.setDifficulty("hard");
+                    break;
+            }
+
             difficulty.setText(game.getDifficulty());
             scoreManager = new ScoreboardManager(game);
             scoreManager.addObserver(this);
@@ -92,16 +115,16 @@ public class ScoreFragment extends Fragment implements Observer {
 
         @Override
         public void update(Observable observable, Object o) {
-            if (o == ScoreboardManager.ADDED_USER_SCORE) {
-                prevScoreList = scoreManager.getSortedUserScores();
-                topScoreList = scoreManager.getTopScores();
-            }
             if (o == ScoreboardManager.RETRIEVED_SCORES) {
                 local.setText(FinishedActivity.userConverter(prevScoreList));
             }
             if (o == ScoreboardManager.RETRIEVED_TOP_SCORES) {
                 global.setText(FinishedActivity.overallConverter(topScoreList));
             }
+        }
+
+        public void setGame(Game game){
+           this.game = game;
         }
 
 }

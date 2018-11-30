@@ -54,26 +54,14 @@ public class TttActivity extends GameActivity implements View.OnClickListener {
         loadFromFile(GameScreenActivity.SAVE_FILENAME);
         manager = (TttManager) game;
 
-        buttonInitializer();
+        buttonDraw();
 
         Button buttonUndo = findViewById(R.id.button_undo);
         buttonUndo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //undoing moves in front end
-                int time = manager.getUndoTime();
-                for (int i = time; i < 3; i++) {
-                    if (log.size() > 0 & manager.getNumUndos() > 0) {
-                        Button x = log.get(log.size() - 1);
-                        x.setText("");
-                        log.remove(log.size() - 1);
-                        //int[] coord = identifier(x);
-                        //manager.undoTracker.add(0,coord);
-                    }
-                }
                 manager.undo();
-
+                buttonDraw();
             }
         });
 
@@ -100,8 +88,9 @@ public class TttActivity extends GameActivity implements View.OnClickListener {
     /**
      * Setting up buttons for the UI
      */
-    private void buttonInitializer() {
-        @SuppressLint("UseSparseArrays") HashMap<Integer, String> map = new HashMap<>();
+    private void buttonDraw() {
+        @SuppressLint("UseSparseArrays")
+        HashMap<Integer, String> map = new HashMap<>();
         map.put(0, "");
         map.put(1, "X");
         map.put(2, "O");
@@ -203,11 +192,8 @@ public class TttActivity extends GameActivity implements View.OnClickListener {
      * Checking for a win after every round
      */
     private void winActivities() {
-        if (manager.checkForWin() || manager.roundCount >= 9) {
-
-            if (manager.roundCount >= 9) {
-                message = "Draw";
-            } else if (manager.p1Turn) {
+        if (manager.checkForWin()) {
+            if (manager.p1Turn) {
                 message = "Player 1 wins!";
                 manager.points.put("p1", manager.points.get("p1") + 1);
             } else {
@@ -215,8 +201,12 @@ public class TttActivity extends GameActivity implements View.OnClickListener {
                 manager.points.put("p2", manager.points.get("p2") + 1);
             }
             announcement();
-
-        } else {
+        }
+        else if (manager.roundCount >= 9){
+            message = "Draw";
+            announcement();
+        }
+        else {
             manager.p1Turn = !manager.p1Turn;
         }
 

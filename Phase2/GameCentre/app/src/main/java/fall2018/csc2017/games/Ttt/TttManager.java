@@ -64,42 +64,21 @@ public class TttManager implements Game, Serializable {
         this.mode = difficulty;
     }
 
-    /**
-     * Gets the game difficulty level, higher number means higher difficulty,
-     * starts at 0
-     *
-     * @return the game's difficulty
-     */
     @Override
     public String getDifficulty() {
         return mode;
     }
 
-    /**
-     * Returns this game's unique game ID
-     *
-     * @return the game's ID
-     */
     @Override
     public String getGameId() {
         return "Ttt";
     }
 
-    /**
-     * Returns whether a high score is a good score or bad in this game
-     *
-     * @return whether a high score is a good score or bad in this game
-     */
     @Override
     public boolean highTopScore() {
         return true;
     }
 
-    /**
-     * Sets how many undos are possible in this game
-     *
-     * @param undos the number of undos
-     */
     @Override
     public void setNumUndos(int undos) {
         numUndos = undos;
@@ -110,11 +89,7 @@ public class TttManager implements Game, Serializable {
         return numUndos;
     }
 
-    /**
-     * Performs an redo
-     *
-     * @return whether redo was successful
-     */
+    @Override
     public boolean undo() {
         Boolean success = false;
         int time = getUndoTime();
@@ -160,7 +135,12 @@ public class TttManager implements Game, Serializable {
         return chosen;
     }
 
-
+    /**
+     * make a move
+     * @param row the row of the move
+     * @param col the col of the move
+     * @param item what item should be there, 0 for nothing, 1 for player 1, 2 for player 2
+     */
     void play(int row, int col, int item) {
         board[row][col] = item;
         roundCount++;

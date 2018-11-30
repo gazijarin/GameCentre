@@ -1,10 +1,14 @@
 package fall2018.csc2017.games;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -60,7 +64,31 @@ public class FinishedActivity extends AppCompatActivity implements Observer {
         topScores = findViewById(R.id.top_scores);
 
         currentScore.setText(lastScore + "");
+
+        setupBackButton();
     }
+
+    /**
+     * Sets up the back button to bring it back to the menu
+     */
+    private void setupBackButton() {
+        Button backButton = findViewById(R.id.BackButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switchToGameSelect();
+            }
+        });
+    }
+
+    private void switchToGameSelect() {
+        Intent tmp = new Intent(this, GameSelectActivity.class);
+        int end = GameScreenActivity.SAVE_FILENAME.indexOf("_");
+        String username = GameScreenActivity.SAVE_FILENAME.substring(0, end);
+        tmp.putExtra("USERNAME", username);
+        startActivity(tmp);
+    }
+
 
     @Override
     public void update(Observable observable, Object o) {

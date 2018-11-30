@@ -77,7 +77,11 @@ class HangmanManager implements Game, Serializable {
 
     @Override
     public void setDifficulty(String difficulty) {
-        this.difficulty = difficulty;
+        if(difficulty.equals("easy") || difficulty.equals("medium") || difficulty.equals("hard"))
+           this.difficulty = difficulty;
+        else
+           this.difficulty = "medium";
+
         hangman = new Hangman(getNewWord());
     }
 
@@ -88,7 +92,7 @@ class HangmanManager implements Game, Serializable {
 
     @Override
     public boolean highTopScore() {
-        return false;
+        return true;
     }
 
     /**
