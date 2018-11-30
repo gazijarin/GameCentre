@@ -155,7 +155,7 @@ public class TttManager implements Game, Serializable {
      * @return whether there is a win
      */
 
-    boolean checkDiagnols(){
+    boolean checkDiagonals(){
         if (board[0][0] == (board[1][1])
                 && board[0][0] == (board[2][2])
                 && board[0][0] != 0) {
