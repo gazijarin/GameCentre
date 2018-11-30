@@ -1,7 +1,5 @@
 package fall2018.csc2017.games.Hangman;
 
-import junit.framework.Assert;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,17 +16,25 @@ public class HangmanManagerTest {
      */
     private HangmanManager hangmanManager;
 
+    /**
+     * Sets up a hangmanManager with hangman of medium difficulty
+     */
     @Before
     public void setUp() {
         hangmanManager = new HangmanManager("medium");
     }
 
-
+    /**
+     * tests that the difficulty defaults properly
+     */
     @Test
     public void testDifficultyDefault() {
         assertEquals("medium", hangmanManager.getDifficulty()); //should default to medium
     }
 
+    /**
+     * tests changing difficulty to easy
+     */
     @Test
     public void testDifficultyEasy() {
 
@@ -36,12 +42,18 @@ public class HangmanManagerTest {
         assertSame("easy", hangmanManager.getDifficulty());
     }
 
+    /**
+     * tests changing difficulty to hard
+     */
     @Test
     public void testDifficultyHard() {
         hangmanManager.setDifficulty("hard");
         assertSame("hard", hangmanManager.getDifficulty());
     }
 
+    /**
+     * tests that each new manager has a different word than the last
+     */
     @Test
     public void testNewWordNoRepeats() {
         String oldWord = hangmanManager.getHangman().currWord;
@@ -50,13 +62,19 @@ public class HangmanManagerTest {
         }
     }
 
+    /**
+     * tests the game name is correct
+     */
     @Test
-    public void testGameProperties() {
+    public void testGameName() {
 
         assertEquals("hangman", hangmanManager.getGameId());
         assertFalse(hangmanManager.highTopScore());
     }
 
+    /**
+     * tests undo getter + setter
+     */
     @Test
     public void setNumUndos() {
 
@@ -65,19 +83,27 @@ public class HangmanManagerTest {
         assertEquals(5, hangmanManager.getNumUndos());
     }
 
+    /**
+     * tests a hangman is returned
+     */
     @Test
     public void testGetHangman() {
 
         assertNotNull(hangmanManager.getHangman());
     }
 
+    /**
+     * tests a new word is actually created
+     */
     @Test
     public void testGetNewWord() {
 
-        assertNotNull(hangmanManager.getHangman());
+        assertNotNull(hangmanManager.getNewWord());
     }
 
-
+    /**
+     * tests that puzzle is solved when expected
+     */
     @Test
     public void testPuzzleSolvedCustomWord() {
         HangmanManager manager = new HangmanManager(1, "A");
@@ -86,6 +112,9 @@ public class HangmanManagerTest {
         assertTrue(manager.puzzleSolved());
     }
 
+    /**
+     * tests puzzled is solved when expected when guessing in order
+     */
     @Test
     public void testPuzzleSolveTrueForward() {
 
@@ -96,6 +125,9 @@ public class HangmanManagerTest {
         assertTrue(hangmanManager.puzzleSolved());
     }
 
+    /**
+     * tests puzzled is solved when expected when guessing in a different order
+     */
     @Test
     public void testPuzzleSolveTrueReverse() {
 
@@ -107,13 +139,18 @@ public class HangmanManagerTest {
         assertTrue(hangmanManager.puzzleSolved());
     }
 
-
+    /**
+     * tests puzzle isn't initialized as solved
+     */
     @Test
     public void testPuzzleSolvedFalseInitial() {
 
         assertFalse(hangmanManager.puzzleSolved());
     }
 
+    /**
+     * tests that puzzle isn't solved when not expected
+     */
     @Test
     public void testPuzzleSolvedFalseOneGuess() {
 
@@ -122,6 +159,9 @@ public class HangmanManagerTest {
         assertFalse(hangmanManager.puzzleSolved());
     }
 
+    /**
+     * tests the puzzle is lost when expected
+     */
     @Test
     public void testPuzzleLost() {
 
@@ -144,6 +184,9 @@ public class HangmanManagerTest {
         assertFalse(hangmanManager.puzzleLost());
     }
 
+    /**
+     * tests various input the ensure only correct inputs are allowed
+     */
     @Test
     public void testIsValid() {
 
@@ -153,6 +196,31 @@ public class HangmanManagerTest {
         assertFalse(hangmanManager.isValid("@"));
         assertFalse(hangmanManager.isValid(""));
         assertFalse(hangmanManager.isValid("aa"));
+    }
+    //todo: write tests for get scores
+
+    /**
+     * Tests the score for easy difficulty
+     */
+    @Test
+    public void testGetScoreEasy() {
+
+    }
+
+    /**
+     * Tests the score for medium difficulty
+     */
+    @Test
+    public void testGetScoreMedium() {
+
+    }
+
+    /**
+     * Tests the score for hard difficulty
+     */
+    @Test
+    public void testGetScoreHard() {
+
     }
 
 }
