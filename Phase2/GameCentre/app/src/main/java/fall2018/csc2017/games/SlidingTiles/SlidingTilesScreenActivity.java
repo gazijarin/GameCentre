@@ -18,7 +18,6 @@ public class SlidingTilesScreenActivity extends GameScreenActivity {
 
         super.onCreate(savedInstanceState);
 
-        //todo get an image for sliding tiles
         //gameImage.setImageResource(R.drawable.sliding_tiles_title_image);
         gameDescription.setText(getResources().getString(R.string.sliding_tiles_description));
 

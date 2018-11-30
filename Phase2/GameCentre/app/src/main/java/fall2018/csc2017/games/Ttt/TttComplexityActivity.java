@@ -49,7 +49,9 @@ public class TttComplexityActivity extends ComplexityActivity {
         });
     }
 
-    //TODO: javadoc for this
+    /**
+     * method for switching to game
+     */
     protected void switchToGame() {
         game.setNumUndos(Integer.parseInt(numUndos.getText().toString()));
         saveToFile(GameScreenActivity.SAVE_FILENAME);
