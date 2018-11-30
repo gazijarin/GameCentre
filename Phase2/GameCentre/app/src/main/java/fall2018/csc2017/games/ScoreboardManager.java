@@ -166,8 +166,8 @@ class ScoreboardManager extends Observable {
      *
      * @return A list of sorted scores
      */
-    List<Integer> getSortedUserScores() {
-        final List<Integer> scores = new ArrayList<>();
+    List<Score> getSortedUserScores() {
+        final List<Score> scores = new ArrayList<>();
         DatabaseReference myRef = mDatabase.getReference(
                 "scores/" + currentGame.getGameId() + "/"
                         + currentGame.getDifficulty() + "/" + currentUser);
@@ -176,10 +176,10 @@ class ScoreboardManager extends Observable {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     if (!currentGame.highTopScore()) {
-                        scores.add(((Long) Objects.requireNonNull(snapshot.getValue())).intValue());
+                        scores.add(new Score(((Long) Objects.requireNonNull(snapshot.getValue())).intValue()));
                     } else { //add to the first position to reverse list
-                        scores.add(0, ((Long) Objects.requireNonNull(snapshot.getValue()))
-                                .intValue());
+                        scores.add(0, new Score(((Long) Objects.requireNonNull(snapshot.getValue()))
+                                .intValue()));
                     }
                 }
                 setChanged();
@@ -199,10 +199,10 @@ class ScoreboardManager extends Observable {
     /**
      * Returns the sorted top scores for all users in the current game
      *
-     * @return an ordered List of String arrays of size 2 in the form [username, score]
+     * @return an ordered List of Scores
      */
-    List<String[]> getTopScores() {
-        final List<String[]> scores = new ArrayList<>();
+    List<Score> getTopScores() {
+        final List<Score> scores = new ArrayList<>();
 
         final DatabaseReference topScoresRef = mDatabase.getReference(
                 "scores/" + currentGame.getGameId() + "/"
@@ -233,14 +233,12 @@ class ScoreboardManager extends Observable {
      * @param dataSnapshot the data snapshot
      * @param scores       scores
      */
-    private void updateScoresData(@NonNull DataSnapshot dataSnapshot, List<String[]> scores) {
+    private void updateScoresData(@NonNull DataSnapshot dataSnapshot, List<Score> scores) {
         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
             String username = (String) snapshot.child("username").getValue();
-            String score = (Objects.requireNonNull(snapshot.child("score").getValue())).
-                    toString();
-            String[] info = new String[2];
-            info[0] = username;
-            info[1] = score;
+            int score = ((Long) Objects.requireNonNull(snapshot.child("score").
+                    getValue())).intValue();
+            Score info = new Score(username, score);
 
             if (!currentGame.highTopScore()) {
                 scores.add(info);

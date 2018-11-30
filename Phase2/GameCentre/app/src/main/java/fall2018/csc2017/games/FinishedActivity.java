@@ -33,11 +33,11 @@ public class FinishedActivity extends AppCompatActivity implements Observer {
     /**
      * A list for for the user's previous high scores for this game, for this difficulty.
      */
-    List<Integer> prevScoreList = new ArrayList<>();
+    List<Score> prevScoreList = new ArrayList<>();
     /**
      * A list for all user's previous high scores for this game, for this difficulty.
      */
-    List<String[]> topScoreList = new ArrayList<>();
+    List<Score> topScoreList = new ArrayList<>();
     /**
      * A ScoreboardManager to access scores.
      */
@@ -82,14 +82,14 @@ public class FinishedActivity extends AppCompatActivity implements Observer {
      * @param item the list of overall top scores
      * @return a string that is the overall table of scores
      */
-    private String overallConverter(List<String[]> item) {
+    public static String overallConverter(List<Score> item) {
         int counter = 1;
         StringBuilder topScoresTable = new StringBuilder("Overall Top Scorers\n\n Rank    User    " +
                 "Score + \n");
 
-        for (String[] m : item) {
-            topScoresTable.append(counter).append("        ").append(m[0]).append("         ")
-                    .append(m[1]).append("\n");
+        for (Score m : item) {
+            topScoresTable.append(counter).append("        ").append(m.getUsername()).append("         ")
+                    .append(m.getScore()).append("\n");
             counter += 1;
         }
 
@@ -103,12 +103,12 @@ public class FinishedActivity extends AppCompatActivity implements Observer {
      * @param item the list of the current user's top scores
      * @return a string that is a table of the current user's top scores
      */
-    private String userConverter(List<Integer> item) {
+    public static String userConverter(List<Score> item) {
         StringBuilder topScoresTable = new StringBuilder("Your Top Scores\n\n Rank   Score + \n");
 
         for (int i = 0; i < item.size(); i++) {
             topScoresTable = new StringBuilder(" " + topScoresTable + (i + 1) + "          " +
-                    Integer.toString(item.get(i)) + "\n");
+                    Integer.toString(item.get(i).getScore()) + "\n");
         }
         return topScoresTable.toString();
 
