@@ -3,7 +3,6 @@ package fall2018.csc2017.games.Ttt;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
 
@@ -46,7 +45,7 @@ public class TttManager implements Game, Serializable {
     /**
      * The undo tracker.
      */
-    ArrayList<int[]> undoTracker = new ArrayList<>();
+    private ArrayList<int[]> undoTracker = new ArrayList<>();
 
     private int initialUndos = 1;
 
@@ -230,5 +229,6 @@ public class TttManager implements Game, Serializable {
      */
     public int getScore() {
         return points.get("p1") - points.get("p2");
+
     }
 }
