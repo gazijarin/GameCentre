@@ -150,28 +150,12 @@ public class TttManager implements Game, Serializable {
     }
 
     /**
-     * Checks the board for wins
+     * Checks the board horizontally for wins
      *
      * @return whether there is a win
      */
-    boolean checkForWin() {
 
-        for (int i = 0; i < 3; i++) {
-            if (board[i][0] == (board[i][1])
-                    && board[i][0] == (board[i][2])
-                    && board[i][0] != 0) {
-                return true;
-            }
-        }
-
-        for (int i = 0; i < 3; i++) {
-            if (board[0][i] == (board[1][i])
-                    && board[0][i] == (board[2][i])
-                    && board[0][i] != 0) {
-                return true;
-            }
-        }
-
+    boolean checkDiagnols(){
         if (board[0][0] == (board[1][1])
                 && board[0][0] == (board[2][2])
                 && board[0][0] != 0) {
@@ -180,8 +164,32 @@ public class TttManager implements Game, Serializable {
         } else return board[0][2] == (board[1][1])
                 && board[0][2] == (board[2][0])
                 && board[0][2] != 0;
-
     }
+
+    /**
+     * Checks the board vertically for wins
+     *
+     * @return whether there is a win
+     */
+    boolean checkHorizontals(){
+        for (int i = 0; i < 3; i++) {
+            if (board[0][i] == (board[1][i])
+                    && board[0][i] == (board[2][i])
+                    && board[0][i] != 0) {
+                return true;
+            }
+        }
+
+        for (int i = 0; i < 3; i++) {
+            if (board[i][0] == (board[i][1])
+                    && board[i][0] == (board[i][2])
+                    && board[i][0] != 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     /**
      * Reset the board and buttons
@@ -209,6 +217,5 @@ public class TttManager implements Game, Serializable {
      */
     public int getScore() {
         return points.get("p1") - points.get("p2");
-
     }
 }

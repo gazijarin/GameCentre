@@ -60,7 +60,6 @@ public class TttManagerTest {
     public void testGameProperties() {
 
         assertEquals("Ttt", tttManager.getGameId());
-        assertFalse(tttManager.highTopScore());
     }
 
     /** Testing if the number of undo change appropriately */
@@ -103,18 +102,30 @@ public class TttManagerTest {
         tttManager.play(0,0, 1);
         assertEquals (1,tttManager.board[0][0]);
     }
-
     /**
-     * Test if he the game recognizes a win */
+     * Test if the the game recognizes horizontal strikes */
     @Test
-    public void checkForWin() {
+    public void checkHorizontals() {
         tttManager = new TttManager("double");
         tttManager.play(0,0,1);
         tttManager.play(0,1,1);
-        assertFalse (tttManager.checkForWin());
+        assertFalse (tttManager.checkHorizontals());
 
         tttManager.play(0,2,1);
-        assertTrue(tttManager.checkForWin());
+        assertTrue(tttManager.checkHorizontals());
+    }
+
+    /**
+     * Test if the the game recognizes vertical strikes */
+    @Test
+    public void checkDiagnols() {
+        tttManager = new TttManager("double");
+        tttManager.play(0,0,1);
+        tttManager.play(1,1,1);
+        assertFalse (tttManager.checkDiagnols());
+
+        tttManager.play(2,2,1);
+        assertTrue(tttManager.checkDiagnols());
     }
 
     /**
@@ -150,9 +161,12 @@ public class TttManagerTest {
     }
 
     /**
-     * Check if he the right score is returned */
+     * Check if the the right score is returned */
     @Test
     public void getScore() {
+        tttManager = new TttManager("double");
         assertEquals(0, tttManager.getScore());
+        tttManager.points.put("p1", tttManager.points.get("p1") + 1);
+        assertEquals(1, tttManager.getScore());
     }
 }
