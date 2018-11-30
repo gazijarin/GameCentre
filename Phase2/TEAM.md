@@ -42,23 +42,22 @@ We will be using Slack as the main team communication tool.
 
 ## The Main Roles:
 
-Game Launch: Mozammil Khan, Gaurav Sharma
+Hangman Game (autosave, scoreboard, activities): Gazi Jarin, Demetre Jouras
 
-Scoreboard: Anirudh Baskar
+Tic Tac Toe Game (undo, scoreboard, activities): Anirudh Baskar, Mozammil Khan
 
-Autosave: Gazi Jarin
+Code Coverage: Demetre Jouras, Gazi Jarin, Gaurav Sharma, Mozammil Khan
 
-Undo: Demetre Jouras
+Unittests: Anirudh Baskar, Demetre Jouras, Gaurav Sharma
 
-Puzzle Complexity: Gaurav Sharma
+Solvable Sliding Tiles boards: Gaurav Sharma
 
 ## The Intermediate Roles:
 
-Code formatting: Gazi Jarin, Gaurav Sharma
+Refactoring/Code formatting/Design Patterns: Gazi Jarin, Gaurav Sharma
 
-README and TEAM markdown files: Mozammil Khan, Gazi Jarin
+README, TEAM, MEETING markdown files: Gazi Jarin
 
-MEETING.md file/note-taking after each meeting: Gazi Jarin
 
 ## Team Contract
 

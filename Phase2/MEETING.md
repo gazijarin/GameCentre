@@ -4,38 +4,37 @@
 
 - Decided the roles for each of the team members. More details under TEAM.md.
 
+- Decided that we are going to do Hangman and Tic Tac Toe with varying difficulties for the two games.
+
 #### Tasks assigned
 
-1) Game Launch: Mozammil Khan, Gaurav Sharma
-2) Scoreboard: Anirudh Baskar
-3) Autosave: Gazi Jarin
-4) Undo: Demetre Jouras
-5) Puzzle Complexity: Gaurav Sharma
+1) Hangman Game (autosave, scoreboard, activities): Gazi Jarin, Demetre Jouras
+2) Tic Tac Toe Game (undo, scoreboard, activities): Anirudh Baskar, Mozammil Khan
+3) Code Coverage: Demetre Jouras, Gazi Jarin, Gaurav Sharma
+3) Unittests: Anirudh Baskar, Demetre Jouras, Mozammil Khan (rest of the group are occasional helpers)
+4) Solvable SlidingTiles boards: Gaurav Sharma
+5) Refactoring/Reformatting/Design: Gazi Jarin, Gaurav Sharma
 
 - Created README.md and TEAM.md markdown files.
 
-- Created a private repository in Github in order to start working on the project.
-
 ### Meeting 2
 
-- Devised strategies for each game functionality, such as using time interval for autosave and
-  creating a game interface.
-
-- Moved the Github repo to MarkUs.
+- Devised strategies for each game functionality, such as what constitutes as a complexity in a specific game, autosave dictated upon time intervals, and scoreboard.
 
 #### Tasks assigned
 
-1) Make AutoSave work for multiple users (Gazi Jarin)
-2) Make undos unlimited for users (Demetre Jouras)
-3) Create an options page for the user to select their preference (Mozammil Khan)
-4) Make sure the Scoreboard displays right after the finished game (Anirudh Baskar)
-5) Make authentication for wrong passwords faster (Gaurav Sharma)
+1) Make a rough draft of the Hangman game activity from an online site to adapt from (Gazi Jarin, Demetre Jouras)
+2) Make a rough draft of the TicTacToe game activity from an online site to adapt from (Anirudh Baskar, Mozammil Khan)
+3) Generalize game screen and game complexity activties (Gaurav Sharma)
+4) Implement autosave for Hangman (Gazi Jarin)
+5) Lay the rudimentary unit tests (Demetre Jouras, Gaurav Sharma)
 
 ### Meeting 3
 
 #### Tasks assigned
 
-1) Move Autosave to GameActivity so that it does not get affected by options page (Gazi Jarin)
-3) Refactoring code (Mozammil Khan)
-4) Start working on the bonuses, such as custom background image (Anirudh Baskar)
-5) Implement the puzzle complexity activity screen (Gaurav Sharma)
+1) Create a new Hangman body class to minimize coupling and maximize efficiency (Gazi Jarin)
+3) Add the scoreboard for Tic Tac Toe Game (Anirudh Baskar, Mozammil Khan)
+4) Complete Hangman unittests (Demetre Jouras, Gazi Jarin)
+5) Refactoring/reformatting code (Gazi Jarin)
+6) Convert existing classes to better design patterns (Gaurav Sharma)
