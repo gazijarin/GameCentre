@@ -33,10 +33,10 @@ class HangmanManager implements Game, Serializable {
      */
     private final static Map<String, ArrayList<String>> words = new HashMap<String, ArrayList<String>>() {{
         put("easy", new ArrayList<String>() {{
-            add("CHARGER");
-            add("TABLET");
-            add("SYSTEM");
-            add("INTERNET");
+            add("APPLE");
+            add("CHAIR");
+            add("PHONE");
+            add("HOUSE");
         }});
         put("medium", new ArrayList<String>() {{
             add("AGGRESSIVE");
