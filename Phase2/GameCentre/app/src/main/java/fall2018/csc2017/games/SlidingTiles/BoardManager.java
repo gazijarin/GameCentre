@@ -191,7 +191,6 @@ class BoardManager implements Serializable, Game {
         redoMoves = new FixedStack<>(this.numUndos);
     }
 
-    @Override
     public boolean undo() {
         if (undoMoves.size() > 0) {
             int lastMove = undoMoves.pop();

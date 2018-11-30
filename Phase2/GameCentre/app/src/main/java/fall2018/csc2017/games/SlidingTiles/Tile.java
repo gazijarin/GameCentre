@@ -123,8 +123,6 @@ public class Tile implements Comparable<Tile>, Serializable {
             case 24:
                 background = R.drawable.tile_24;
                 break;
-            default:
-                background = R.drawable.tile_blank;
         }
     }
 

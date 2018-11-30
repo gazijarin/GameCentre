@@ -95,7 +95,6 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
                 if (this.tiles[row][col].getId() == id) {
                     tileRowCol.add(row);
                     tileRowCol.add(col);
-                    return tileRowCol;
                 }
                 col++;
             }

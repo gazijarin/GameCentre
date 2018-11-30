@@ -37,12 +37,6 @@ public interface Game {
      */
     void setNumUndos(int undos);
 
-    /**
-     * Performs an undo
-     *
-     * @return whether undo was successful
-     */
-    boolean undo();
 
 
 }

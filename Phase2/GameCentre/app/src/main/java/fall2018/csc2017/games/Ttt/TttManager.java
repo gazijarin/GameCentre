@@ -89,7 +89,6 @@ public class TttManager implements Game, Serializable {
         return numUndos;
     }
 
-    @Override
     public boolean undo() {
         Boolean success = false;
         int time = getUndoTime();

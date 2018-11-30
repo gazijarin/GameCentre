@@ -227,4 +227,5 @@ public class HangmanManagerTest {
         assertEquals(hangmanManager.getScore(), 45);
     }
 
+
 }

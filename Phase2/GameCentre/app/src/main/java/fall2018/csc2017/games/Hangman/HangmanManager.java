@@ -20,7 +20,7 @@ class HangmanManager implements Game, Serializable {
     /**
      * The difficulty of the word.
      */
-    private String difficulty;
+    private String difficulty = "medium";
     /**
      * Creates a new manager for a specific word.
      */
@@ -82,14 +82,8 @@ class HangmanManager implements Game, Serializable {
         this.numUndos = numUndos;
     }
 
-    @Override
-    public boolean undo() {
-        return false;
-    }
-
     /**
      * Returns the hangman for this manager
-     *
      * @return the hangman for this game
      */
     Hangman getHangman() {
@@ -98,13 +92,12 @@ class HangmanManager implements Game, Serializable {
 
     /**
      * Generates a new word based on difficulty.
-     *
      * @return a word for the user to guess
      */
     String getNewWord() {
         Random rand = new Random();
         String[] chosenWords;
-        switch (difficulty) {
+        switch (this.difficulty) {
             case "easy":
                 chosenWords = Dictionary.easy;
                 break;
@@ -123,7 +116,6 @@ class HangmanManager implements Game, Serializable {
         }
 
         return newWord;
-
     }
 
     /**
