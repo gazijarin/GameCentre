@@ -87,8 +87,7 @@ public class AuthenticationActivity extends AppCompatActivity implements Observe
 
         //start with signing out for login testing purposes
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        //todo uncomment this so sign in is necessary
-        //mAuth.signOut();
+        mAuth.signOut();
         String user = login.getUser();
         if (user != null) {
             updateUI(user);

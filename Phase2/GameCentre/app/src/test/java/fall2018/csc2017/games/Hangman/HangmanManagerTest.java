@@ -69,7 +69,7 @@ public class HangmanManagerTest {
     public void testGameName() {
 
         assertEquals("hangman", hangmanManager.getGameId());
-        assertFalse(hangmanManager.highTopScore());
+        assertTrue(hangmanManager.highTopScore());
     }
 
     /**
@@ -106,7 +106,7 @@ public class HangmanManagerTest {
      */
     @Test
     public void testPuzzleSolvedCustomWord() {
-        HangmanManager manager = new HangmanManager(1, "A");
+        HangmanManager manager = new HangmanManager("medium", "A");
         Hangman hangman = manager.getHangman();
         hangman.makeVisible('A');
         assertTrue(manager.puzzleSolved());
@@ -189,7 +189,6 @@ public class HangmanManagerTest {
      */
     @Test
     public void testIsValid() {
-
         assertTrue(hangmanManager.isValid("a"));
         assertTrue(hangmanManager.isValid("B"));
         assertFalse(hangmanManager.isValid("%"));
@@ -197,14 +196,15 @@ public class HangmanManagerTest {
         assertFalse(hangmanManager.isValid(""));
         assertFalse(hangmanManager.isValid("aa"));
     }
-    //todo: write tests for get scores
 
     /**
      * Tests the score for easy difficulty
      */
     @Test
     public void testGetScoreEasy() {
-
+        hangmanManager = new HangmanManager("easy", "red");
+        hangmanManager.getHangman().makeVisible('z');
+        assertEquals(hangmanManager.getScore(), 15);
     }
 
     /**
@@ -212,7 +212,9 @@ public class HangmanManagerTest {
      */
     @Test
     public void testGetScoreMedium() {
-
+        hangmanManager = new HangmanManager("medium", "fruitfly");
+        hangmanManager.getHangman().makeVisible('z');
+        assertEquals(hangmanManager.getScore(), 30);
     }
 
     /**
@@ -220,7 +222,9 @@ public class HangmanManagerTest {
      */
     @Test
     public void testGetScoreHard() {
-
+        hangmanManager = new HangmanManager("hard", "poingant");
+        hangmanManager.getHangman().makeVisible('z');
+        assertEquals(hangmanManager.getScore(), 45);
     }
 
 }

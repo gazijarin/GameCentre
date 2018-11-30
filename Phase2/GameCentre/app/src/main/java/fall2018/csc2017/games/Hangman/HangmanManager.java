@@ -31,8 +31,10 @@ class HangmanManager implements Game, Serializable {
     /**
      * Creates a new manager for a specific word.
      */
-    HangmanManager(int mode, String word) {
+    HangmanManager(String difficulty, String word) {
         hangman = new Hangman(word);
+        this.difficulty = difficulty;
+        setNumUndos(3);
     }
 
     /**
@@ -173,11 +175,8 @@ class HangmanManager implements Game, Serializable {
             case "medium":
                 modifier = 6;
                 break;
-            case "hard":
-                modifier = 9;
-                break;
             default:
-                modifier = 3;
+                modifier = 9;
                 break;
         }
         return modifier * (6 - hangman.getCurrentGuesses());

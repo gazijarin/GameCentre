@@ -113,12 +113,18 @@ public class TttManagerTest {
 
         tttManager.play(0,2,1);
         assertTrue(tttManager.checkHorizontals());
+
+        tttManager = new TttManager("double");
+        tttManager.play(0, 0, 1);
+        tttManager.play(1, 0, 1);
+        tttManager.play(2, 0, 1);
+        assertTrue(tttManager.checkHorizontals());
     }
 
     /**
      * Test if the the game recognizes vertical strikes */
     @Test
-    public void checkDiagnols() {
+    public void checkDiagonals() {
         tttManager = new TttManager("double");
         tttManager.play(0,0,1);
         tttManager.play(1,1,1);
@@ -168,5 +174,10 @@ public class TttManagerTest {
         assertEquals(0, tttManager.getScore());
         tttManager.points.put("p1", tttManager.points.get("p1") + 1);
         assertEquals(1, tttManager.getScore());
+    }
+
+    @Test
+    public void testHighTopScore() {
+        assertEquals(true, tttManager.highTopScore());
     }
 }

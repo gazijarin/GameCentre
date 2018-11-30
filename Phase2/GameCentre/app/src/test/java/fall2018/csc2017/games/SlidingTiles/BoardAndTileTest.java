@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -114,13 +115,25 @@ public class BoardAndTileTest {
     public void testIsSolvable() {
         setUpCorrect();
         List<Tile> tiles = makeTiles(16);
-        List<Tile> tilesUnsolvable = makeTiles(16);
+        List<Tile> tilesSolvable2 = makeTiles(16);
         List<Tile> tilesSolvable = makeTiles(16);
-        tilesSolvable.add(tilesUnsolvable.remove(12));
-        tilesSolvable.add(tilesUnsolvable.remove(12));
-        tilesUnsolvable.add(tilesUnsolvable.remove(12));
-        Collections.shuffle(tilesUnsolvable);
+        List<Tile> tilesUnsolvable2 = makeTiles(9);
+        List<Tile> tilesUnsolvable = makeTiles(16);
+
+        tilesSolvable.add(tilesSolvable.remove(11));
+        tilesSolvable.add(11, tilesSolvable.remove(14)); //swap the 12 tile and blank
+
+        tilesUnsolvable2.add(tilesUnsolvable2.remove(4));
+        tilesUnsolvable2.add(4, tilesUnsolvable2.remove(7));
+
+        tilesUnsolvable.add(tilesUnsolvable.remove(7));
+        tilesUnsolvable.add(7, tilesUnsolvable.remove(14)); //swap the 7 and blank
+
+        tilesSolvable2.add(tilesSolvable2.remove(12)); //swap the blank and tile 13
+
         assertTrue(boardManager.isSolvable(tiles));
+        assertFalse(boardManager.isSolvable(tilesUnsolvable2));
+        assertTrue(boardManager.isSolvable(tilesSolvable2));
         assertFalse(boardManager.isSolvable(tilesUnsolvable));
         assertTrue(boardManager.isSolvable(tilesSolvable));
     }
@@ -298,18 +311,13 @@ public class BoardAndTileTest {
      * Tests the getter for one of our scoreboard methods
      */
     @Test
-    public void highTopScore() {
+    public void testHighTopScore() {
         assertFalse(boardManager.highTopScore());
     }
 
-    /**
-     * Tests that printing out the board follows the expected format
-     */
     @Test
     public void testToString() {
-        System.out.println(boardManager.getBoard().toString());
-        assertEquals("Board{tiles=[[Lfall2018.csc2017.games.SlidingTiles.Tile;@694f9431, [Lfall2018.csc2017.games.SlidingTiles.Tile;@f2a0b8e, [Lfall2018.csc2017.games.SlidingTiles.Tile;@593634ad, [Lfall2018.csc2017.games.SlidingTiles.Tile;@20fa23c1]}", boardManager.getBoard().toString());
-
+        assertTrue(boardManager.getBoard().toString().contains("Board{"));
     }
 }
 
