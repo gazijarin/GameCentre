@@ -21,11 +21,12 @@ public class TttManagerTest {
     private TttManager tttManager;
 
     /**
-     * Set up a default single player manager
+     * Set up a single player manager
      */
     @Before
     public void setUp() {
         tttManager = new TttManager("single");
+
     }
 
     /**
@@ -74,29 +75,71 @@ public class TttManagerTest {
     //TODO: Write unit tests for the methods below
     @Test
     public void undo() {
+        tttManager = new TttManager("double");
+        tttManager.play(0,0, 1);
+        tttManager.undo();
+        assertEquals(0,tttManager.board[0][0]);
+
     }
 
     @Test
     public void computerPlay() {
+        tttManager = new TttManager("single");
+        int[] move = tttManager.computerPlay();
+        assertEquals(tttManager.board[move[0]][move[1]],2);
+
     }
 
     @Test
     public void play() {
+        tttManager = new TttManager("double");
+        tttManager.play(0,0, 1);
+        assertEquals (1,tttManager.board[0][0]);
     }
 
     @Test
     public void checkForWin() {
+        tttManager = new TttManager("double");
+        tttManager.play(0,0,1);
+        tttManager.play(0,1,1);
+        assertEquals (false,tttManager.checkForWin());
+
+        tttManager.play(0,2,1);
+        assertEquals (true,tttManager.checkForWin());
     }
 
     @Test
     public void resetBoard() {
+        tttManager = new TttManager("double");
+        tttManager.play(0,0,1);
+        tttManager.play(0,1,1);
+        tttManager.play(0,2,1);
+
+        assertEquals(1,tttManager.board[0][0]);
+        assertEquals(1,tttManager.board[0][1]);
+        assertEquals(1,tttManager.board[0][2]);
+
+
+        tttManager.resetBoard();
+        assertEquals(0,tttManager.board[0][0]);
+        assertEquals(0,tttManager.board[0][1]);
+        assertEquals(0,tttManager.board[0][2]);
     }
 
     @Test
     public void getUndoTime() {
+        tttManager = new TttManager("double");
+        assertEquals(2,tttManager.getUndoTime());
+
+        tttManager = new TttManager("single");
+        assertEquals(1,tttManager.getUndoTime());
     }
 
     @Test
     public void getScore() {
+
+
     }
+
+
 }
