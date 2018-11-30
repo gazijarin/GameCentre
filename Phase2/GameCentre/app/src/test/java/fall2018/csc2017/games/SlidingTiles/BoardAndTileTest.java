@@ -4,8 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import fall2018.csc2017.games.R;
@@ -158,7 +156,6 @@ public class BoardAndTileTest {
     /**
      * Tests that get score returns a proper score
      */
-    //todo: probably do some moves to get a real score?
     @Test
     public void testGetScore() {
         assertNotNull(boardManager.getScore());
@@ -229,7 +226,6 @@ public class BoardAndTileTest {
      */
     @Test
     public void testMaxAmountOfUndo() {
-        //todo: clean this up but test does what i want
         boardManager.storeMove(14, boardManager.undoMoves);
         boardManager.touchMove(14);
         boardManager.storeMove(13, boardManager.undoMoves);
@@ -279,6 +275,9 @@ public class BoardAndTileTest {
         assertEquals(3, boardManager.getBoard().getDimension());
     }
 
+    /**
+     * Tests the setter for difficulty "medium".
+     */
     @Test
     public void testSetDifficultyMedium() {
         boardManager.setDifficulty("medium");
@@ -286,6 +285,9 @@ public class BoardAndTileTest {
         assertEquals(4, boardManager.getBoard().getDimension());
     }
 
+    /**
+     * Tests the setter for difficulty "hard".
+     */
     @Test
     public void testSetDifficultyHard() {
         boardManager.setDifficulty("hard");
@@ -293,6 +295,9 @@ public class BoardAndTileTest {
         assertEquals(5, boardManager.getBoard().getDimension());
     }
 
+    /**
+     * Tests the default difficulty.
+     */
     @Test
     public void testDefaultDifficulty() {
         assertEquals("medium", boardManager.getDifficulty());
@@ -315,6 +320,9 @@ public class BoardAndTileTest {
         assertFalse(boardManager.highTopScore());
     }
 
+    /**
+     * Tests the toString method for Board.
+     */
     @Test
     public void testToString() {
         assertTrue(boardManager.getBoard().toString().contains("Board{"));

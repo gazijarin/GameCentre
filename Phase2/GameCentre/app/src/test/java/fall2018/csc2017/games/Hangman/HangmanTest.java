@@ -4,10 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertEquals;
 
 public class HangmanTest {
@@ -79,16 +76,16 @@ public class HangmanTest {
     }
 
     /**
-     * tests on lower case input
+     * Tests on lower case input
      */
     @Test
     public void testMakeVisibleLowerCase() {
-        char[] reveal = hangman.getRevealedWord();
-        hangman.makeVisible('t'); //case shouldn't matter
+        hangman.getRevealedWord();
+        hangman.makeVisible('t');
     }
 
     /**
-     * tests on upper case input
+     * Tests on upper case input
      */
     @Test
     public void testMakeVisibleUpperCase() {
@@ -100,7 +97,7 @@ public class HangmanTest {
     }
 
     /**
-     * tests same guess twice
+     * Tests same guess twice
      */
     @Test
     public void testMakeVisibleSameGuess() {
@@ -112,7 +109,7 @@ public class HangmanTest {
     }
 
     /**
-     * tests return true when expected
+     * Tests return true when expected
      */
     @Test
     public void testMakeVisibleReturnTrue() {
@@ -121,7 +118,7 @@ public class HangmanTest {
     }
 
     /**
-     * tests return false when expected
+     * Tests return false when expected
      */
     @Test
     public void testMakeVisibleReturnFalse() {
