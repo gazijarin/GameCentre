@@ -121,15 +121,18 @@ public class TttManager implements Game, Serializable {
     @Override
     public boolean undo() {
         Boolean success = false;
-        Iterator<int[]> it = undoTracker.iterator();
         int time = getUndoTime();
+        int j = 0;
         for (int i = time; i < 3; i++) {
-            if (roundCount > 0 & it.hasNext() & getNumUndos() > 0) {
-                int[] coords = it.next();
-                play(coords[0], coords[1], 0);
+            if (roundCount > 0 & undoTracker.size() > 0 & getNumUndos() > 0) {
+                int[] coords = undoTracker.get(j);
+                board[coords[0]][coords[1]] = 0;
                 success = true;
                 p1Turn = !p1Turn;
                 roundCount--;
+                undoTracker.remove(0);
+                j++;
+
             }
         }
         numUndos = numUndos - 1;
@@ -157,12 +160,17 @@ public class TttManager implements Game, Serializable {
         }
         int[] chosen = possibilities.get(rand.nextInt(possibilities.size() - 1));
         play(chosen[0], chosen[1], 2);
+        roundCount--;
         return chosen;
     }
 
 
     void play(int row, int col, int item) {
         board[row][col] = item;
+        roundCount++;
+
+        int[] tracker = {row,col};
+        undoTracker.add(0,tracker);
     }
 
     /**

@@ -68,8 +68,8 @@ public class TttActivity extends GameActivity implements View.OnClickListener {
                         Button x = log.get(log.size() - 1);
                         x.setText("");
                         log.remove(log.size() - 1);
-                        int[] coord = identifier(x);
-                        manager.undoTracker.add(0,coord);
+                        //int[] coord = identifier(x);
+                        //manager.undoTracker.add(0,coord);
                     }
                 }
                 manager.undo();
@@ -136,7 +136,6 @@ public class TttActivity extends GameActivity implements View.OnClickListener {
         }
 
         log.add((Button) v);
-        manager.roundCount++;
         winActivities();
 
 
@@ -171,6 +170,8 @@ public class TttActivity extends GameActivity implements View.OnClickListener {
      */
     private void announcement() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, Integer.toHexString(manager.roundCount), Toast.LENGTH_Long).show();
+
         updatePointsText();
         log = new ArrayList<>();
         clearScreen();
