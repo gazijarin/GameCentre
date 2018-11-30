@@ -93,9 +93,7 @@ public class TttManager implements Game, Serializable {
      */
     @Override
     public boolean highTopScore() {
-        return false;
-        //wtf is this
-        //why is this even needed
+        return true;
     }
 
     /**
@@ -118,7 +116,6 @@ public class TttManager implements Game, Serializable {
      *
      * @return whether redo was successful
      */
-    @Override
     public boolean undo() {
         Boolean success = false;
         int time = getUndoTime();
