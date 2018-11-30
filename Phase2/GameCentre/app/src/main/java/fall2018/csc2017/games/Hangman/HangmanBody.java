@@ -14,7 +14,7 @@ class HangmanBody {
     /**
      * The number of body parts in total.
      */
-    private final int NUMPARTS = 6;
+    private final int NUM_PARTS = 6;
     /**
      * The current body part.
      */
@@ -27,7 +27,7 @@ class HangmanBody {
     void createHangman(int incorrectGuesses) {
         currPart = incorrectGuesses;
 
-        for (int p = 0; p < NUMPARTS; p++) {
+        for (int p = 0; p < NUM_PARTS; p++) {
             if (p < incorrectGuesses) {
                 bodyParts[p].setVisibility(View.VISIBLE);
             } else {
@@ -40,7 +40,7 @@ class HangmanBody {
      */
     void addPart() {
         bodyParts[currPart].setVisibility(View.VISIBLE);
-        if (currPart < NUMPARTS) {
+        if (currPart < NUM_PARTS) {
             currPart++;
         }
     }
@@ -50,7 +50,7 @@ class HangmanBody {
      */
     void initBodyParts(View head, View body, View arm1,
                        View arm2, View leg1, View leg2) {
-        bodyParts = new ImageView[NUMPARTS];
+        bodyParts = new ImageView[NUM_PARTS];
         bodyParts[0] = (ImageView) head;
         bodyParts[1] = (ImageView) body;
         bodyParts[2] = (ImageView) arm1;

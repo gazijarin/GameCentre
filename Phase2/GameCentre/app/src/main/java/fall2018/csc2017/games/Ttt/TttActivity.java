@@ -159,7 +159,6 @@ public class TttActivity extends GameActivity implements View.OnClickListener {
      */
     private void announcement() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-        //Toast.makeText(this, Integer.toHexString(manager.roundCount), Toast.LENGTH_Long).show();
 
         updatePointsText();
         log = new ArrayList<>();

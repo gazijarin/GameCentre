@@ -17,7 +17,7 @@ public class Hangman implements Serializable {
     /**
      * The total number of guesses for the hangman game.
      */
-    public final int TOTAL_GUESSES = 6;
+    final int TOTAL_GUESSES = 6;
 
     /**
      * The current guess amount.
@@ -83,7 +83,7 @@ public class Hangman implements Serializable {
      *
      * @return how many guesses so far
      */
-    public int getCurrentGuesses() {
+    int getCurrentGuesses() {
         return currentGuesses;
     }
 }

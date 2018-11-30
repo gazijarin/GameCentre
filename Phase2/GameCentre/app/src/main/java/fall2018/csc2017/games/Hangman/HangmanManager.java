@@ -1,9 +1,6 @@
 package fall2018.csc2017.games.Hangman;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 import fall2018.csc2017.games.Game;
@@ -13,10 +10,6 @@ import fall2018.csc2017.games.Game;
  */
 class HangmanManager implements Game, Serializable {
     /**
-     * The current score.
-     */
-    private int score;
-    /**
      * The Hangman being managed.
      */
     private Hangman hangman;
@@ -25,9 +18,9 @@ class HangmanManager implements Game, Serializable {
      */
     private int numUndos = 3;
     /**
-     * The difficulty of the word; default set to medium.
+     * The difficulty of the word.
      */
-    private String difficulty = "medium";
+    private String difficulty;
     /**
      * Creates a new manager for a specific word.
      */
