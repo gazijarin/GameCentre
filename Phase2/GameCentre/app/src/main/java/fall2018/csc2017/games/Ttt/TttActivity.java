@@ -203,8 +203,7 @@ public class TttActivity extends GameActivity implements View.OnClickListener {
      * Checking for a win after every round
      */
     private void winActivities() {
-        if (manager.checkForWin() || manager.roundCount >= 9) {
-
+        if (manager.checkHorizontals() || manager.checkDiagnols() || manager.roundCount >= 9) {
             if (manager.roundCount >= 9) {
                 message = "Draw";
             } else if (manager.p1Turn) {
