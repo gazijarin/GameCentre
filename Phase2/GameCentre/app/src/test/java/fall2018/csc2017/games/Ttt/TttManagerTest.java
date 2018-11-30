@@ -63,7 +63,7 @@ public class TttManagerTest {
         assertFalse(tttManager.highTopScore());
     }
 
-    /** Test for the functionality of undo */
+    /** Testing if the number of undo change appropriately */
     @Test
     public void setNumUndos() {
 
@@ -72,7 +72,9 @@ public class TttManagerTest {
         assertEquals(5, tttManager.getNumUndos());
     }
 
-    //TODO: Write unit tests for the methods below
+
+    /**
+     * Test the undo functionality */
     @Test
     public void undo() {
         tttManager = new TttManager("double");
@@ -82,6 +84,9 @@ public class TttManagerTest {
 
     }
 
+
+    /**
+     * Test the AI for the computer */
     @Test
     public void computerPlay() {
         tttManager = new TttManager("single");
@@ -90,6 +95,8 @@ public class TttManagerTest {
 
     }
 
+    /**
+     * Test if he move is being made in the game */
     @Test
     public void play() {
         tttManager = new TttManager("double");
@@ -97,17 +104,21 @@ public class TttManagerTest {
         assertEquals (1,tttManager.board[0][0]);
     }
 
+    /**
+     * Test if he the game recognizes a win */
     @Test
     public void checkForWin() {
         tttManager = new TttManager("double");
         tttManager.play(0,0,1);
         tttManager.play(0,1,1);
-        assertEquals (false,tttManager.checkForWin());
+        assertFalse (tttManager.checkForWin());
 
         tttManager.play(0,2,1);
-        assertEquals (true,tttManager.checkForWin());
+        assertTrue(tttManager.checkForWin());
     }
 
+    /**
+     * Test if he the game properly resets */
     @Test
     public void resetBoard() {
         tttManager = new TttManager("double");
@@ -126,6 +137,9 @@ public class TttManagerTest {
         assertEquals(0,tttManager.board[0][2]);
     }
 
+
+    /**
+     * Check if he the game properly resets */
     @Test
     public void getUndoTime() {
         tttManager = new TttManager("double");
@@ -135,11 +149,10 @@ public class TttManagerTest {
         assertEquals(1,tttManager.getUndoTime());
     }
 
+    /**
+     * Check if he the right score is returned */
     @Test
     public void getScore() {
-
-
+        assertEquals(0, tttManager.getScore());
     }
-
-
 }
