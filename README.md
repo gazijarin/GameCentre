@@ -6,7 +6,7 @@ Built in collaboration with [Anirudh Baskar](https://github.com/SirAnirudh), [Ga
 
 ## At a Glance
 
-Hangman                        |  Sliding Tiles                  | Tic Tac Toe
+Hangman                        |  Home Screen                  | Sliding Tiles
 :------------------------------------:|:-----------------------------------:|:-----------------------------------:
 ![](/game_icons/hangman.png)  |  ![](/game_icons/homescreen.png) | ![](/game_icons/slidingtiles.png)
 
