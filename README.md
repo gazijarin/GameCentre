@@ -4,6 +4,12 @@ An Android application consisting of three board games (Sliding Tiles, Hangman a
 
 Built in collaboration with [Anirudh Baskar](https://github.com/SirAnirudh), [Gaurav Sharma](https://github.com/GauravS99), [Mozammil Khan](https://github.com/MozammilKhan), and [Demetre Jouras](https://github.com/DemetreJou).
 
+## At a Glance
+
+Hangman                        |  Sliding Tiles                  | Tic Tac Toe
+:------------------------------------:|:-----------------------------------:|:-----------------------------------:
+![](/game_icons/hangman.png)  |  ![](/game_icons/homescreen.png) | ![](/game_icons/slidingtiles.png)
+
 ## Getting Started
 
 ### Clone the Repository
