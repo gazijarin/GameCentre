@@ -18,7 +18,7 @@ Built in collaboration with [Anirudh Baskar](https://github.com/SirAnirudh), [Ga
 3) Under URL, paste the following project link:
 
 ```
-https://markus.teach.cs.toronto.edu/git/csc207-2018-09-reg/group_0678
+https://github.com/gazijarin/GameCentre.git
 ```
 Click yes to proceed onto Version Control checkout.
 
