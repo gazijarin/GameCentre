@@ -1,3 +1,9 @@
+# Game Centre
+
+An Android application consisting of three board games (Sliding Tiles, Hangman and Tic Tac Toe). Complete with the following functionalities: multiplayer support, autosave, user authentication, complexity preference, unlimited undos, et cetera.
+
+Built in collaboration with [Anirudh Baskar](https://github.com/SirAnirudh), [Gaurav Sharma](https://github.com/GauravS99), [Mozammil Khan](https://github.com/MozammilKhan), and [Demetre Jouras](https://github.com/DemetreJou).
+
 ## Getting Started
 
 ### Clone the Repository
